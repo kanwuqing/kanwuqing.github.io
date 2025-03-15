@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"kanwuqing.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="在下文中, LWB代表 LegendWechatBot, LBW同理  命令处理规范在LBW的前身作品中, 我曾经尝试过使用NLP技术来处理用户的指令, 效果却不尽人意. 原因是NLP在处理中文指令时, 效果并不理想, 同时还会遇到各种意想不到的语法或者逻辑问题. 因此, 在LBW中, 我决定采用一种更为简单直接的方法来处理用户的指令, 即使用命令处理规范. 指令格式在LBW插件中, 有两种指令">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LegendWechatBot 项目进程 Week2(2025-03-10 ~ 2025-03-16)">
+<meta property="og:url" content="https://kanwuqing.github.io/Week2%E9%A1%B9%E7%9B%AE%E8%BF%9B%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Kanwuqing&#39;s Homepage">
+<meta property="og:description" content="在下文中, LWB代表 LegendWechatBot, LBW同理  命令处理规范在LBW的前身作品中, 我曾经尝试过使用NLP技术来处理用户的指令, 效果却不尽人意. 原因是NLP在处理中文指令时, 效果并不理想, 同时还会遇到各种意想不到的语法或者逻辑问题. 因此, 在LBW中, 我决定采用一种更为简单直接的方法来处理用户的指令, 即使用命令处理规范. 指令格式在LBW插件中, 有两种指令">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kanwuqing.github.io/Week2%E9%A1%B9%E7%9B%AE%E8%BF%9B%E7%A8%8B/map.png">
+<meta property="og:image" content="https://kanwuqing.github.io/Week2%E9%A1%B9%E7%9B%AE%E8%BF%9B%E7%A8%8B/afdian-kanwuqing.jpg">
+<meta property="article:published_time" content="2025-03-15T02:00:00.000Z">
+<meta property="article:modified_time" content="2025-03-15T13:42:17.838Z">
+<meta property="article:author" content="Kanwuqing">
+<meta property="article:tag" content="Bot">
+<meta property="article:tag" content="Wechat">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="LegendBot">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kanwuqing.github.io/Week2%E9%A1%B9%E7%9B%AE%E8%BF%9B%E7%A8%8B/map.png">
+
+
+<link rel="canonical" href="https://kanwuqing.github.io/Week2%E9%A1%B9%E7%9B%AE%E8%BF%9B%E7%A8%8B/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://kanwuqing.github.io/Week2%E9%A1%B9%E7%9B%AE%E8%BF%9B%E7%A8%8B/","path":"Week2项目进程/","title":"LegendWechatBot 项目进程 Week2(2025-03-10 ~ 2025-03-16)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>LegendWechatBot 项目进程 Week2(2025-03-10 ~ 2025-03-16) | Kanwuqing's Homepage</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Kanwuqing's Homepage</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">To Be Legend</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E5%A4%84%E7%90%86%E8%A7%84%E8%8C%83"><span class="nav-number">1.</span> <span class="nav-text">命令处理规范</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">指令格式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E7%95%A5%E7%89%88"><span class="nav-number">1.1.1.</span> <span class="nav-text">简略版</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%A6%E7%BB%86%E7%89%88"><span class="nav-number">1.1.2.</span> <span class="nav-text">详细版</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4%E5%A4%84%E7%90%86"><span class="nav-number">1.2.</span> <span class="nav-text">指令处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E6%96%B0%E5%A2%9E%E7%BB%93%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">项目新增结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%92%E4%BB%B6%E8%A7%84%E8%8C%83"><span class="nav-number">3.</span> <span class="nav-text">插件规范</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%92%E4%BB%B6%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">3.1.</span> <span class="nav-text">插件目录结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">3.1.1.</span> <span class="nav-text">配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E7%A8%8B%E5%BA%8F%E6%96%87%E4%BB%B6"><span class="nav-number">3.1.2.</span> <span class="nav-text">主程序文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E5%8A%9F%E8%83%BD"><span class="nav-number">4.</span> <span class="nav-text">新增功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86"><span class="nav-number">4.1.</span> <span class="nav-text">数据库管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#LegendBotDB"><span class="nav-number">4.1.1.</span> <span class="nav-text">LegendBotDB</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#messageDB"><span class="nav-number">4.1.2.</span> <span class="nav-text">messageDB</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0%E5%A5%BD%E5%8F%8B"><span class="nav-number">4.2.</span> <span class="nav-text">自动添加好友</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BE%A4%E8%81%8A%E6%96%B0%E6%88%90%E5%91%98%E6%AC%A2%E8%BF%8E"><span class="nav-number">4.3.</span> <span class="nav-text">群聊新成员欢迎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E8%8D%AF%E8%8D%AF%E6%96%B9%E6%9F%A5%E8%AF%A2"><span class="nav-number">4.4.</span> <span class="nav-text">中药药方查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%A0%E7%BB%B4%E4%B8%BA%E8%A1%A8%E6%83%85%E5%8C%85%E6%9F%A5%E8%AF%A2"><span class="nav-number">4.5.</span> <span class="nav-text">张维为表情包查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%8F%E6%84%9F%E8%AF%8D%E6%A3%80%E6%B5%8B"><span class="nav-number">4.6.</span> <span class="nav-text">敏感词检测</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A4%BE%E5%8C%BA%E8%B4%A1%E7%8C%AE%E6%8C%87%E5%8D%97"><span class="nav-number">5.</span> <span class="nav-text">社区贡献指南</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%9A%A9-%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81%E6%97%B6%E8%AF%B7%E4%BD%BF%E7%94%A8%E6%A0%87%E5%87%86%E5%8C%96-Commit-Message%EF%BC%9A"><span class="nav-number">5.1.</span> <span class="nav-text">🚩 提交代码时请使用标准化 Commit Message：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%90%E4%BA%A4%E8%B4%A1%E7%8C%AE%E6%AD%A5%E9%AA%A4"><span class="nav-number">5.2.</span> <span class="nav-text">提交贡献步骤</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#todo-list"><span class="nav-number">6.</span> <span class="nav-text">todo list</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kanwuqing"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Kanwuqing</p>
+  <div class="site-description" itemprop="description">手挑小剑赛小仙, 犹抱轻软整日闲</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kanwuqing" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kanwuqing" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kanwuqing@163.com" title="E-Mail → mailto:kanwuqing@163.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanwuqing.github.io/Week2%E9%A1%B9%E7%9B%AE%E8%BF%9B%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Kanwuqing">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kanwuqing's Homepage">
+      <meta itemprop="description" content="手挑小剑赛小仙, 犹抱轻软整日闲">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="LegendWechatBot 项目进程 Week2(2025-03-10 ~ 2025-03-16) | Kanwuqing's Homepage">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LegendWechatBot 项目进程 Week2(2025-03-10 ~ 2025-03-16)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2025-03-15 10:00:00 / 修改时间：21:42:17" itemprop="dateCreated datePublished" datetime="2025-03-15T10:00:00+08:00">2025-03-15</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span></span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>NaN:aN</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>在下文中, LWB代表 LegendWechatBot, LBW同理</p>
+</blockquote>
+<h2 id="命令处理规范"><a href="#命令处理规范" class="headerlink" title="命令处理规范"></a>命令处理规范</h2><p>在LBW的前身作品中, 我曾经尝试过使用NLP技术来处理用户的指令, 效果却不尽人意. 原因是NLP在处理中文指令时, 效果并不理想, 同时还会遇到各种意想不到的语法或者逻辑问题. 因此, 在LBW中, 我决定采用一种更为简单直接的方法来处理用户的指令, 即使用命令处理规范.</p>
+<h3 id="指令格式"><a href="#指令格式" class="headerlink" title="指令格式"></a>指令格式</h3><p>在LBW插件中, 有两种指令格式, 分别是简略版和详细版. 其中简略版是每个插件都需要具备的, 而详细版则是供要求参数较复杂, 对于返回结果要求更高, 更精细化的用户使用</p>
+<h4 id="简略版"><a href="#简略版" class="headerlink" title="简略版"></a>简略版</h4><blockquote>
+<p>该格式受到Python函数调用格式启发</p>
+</blockquote>
+<p>简略版指令格式如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">插件别名 指令参数1 指令参数2 ... 指令参数n</span><br></pre></td></tr></table></figure>
+<p>其中插件别名是写在main.py的__init__定义的cmd变量中的, 每个插件别名数量需&lt;&#x3D;1</p>
+<blockquote>
+<p>调用简略版指令需要私聊或@</p>
+</blockquote>
+<p>例如:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@bot 天气 查询 上海 今天</span><br></pre></td></tr></table></figure>
+
+<h4 id="详细版"><a href="#详细版" class="headerlink" title="详细版"></a>详细版</h4><blockquote>
+<p>详细版指令受命令行命令格式启发</p>
+</blockquote>
+<p>详细版指令格式如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/指令 -参数1 参数值1 ... -参数n 参数值n</span><br></pre></td></tr></table></figure>
+<p>例如:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/weather -m pre -c 上海 --date 2025-03-10</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>其中各个参数的位置可以颠倒</p>
+</blockquote>
+<h3 id="指令处理"><a href="#指令处理" class="headerlink" title="指令处理"></a>指令处理</h3><p>简略版指令很好处理, 不断地startswith然后split即可</p>
+<p>详细版指令由于不知道每个插件所需的参数, 因此需要使用正则表达式来预解析指令, 代码如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">parse_command</span>(<span class="params">command</span>):</span><br><span class="line">    <span class="comment"># 定义正则表达式模式</span></span><br><span class="line">    pattern = <span class="string">r&#x27;/(?P&lt;command&gt;\w+)(?:\s+-\w+\s+(?:&quot;[^&quot;]*&quot;|\S+))*&#x27;</span></span><br><span class="line">    matches = re.finditer(pattern, command)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 初始化结果字典</span></span><br><span class="line">    result = &#123;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> <span class="keyword">match</span> <span class="keyword">in</span> matches:</span><br><span class="line">        <span class="comment"># 提取命令</span></span><br><span class="line">        cmd = <span class="keyword">match</span>.group(<span class="string">&#x27;command&#x27;</span>)</span><br><span class="line">        result[<span class="string">&#x27;command&#x27;</span>] = cmd</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 提取参数</span></span><br><span class="line">        params_pattern = <span class="string">r&#x27;-(?P&lt;key&gt;\w+)\s+(?P&lt;value&gt;&quot;[^&quot;]*&quot;|\S+)&#x27;</span></span><br><span class="line">        params_matches = re.finditer(params_pattern, command)</span><br><span class="line">        </span><br><span class="line">        params = &#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> param_match <span class="keyword">in</span> params_matches:</span><br><span class="line">            key = param_match.group(<span class="string">&#x27;key&#x27;</span>)</span><br><span class="line">            value = param_match.group(<span class="string">&#x27;value&#x27;</span>)</span><br><span class="line">            <span class="comment"># 去掉引号</span></span><br><span class="line">            <span class="keyword">if</span> value.startswith(<span class="string">&#x27;&quot;&#x27;</span>) <span class="keyword">and</span> value.endswith(<span class="string">&#x27;&quot;&#x27;</span>):</span><br><span class="line">                value = value[<span class="number">1</span>:-<span class="number">1</span>]</span><br><span class="line">            params[key] = value</span><br><span class="line">        </span><br><span class="line">        result[<span class="string">&#x27;params&#x27;</span>] = params</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="项目新增结构"><a href="#项目新增结构" class="headerlink" title="项目新增结构"></a>项目新增结构</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">LegendWechatBot</span><br><span class="line">├─ database  # 机器人数据存储</span><br><span class="line">│  ├─ keyval.db</span><br><span class="line">│  ├─ keyvalDB.py</span><br><span class="line">│  ├─ Legendbot.db</span><br><span class="line">│  ├─ LegendBotDB.py  # 用来存储好友以及群聊信息</span><br><span class="line">│  ├─ message.db</span><br><span class="line">│  ├─ messsagDB.py  # 单独存储消息</span><br><span class="line">│  └─ __init__.py</span><br><span class="line">├─ docs</span><br><span class="line">│  └─ ban.txt  # 违禁词词库</span><br><span class="line">├─ LICENSE</span><br><span class="line">├─ logs  # 存储运行日志</span><br><span class="line">├─ plugins  # 插件文件夹</span><br><span class="line">│  ├─ AcceptFriend  # 自动通过好友</span><br><span class="line">│  │  ├─ config.yaml  # 插件配置文件</span><br><span class="line">│  │  ├─ main.py  # 插件入口</span><br><span class="line">│  │  └─ __init__.py  # 使文件夹可被识别</span><br><span class="line">│  ├─ GroupWelcome  # 入群欢迎</span><br><span class="line">│  │  ├─ config.yaml</span><br><span class="line">│  │  ├─ main.py</span><br><span class="line">│  │  └─ __init__.py</span><br><span class="line">│  ├  TCM  # 中药药方查询</span><br><span class="line">│  │  ├─ config.yaml  # 配置文件, 同时包括中药药方的决策树</span><br><span class="line">│  │  ├─ main.py</span><br><span class="line">│  │  └─ __init__.py</span><br><span class="line">│  └─ VVQuest  # 张维为表情包查询 (下周更新)</span><br><span class="line">│     ├─ config.yaml  # 插件配置文件</span><br><span class="line">│     ├─ config</span><br><span class="line">│     │  ├─ config.yaml  # 项目配置文件</span><br><span class="line">│     │  ├─ settings.py</span><br><span class="line">│     │  └─ __init__.py</span><br><span class="line">│     ├─ data</span><br><span class="line">│     │  ├─ embeddings.pkl  # api模型文件</span><br><span class="line">│     │  ├─ embeddings_bge-large-zh-v1.5.pkl  # 本地模型文件</span><br><span class="line">│     │  ├─ images  # 图片文件夹</span><br><span class="line">│     │  ├─ image_dirs</span><br><span class="line">│     │  └─ models</span><br><span class="line">│     │     └─ bge-large-zh-v1.5  # 调用的预训练模型</span><br><span class="line">│     ├─ LICENSE</span><br><span class="line">│     ├─ README.md</span><br><span class="line">│     ├─ services</span><br><span class="line">│     │  ├─ embedding_service.py  # 模型服务</span><br><span class="line">│     │  ├─ image_search.py  # 图片搜索服务</span><br><span class="line">│     │  └─ utils.py  # 其他方法</span><br><span class="line">│     └─ main.py</span><br><span class="line">└─ main.py  # 主启动程序</span><br></pre></td></tr></table></figure>
+
+<h2 id="插件规范"><a href="#插件规范" class="headerlink" title="插件规范"></a>插件规范</h2><p>在LBW中, 我建议每个插件都需要遵循一定的规范, 以便更好地管理和维护. LBW的插件规范主要包括以下几个方面:</p>
+<h3 id="插件目录结构"><a href="#插件目录结构" class="headerlink" title="插件目录结构"></a>插件目录结构</h3><p>每个插件都需要有一个独立的目录, 目录名即为插件名. 插件目录下需要包含以下文件:</p>
+<ul>
+<li><code>config.yaml</code>: 插件配置文件, 用于存储插件的配置信息.</li>
+<li><code>__init__.py</code>: 占位</li>
+<li><code>main.py</code>: 插件的主程序文件, 包含插件的入口函数和指令处理函数.</li>
+</ul>
+<h4 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h4><p>配置文件用于存储插件的配置信息, 最外层为插件名, 其中比需包含 <em>enable</em> 字段用来管理该插件是否启用; 包含 <em>description</em> 以及 <em>author</em> 用来显示插件简介和作者; 包含 <em>cmd</em> 用来规定简略指令. 以下是为示例</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">TCM:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">description:</span> <span class="string">中药药方查询</span></span><br><span class="line">  <span class="attr">author:</span> <span class="string">Kanwuqing</span></span><br><span class="line">  <span class="attr">cmd:</span> <span class="string">中药</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">otherSettings:</span></span><br><span class="line">    <span class="string">...</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="主程序文件"><a href="#主程序文件" class="headerlink" title="主程序文件"></a>主程序文件</h4><p>主程序文件是插件的入口函数和指令处理函数, 需要包含和插件名同名的类, 该类需继承自 <a href="utils%5Cplugin.py">plugin.py</a> 中的 <em>PluginBase</em> 插件基类, 处理消息的函数需使用 <em>on_message</em> 装饰器并使用async关键字进行异步处理, 同时需要对简略指令进行SJ(特判), 以输出插件的详细指令用法, 以下为示例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># plugins/Demo/main.py</span></span><br><span class="line"><span class="keyword">from</span> utils.decorators <span class="keyword">import</span> on_system_message</span><br><span class="line"><span class="keyword">from</span> utils.plugin <span class="keyword">import</span> PluginBase</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Demo</span>(<span class="title class_ inherited__">PluginBase</span>):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 读取设置</span></span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;plugins/Demo/config.yaml&quot;</span>, <span class="string">&quot;rb&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            plugin_config = yaml.safe_load(f)</span><br><span class="line"></span><br><span class="line">        config = plugin_config[<span class="string">&quot;Demo&quot;</span>]</span><br><span class="line">        <span class="variable language_">self</span>.enable = config[<span class="string">&quot;enable&quot;</span>]</span><br><span class="line">        <span class="variable language_">self</span>.cmd = config[<span class="string">&quot;cmd&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="meta">    @on_system_message</span></span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">demo</span>(<span class="params">self, bot: LegendWechatBot, message: WxMsg</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> <span class="variable language_">self</span>.enable:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> message.content == <span class="variable language_">self</span>.cmd:</span><br><span class="line">            bot.sendMsg(<span class="string">&#x27;Demo使用方法&#x27;</span>, message.sender)</span><br><span class="line">        ...</span><br></pre></td></tr></table></figure>
+
+<h2 id="新增功能"><a href="#新增功能" class="headerlink" title="新增功能"></a>新增功能</h2><h3 id="数据库管理"><a href="#数据库管理" class="headerlink" title="数据库管理"></a>数据库管理</h3><blockquote>
+<p>有数据才有服务</p>
+</blockquote>
+<p>在LegendWechatBot中, 核心维护增添的数据库共有两个: <em>LegendBotDB</em> 与 <em>messageDB</em>.</p>
+<h4 id="LegendBotDB"><a href="#LegendBotDB" class="headerlink" title="LegendBotDB"></a><a href="./database/LegendBotDB.py">LegendBotDB</a></h4><p>LegendBotDB是用于存储个性化用户和群聊信息的数据库 (插件相关的不存, 留给插件自己存)</p>
+<blockquote>
+<p>LegendBotDB不会在每次启动时清空, 但提供了清空的方法 <em>recreate</em> (用于更新字段时)</p>
+</blockquote>
+<p><em>Users</em> 表主要需要维护的字段有:</p>
+<ul>
+<li><code>id</code>: 用户或群聊的唯一标识符</li>
+<li><code>points</code>: 用户积分</li>
+<li><code>running</code>: 用户或是否在运行大任务</li>
+<li><code>black</code>: 用户是否在黑名单</li>
+</ul>
+<p><em>Groups</em> 表主要需要维护的字段有:</p>
+<ul>
+<li><code>whitelist</code>: 需要处理消息的群聊白名单</li>
+</ul>
+<h4 id="messageDB"><a href="#messageDB" class="headerlink" title="messageDB"></a><a href="./database/messageDB.py">messageDB</a></h4><p>messageDB是用于存储需要处理消息的数据库, 主要用于存储消息的发送者, 接收者, 消息内容, 消息时间, 消息类型, 消息状态等信息, 便于回溯</p>
+<blockquote>
+<p>messageDB会在每次启动时清空</p>
+</blockquote>
+<p><em>Messages</em> 表主要需要维护的字段有:</p>
+<ul>
+<li><code>id</code>: 消息的唯一标识符</li>
+<li><code>from_id</code>: 消息的发送者</li>
+<li><code>to_id</code>: 消息的接收者</li>
+<li><code>content</code>: 消息的内容</li>
+<li><code>timestamp</code>: 消息的时间</li>
+<li><code>type</code>: 消息的类型</li>
+</ul>
+<h3 id="自动添加好友"><a href="#自动添加好友" class="headerlink" title="自动添加好友"></a>自动添加好友</h3><p>通过使用 <em>bs4</em> 解析好友验证消息(类型为37)content字段后可以得到 <code>v3</code>和<code>v4</code>字段, 通过这两个字段可以调用微信接口从而实现自动添加好友</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># plugins/AcceptFriend/main.py</span></span><br><span class="line"><span class="meta">@on_other_message</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">handleRequest</span>(<span class="params">self, bot: LegendWechatBot, msg: WxMsg</span>):</span><br><span class="line">    <span class="comment"># 如果功能未启用或消息类型不是37，则返回</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> <span class="variable language_">self</span>.enable <span class="keyword">or</span> msg.<span class="built_in">type</span> != <span class="number">37</span>:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 使用BeautifulSoup解析消息内容</span></span><br><span class="line">    bs = BeautifulSoup(msg.content, <span class="string">&#x27;lxml-xml&#x27;</span>)</span><br><span class="line">    <span class="comment"># 查找消息元素</span></span><br><span class="line">    msg_ = bs.find(<span class="string">&#x27;msg&#x27;</span>)</span><br><span class="line">    <span class="comment"># 如果找到了消息元素</span></span><br><span class="line">    <span class="keyword">if</span> msg_:</span><br><span class="line">        <span class="comment"># 获取场景值</span></span><br><span class="line">        scene = <span class="built_in">int</span>(msg_.get(<span class="string">&#x27;scene&#x27;</span>))</span><br><span class="line">        <span class="comment"># 获取加密用户名</span></span><br><span class="line">        v3 = msg_.get(<span class="string">&#x27;encryptusername&#x27;</span>)</span><br><span class="line">        <span class="comment"># 获取票据</span></span><br><span class="line">        v4 = msg_.get(<span class="string">&#x27;ticket&#x27;</span>)</span><br><span class="line">        <span class="comment"># 获取用户名</span></span><br><span class="line">        userName = msg_.get(<span class="string">&#x27;fromusername&#x27;</span>)</span><br><span class="line">        <span class="comment"># 如果接受新好友请求成功</span></span><br><span class="line">        <span class="keyword">if</span> bot.accept_new_friend(v3, v4, scene):</span><br><span class="line">            <span class="comment"># 记录成功信息</span></span><br><span class="line">            logger.success(<span class="string">f&#x27;已接受好友请求: <span class="subst">&#123;userName&#125;</span>&#x27;</span>)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment"># 记录失败信息</span></span><br><span class="line">            logger.warning(<span class="string">f&#x27;接受好友请求失败: <span class="subst">&#123;userName&#125;</span>&#x27;</span>)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># 如果没有找到消息元素，则返回</span></span><br><span class="line">        <span class="keyword">return</span></span><br></pre></td></tr></table></figure>
+
+<p>在添加新好友后, 系统会发送一条消息(类型为10000), 消息内容为 <code>你已添加了XXX,现在可以开始聊天了</code>, 此时需要通过 <em>bs4</em> 解析消息内容, 获取到新好友的 <code>id</code> 和 <code>name</code>, 同时发送欢迎消息</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># plugins/AcceptFriend/main.py</span></span><br><span class="line"><span class="meta">@on_system_message</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">handleNewFriend</span>(<span class="params">self, bot: LegendWechatBot, msg: WxMsg</span>):</span><br><span class="line">    <span class="comment"># 使用正则表达式匹配消息内容，获取新朋友的昵称</span></span><br><span class="line">    nickName = re.findall(<span class="string">r&quot;你已添加了(.*)，现在可以开始聊天了。&quot;</span>, msg.content)</span><br><span class="line">    <span class="comment"># 如果匹配成功，则将新朋友的昵称赋值给nickName变量</span></span><br><span class="line">    <span class="keyword">if</span> nickName:</span><br><span class="line">        nickName = nickName[<span class="number">0</span>]</span><br><span class="line">    <span class="comment"># 如果新朋友的昵称存在，且启用了新朋友处理功能，且消息类型为10000或10002，则发送欢迎消息</span></span><br><span class="line">    <span class="keyword">if</span> nickName <span class="keyword">and</span> <span class="variable language_">self</span>.enable:</span><br><span class="line">        bot.sendMsg(<span class="string">f&#x27;你好呀, <span class="subst">&#123;nickName&#125;</span>&#x27;</span>, msg.sender, <span class="literal">None</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="群聊新成员欢迎"><a href="#群聊新成员欢迎" class="headerlink" title="群聊新成员欢迎"></a>群聊新成员欢迎</h3><p>通过使用正则表达式解析消息内容, 获取到新成员的 <code>id</code> 和 <code>name</code>, 并查询微信数据库, 获取到用户头像链接, 整合至欢迎消息中发送给新成员</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># plugins/GroupWelcome/main.py</span></span><br><span class="line"><span class="meta">@on_system_message</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">groupWelcome</span>(<span class="params">self, bot: LegendWechatBot, message: WxMsg</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> <span class="variable language_">self</span>.enable:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 如果不是群聊消息，则返回</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> message.from_group():</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 如果消息类型不是10000或10002，则返回</span></span><br><span class="line">    <span class="keyword">if</span> message.<span class="built_in">type</span> != <span class="number">10000</span> <span class="keyword">and</span> message.<span class="built_in">type</span> != <span class="number">10002</span>:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 如果群聊不在白名单中，则返回</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> LegendBotDB().get_chatroom_whitelist(message.roomid):</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 如果消息内容中包含邀请加入群聊的信息，则解析成员信息</span></span><br><span class="line">    <span class="keyword">if</span> re.findall(<span class="string">r&#x27;&quot;(.*?)&quot;邀请&quot;(.*?)&quot;加入了群聊&#x27;</span>, message.content):  <span class="comment"># 通过邀请加入群聊</span></span><br><span class="line">        new_members = <span class="variable language_">self</span>._parse_member_info(bot, message, <span class="string">&quot;invitation&quot;</span>)</span><br><span class="line">    <span class="keyword">elif</span> re.findall(<span class="string">r&#x27;&quot;(.*)&quot;加入了群聊&#x27;</span>, message.content):  <span class="comment"># 直接加入群聊</span></span><br><span class="line">        new_members = <span class="variable language_">self</span>._parse_member_info(bot, message, <span class="string">&quot;direct&quot;</span>)</span><br><span class="line">    <span class="keyword">elif</span> re.findall(<span class="string">r&#x27;&quot;(.*?)&quot;通过(.*?)加入群聊&#x27;</span>, message.content):  <span class="comment"># 通过邀请链接加入群聊</span></span><br><span class="line">        new_members = <span class="variable language_">self</span>._parse_member_info(bot, message, <span class="string">&quot;inviters&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        logger.warning(<span class="string">f&quot;未知的入群方式: &quot;</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> new_members:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> member <span class="keyword">in</span> new_members:</span><br><span class="line">        wxid = member[<span class="string">&quot;wxid&quot;</span>]</span><br><span class="line">        nickname = member[<span class="string">&quot;nickname&quot;</span>]</span><br><span class="line"></span><br><span class="line">        now = datetime.now().strftime(<span class="string">&quot;%Y-%m-%d %H:%M:%S&quot;</span>)</span><br><span class="line">        <span class="comment"># 操作微信数据库, 从指定表里查询指定wxid的bigHeadImgUrl</span></span><br><span class="line">        img = bot.query_sql(<span class="string">&#x27;MicroMsg.db&#x27;</span>, <span class="string">f&#x27;SELECT bigHeadImgUrl FROM ContactHeadImgUrl WHERE usrName=&quot;<span class="subst">&#123;wxid&#125;</span>&quot;;&#x27;</span>)</span><br><span class="line">        <span class="keyword">if</span> img:</span><br><span class="line">            img = img[<span class="number">0</span>][<span class="string">&#x27;bigHeadImgUrl&#x27;</span>]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            img = <span class="string">&#x27;&#x27;</span></span><br><span class="line">        logger.debug(<span class="string">f&quot;<span class="subst">&#123;nickname&#125;</span> <span class="subst">&#123;<span class="built_in">str</span>(wxid)&#125;</span> <span class="subst">&#123;img&#125;</span> 加入了群聊&quot;</span>)</span><br><span class="line">        bot.send_rich_text(nickname, <span class="built_in">str</span>(wxid), <span class="string">f&quot;👏欢迎 <span class="subst">&#123;nickname&#125;</span> 加入群聊!🎉&quot;</span>, <span class="string">f&quot;⌚时间：<span class="subst">&#123;now&#125;</span>\n<span class="subst">&#123;self.welcome_message&#125;</span>\n🔗点击查看更多信息&quot;</span>, <span class="string">&#x27;https://kanwuqing.github.io&#x27;</span>, img, message.roomid)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@staticmethod</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">_parse_member_info</span>(<span class="params">bot: Wcf, message: WxMsg, link: <span class="built_in">str</span></span>):</span><br><span class="line">    <span class="comment"># 定义一个空列表，用于存储用户信息</span></span><br><span class="line">    user = []</span><br><span class="line">    <span class="comment"># 直接加群</span></span><br><span class="line">    <span class="keyword">if</span> link == <span class="string">&quot;direct&quot;</span>:</span><br><span class="line">        pattern = <span class="string">r&#x27;&quot;(.*)&quot;加入了群聊&#x27;</span></span><br><span class="line">        user = re.findall(pattern, message.content)[<span class="number">0</span>].split(<span class="string">&quot;、&quot;</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 匿名邀请加群</span></span><br><span class="line">    <span class="keyword">elif</span> link == <span class="string">&quot;inviters&quot;</span>:</span><br><span class="line">        pattern = <span class="string">r&#x27;&quot;(.*?)&quot;通过(.*?)加入群聊&#x27;</span></span><br><span class="line">        user = re.findall(pattern, message.content)[<span class="number">0</span>][<span class="number">0</span>].split(<span class="string">&quot;、&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 邀请加群</span></span><br><span class="line">    <span class="keyword">elif</span> link == <span class="string">&quot;invitation&quot;</span>:</span><br><span class="line">        pattern = <span class="string">r&#x27;&quot;(.*?)&quot;邀请&quot;(.*?)&quot;加入了群聊&#x27;</span></span><br><span class="line">        user = re.findall(pattern, message.content)[<span class="number">0</span>][<span class="number">1</span>].split(<span class="string">&quot;、&quot;</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 定义一个空列表，用于存储用户信息</span></span><br><span class="line">    users = []</span><br><span class="line">    <span class="comment"># 暂停3秒</span></span><br><span class="line">    time.sleep(<span class="number">3</span>)</span><br><span class="line">    <span class="comment"># 获取群聊成员信息</span></span><br><span class="line">    mem = bot.get_chatroom_members(message.roomid)</span><br><span class="line">    <span class="comment"># 打印群聊成员信息</span></span><br><span class="line">    logger.debug(mem)</span><br><span class="line">    <span class="comment"># 遍历用户信息</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> user:</span><br><span class="line">        <span class="comment"># 将用户信息添加到users列表中</span></span><br><span class="line">        users.append(&#123;<span class="string">&quot;wxid&quot;</span>: get_key(mem, i), <span class="string">&quot;nickname&quot;</span>: i&#125;)</span><br><span class="line">    <span class="comment"># 返回用户信息</span></span><br><span class="line">    <span class="keyword">return</span> users</span><br></pre></td></tr></table></figure>
+
+<h3 id="中药药方查询"><a href="#中药药方查询" class="headerlink" title="中药药方查询"></a>中药药方查询</h3><p>在完成创新项目时, 我想到了通过微信来搭建中医问诊自动化的平台. 恰好本人在中医方面也略懂一些皮毛, 结合自己对于不同药方的病症的汇总与整理, 便通过决策树实现了这一功能.</p>
+<ul>
+<li><p>多轮对话实现方式</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># plugins\TCM\main.py</span></span><br><span class="line"><span class="variable language_">self</span>.users = &#123;&#125; <span class="comment"># 正在问诊的用户</span></span><br><span class="line"><span class="keyword">if</span> msg.content.startswith(<span class="string">&#x27;q &#x27;</span>):</span><br><span class="line"><span class="comment"># 如果该用户已经在问诊中，则发送提示信息</span></span><br><span class="line"><span class="keyword">if</span> msg.sender <span class="keyword">in</span> <span class="variable language_">self</span>.users:</span><br><span class="line">    bot.sendMsg(<span class="string">&quot;你已经处于一个问诊中了, 黑名单指数+1, 请注意&quot;</span>, to, at)</span><br><span class="line">    <span class="comment"># 将该用户加入黑名单，黑名单指数+1</span></span><br><span class="line">    <span class="keyword">await</span> LegendBotDB.add_black(wxid=msg.sender, n=<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 更新问诊状态</span></span><br><span class="line"><span class="keyword">if</span> msg.content <span class="keyword">in</span> <span class="variable language_">self</span>.users[msg.sender]:</span><br><span class="line">    <span class="variable language_">self</span>.users[msg.sender] = <span class="variable language_">self</span>.users[msg.sender][msg.content]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>决策树实现方式</p>
+<p>  <img src="/Week2%E9%A1%B9%E7%9B%AE%E8%BF%9B%E7%A8%8B/map.png" alt="决策树"></p>
+  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&lt;!--</span> <span class="string">以桂枝汤系为例</span> <span class="string">--&gt;</span></span><br><span class="line"><span class="string">桂枝汤:</span></span><br><span class="line">  <span class="attr">q:</span> <span class="string">发热吗?(有/没有)</span></span><br><span class="line">  <span class="string">有:</span></span><br><span class="line">    <span class="attr">q:</span> <span class="string">头部后颈有牵扯不适的感觉吗?(有/没有)</span></span><br><span class="line">    <span class="string">有:</span></span><br><span class="line">      <span class="attr">q:</span> <span class="string">全身酸痛吗?(酸痛/不酸痛)</span></span><br><span class="line">      <span class="string">酸痛:</span></span><br><span class="line">        <span class="attr">q:</span> <span class="string">平时有汗吗?(有/没有)</span></span><br><span class="line">        <span class="string">有:</span> <span class="string">桂枝加葛根汤</span></span><br><span class="line">        <span class="string">没有:</span> <span class="string">葛根汤</span></span><br><span class="line">      <span class="string">不酸痛:</span></span><br><span class="line">        <span class="attr">q:</span> <span class="string">痉(挛),</span> <span class="string">角弓反张,</span> <span class="string">即头和下肢后弯,</span> <span class="string">躯干向前;</span> <span class="string">或是怕风/自发性出汗吗?(痉症/恶风有汗)</span></span><br><span class="line">        <span class="string">痉症:</span> <span class="string">栝蒌桂枝汤</span></span><br><span class="line">        <span class="string">恶风有汗:</span> <span class="string">桂枝汤</span></span><br><span class="line">    <span class="string">没有:</span></span><br><span class="line">      <span class="attr">q:</span> <span class="string">平时体力体质好吗?(好/不好)</span></span><br><span class="line">      <span class="string">好:</span></span><br><span class="line">        <span class="attr">q:</span> <span class="string">咽炎,</span> <span class="string">咽部难受;</span> <span class="string">或是自觉怕冷,</span> <span class="string">哪怕加衣服靠近暖气也不见好,</span> <span class="string">且同时发热?(咽炎/恶寒发热)</span></span><br><span class="line">        <span class="string">咽炎:</span> <span class="string">桂枝二越婢一汤</span></span><br><span class="line">        <span class="string">恶寒发热:</span> <span class="string">麻桂各半汤</span></span><br><span class="line">      <span class="string">不好:</span></span><br><span class="line">        <span class="attr">q:</span> <span class="string">有时自觉怕冷,</span> <span class="string">哪怕加衣服靠近暖气也不见好,</span> <span class="string">有时发热;</span> <span class="string">或是肚子疼,</span> <span class="string">食欲不振?(往来寒热/腹痛)</span></span><br><span class="line">        <span class="string">往来寒热:</span> <span class="string">柴胡桂枝汤</span></span><br><span class="line">        <span class="string">腹痛:</span> <span class="string">小建中汤</span></span><br><span class="line">  <span class="string">没有:</span></span><br><span class="line">    <span class="attr">q:</span> <span class="string">肚子疼吗?(疼/不疼)</span></span><br><span class="line">    <span class="string">疼:</span></span><br><span class="line">      <span class="attr">q:</span> <span class="string">怕冷但是可通过穿衣服等操作缓解吗?(是/不是)</span></span><br><span class="line">      <span class="string">是:</span></span><br><span class="line">        <span class="attr">q:</span> <span class="string">唾液多;</span> <span class="string">或是身体局部气血不通,</span> <span class="string">胸闷/手脚冷/痉(挛),</span> <span class="string">角弓反张,</span> <span class="string">即头和下肢后弯,</span> <span class="string">躯干向前等?(唾液多/气血不通)</span></span><br><span class="line">        <span class="string">唾液多:</span> <span class="string">当归四逆加吴茱萸生姜汤</span></span><br><span class="line">        <span class="string">气血不通:</span> <span class="string">当归四逆汤</span></span><br><span class="line">      <span class="string">不是:</span></span><br><span class="line">        <span class="attr">q:</span> <span class="string">失眠吗?(有/没有)</span></span><br><span class="line">        <span class="string">有:</span> <span class="string">桂枝加龙骨牡蛎汤</span></span><br><span class="line">        <span class="string">没有:</span></span><br><span class="line">          <span class="attr">q:</span> <span class="string">肚子胀;</span> <span class="string">或是便秘?(肚子胀/便秘)</span></span><br><span class="line">          <span class="string">肚子胀:</span> <span class="string">桂枝加芍药汤</span></span><br><span class="line">          <span class="string">便秘:</span> <span class="string">桂枝加大黄汤</span></span><br><span class="line">    <span class="string">不疼:</span></span><br><span class="line">      <span class="attr">q:</span> <span class="string">怕冷但是可通过穿衣服等操作缓解吗?(是/不是)</span></span><br><span class="line">      <span class="string">是:</span></span><br><span class="line">        <span class="attr">q:</span> <span class="string">心烦;</span> <span class="string">或是小便困难,</span> <span class="string">四肢活动受限?(心烦/小便困难)</span></span><br><span class="line">        <span class="string">心烦:</span> <span class="string">桂枝附子汤</span></span><br><span class="line">        <span class="string">小便困难:</span> <span class="string">桂枝加附子汤</span></span><br><span class="line">      <span class="string">不是:</span></span><br><span class="line">        <span class="attr">q:</span> <span class="string">有鼻涕,</span> <span class="string">较浓,</span> <span class="string">可能还会流到咽部;</span> <span class="string">或是皮肤表面有水肿,</span> <span class="string">有黄色的汗?(鼻涕/黄汗)</span></span><br><span class="line">        <span class="string">鼻涕:</span> <span class="string">葛根汤加川芎辛夷</span></span><br><span class="line">        <span class="string">黄汗:</span> <span class="string">桂枝加黄耆汤</span></span><br><span class="line">  </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>首轮问询中相关性匹配实现方式</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@staticmethod</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">find_most_similar_question</span>(<span class="params">tree, user_input</span>):</span><br><span class="line">    <span class="comment"># 遍历树形结构，返回所有问题及其路径</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">traverse_tree</span>(<span class="params">tree, path=[]</span>):</span><br><span class="line">        <span class="comment"># 定义一个空列表，用于存储问题及其路径</span></span><br><span class="line">        questions = []</span><br><span class="line">        <span class="comment"># 遍历树形结构的每个节点</span></span><br><span class="line">        <span class="keyword">for</span> key, value <span class="keyword">in</span> tree.items():</span><br><span class="line">            <span class="comment"># 如果节点的值是一个字典</span></span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">isinstance</span>(value, <span class="built_in">dict</span>):</span><br><span class="line">                <span class="comment"># 如果字典中包含问题</span></span><br><span class="line">                <span class="keyword">if</span> <span class="string">&#x27;q&#x27;</span> <span class="keyword">in</span> value:</span><br><span class="line">                    <span class="comment"># 将问题及其路径添加到列表中</span></span><br><span class="line">                    questions.append((value[<span class="string">&#x27;q&#x27;</span>], path + [key]))</span><br><span class="line">                <span class="comment"># 递归调用traverse_tree函数，继续遍历子节点</span></span><br><span class="line">                questions.extend(traverse_tree(value, path + [key]))</span><br><span class="line">        <span class="comment"># 返回问题及其路径的列表</span></span><br><span class="line">        <span class="keyword">return</span> questions</span><br><span class="line"></span><br><span class="line">    questions = traverse_tree(tree)</span><br><span class="line">    question_texts = [q[<span class="number">0</span>] <span class="keyword">for</span> q <span class="keyword">in</span> questions]</span><br><span class="line">    most_similar = difflib.get_close_matches(user_input, question_texts, n=<span class="number">3</span>, cutoff=<span class="number">0.0</span>)</span><br><span class="line">    </span><br><span class="line">    paths = []</span><br><span class="line">    ques = []</span><br><span class="line">    <span class="keyword">if</span> most_similar:</span><br><span class="line">        <span class="keyword">for</span> question, path <span class="keyword">in</span> questions:</span><br><span class="line">            <span class="keyword">if</span> question <span class="keyword">in</span> most_similar:</span><br><span class="line">                paths.append(path)</span><br><span class="line">                ques.append(question)</span><br><span class="line">        <span class="keyword">return</span> paths, ques</span><br><span class="line">    <span class="keyword">return</span> [], []</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="张维为表情包查询"><a href="#张维为表情包查询" class="headerlink" title="张维为表情包查询"></a>张维为表情包查询</h3><p>在开发过程中, 好友 <em>Daniel</em> 基于<code>bge-large-zh中文嵌入模型</code>模型开源了一个张维为表情包匹配网站 <a target="_blank" rel="noopener" href="https://github.com/DanielZhangyc/VVQuest">VVQuest</a>, 我将其处理成插件形式, 删除了不需要的部分(如前端), 并将其集成到项目中.</p>
+<ul>
+<li><p>二次开发<br>首次运行前请自行下载<code>bge-large-zh</code>模型, 并将其放置在<code>plugins/VVQuest/data/models</code>目录下.<br>首次运行时会自动生成缓存, 请耐心等待</p>
+</li>
+<li><p>代码出处及详细开发文档请参见 <a target="_blank" rel="noopener" href="https://github.com/DanielZhangyc/VVQuest">VVQuest</a></p>
+</li>
+</ul>
+<h3 id="敏感词检测"><a href="#敏感词检测" class="headerlink" title="敏感词检测"></a>敏感词检测</h3><p>由于基于微信平台, 并对公众开放, 所以需要针对某些损害公共利益以及环境的行为进行检测, 其中就包含了敏感词检测, 在开发过程中, 我编写了敏感词检测程序并集成了敏感词库存放在docs&#x2F;ban.txt</p>
+<ul>
+<li>敏感词检测程序</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">DFA</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="variable language_">self</span>.ban_words_set = <span class="built_in">set</span>()</span><br><span class="line">        <span class="variable language_">self</span>.ban_words_list = []</span><br><span class="line">        <span class="variable language_">self</span>.ban_words_dict = &#123;&#125;</span><br><span class="line">        <span class="variable language_">self</span>.path = <span class="string">&#x27;docs/ban.txt&#x27;</span></span><br><span class="line">        <span class="variable language_">self</span>.get_words()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取敏感词列表</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_words</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(<span class="variable language_">self</span>.path, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8-sig&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            <span class="keyword">for</span> s <span class="keyword">in</span> f:</span><br><span class="line">                <span class="keyword">if</span> s.find(<span class="string">&#x27;\\r&#x27;</span>):</span><br><span class="line">                    s = s.replace(<span class="string">&#x27;\r&#x27;</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">                s = s.replace(<span class="string">&#x27;\n&#x27;</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">                s = s.strip()</span><br><span class="line">                <span class="keyword">if</span> <span class="built_in">len</span>(s) == <span class="number">0</span>:</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                <span class="keyword">if</span> <span class="built_in">str</span>(s) <span class="keyword">and</span> s <span class="keyword">not</span> <span class="keyword">in</span> <span class="variable language_">self</span>.ban_words_set:</span><br><span class="line">                    <span class="variable language_">self</span>.ban_words_set.add(s)</span><br><span class="line">                    <span class="variable language_">self</span>.ban_words_list.append(<span class="built_in">str</span>(s))</span><br><span class="line">        <span class="variable language_">self</span>.add_hash_dict(<span class="variable language_">self</span>.ban_words_list)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将敏感词列表转换为DFA字典序</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">add_hash_dict</span>(<span class="params">self, new_list</span>):</span><br><span class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> new_list:</span><br><span class="line">            <span class="variable language_">self</span>.add_new_word(x)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 添加单个敏感词</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">add_new_word</span>(<span class="params">self, new_word</span>):</span><br><span class="line">        new_word = <span class="built_in">str</span>(new_word)</span><br><span class="line">        <span class="comment"># print(new_word)</span></span><br><span class="line">        now_dict = <span class="variable language_">self</span>.ban_words_dict</span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> new_word:</span><br><span class="line">            <span class="keyword">if</span> x <span class="keyword">not</span> <span class="keyword">in</span> now_dict:</span><br><span class="line">                x = <span class="built_in">str</span>(x)</span><br><span class="line">                new_dict = <span class="built_in">dict</span>()</span><br><span class="line">                new_dict[<span class="string">&#x27;is_end&#x27;</span>] = <span class="literal">False</span></span><br><span class="line">                now_dict[x] = new_dict</span><br><span class="line">                now_dict = new_dict</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                now_dict = now_dict[x]</span><br><span class="line">            <span class="keyword">if</span> i == <span class="built_in">len</span>(new_word) - <span class="number">1</span>:</span><br><span class="line">                now_dict[<span class="string">&#x27;is_end&#x27;</span>] = <span class="literal">True</span></span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 寻找第一次出现敏感词的位置</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">find_illegal</span>(<span class="params">self, _<span class="built_in">str</span></span>):</span><br><span class="line">        now_dict = <span class="variable language_">self</span>.ban_words_dict</span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        start_word = -<span class="number">1</span></span><br><span class="line">        is_start = <span class="literal">True</span>  <span class="comment"># 判断是否是一个敏感词的开始</span></span><br><span class="line">        <span class="keyword">while</span> i &lt; <span class="built_in">len</span>(_<span class="built_in">str</span>):</span><br><span class="line">            <span class="keyword">if</span> _<span class="built_in">str</span>[i] <span class="keyword">not</span> <span class="keyword">in</span> now_dict:</span><br><span class="line">                <span class="keyword">if</span> is_start <span class="keyword">is</span> <span class="literal">True</span>:</span><br><span class="line">                    i += <span class="number">1</span></span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                i = start_word +<span class="number">1</span></span><br><span class="line">                start_word = -<span class="number">1</span></span><br><span class="line">                is_start = <span class="literal">True</span></span><br><span class="line">                now_dict = <span class="variable language_">self</span>.ban_words_dict</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">if</span> is_start <span class="keyword">is</span> <span class="literal">True</span>:</span><br><span class="line">                    start_word = i</span><br><span class="line">                    is_start = <span class="literal">False</span></span><br><span class="line">                now_dict = now_dict[_<span class="built_in">str</span>[i]]</span><br><span class="line">                <span class="keyword">if</span> now_dict[<span class="string">&#x27;is_end&#x27;</span>] <span class="keyword">is</span> <span class="literal">True</span>:</span><br><span class="line">                    <span class="keyword">return</span> start_word</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 查找是否存在敏感词</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">exists</span>(<span class="params">self, s</span>):</span><br><span class="line">        pos = <span class="variable language_">self</span>.find_illegal(s)</span><br><span class="line">        <span class="keyword">if</span> pos == -<span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将指定位置的敏感词替换为*</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">filter_words</span>(<span class="params">self, filter_str, pos</span>):</span><br><span class="line">        now_dict = <span class="variable language_">self</span>.ban_words_dict</span><br><span class="line">        end_str = <span class="built_in">int</span>()</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(pos, <span class="built_in">len</span>(filter_str)):</span><br><span class="line">            <span class="keyword">if</span> now_dict[filter_str[i]][<span class="string">&#x27;is_end&#x27;</span>] <span class="keyword">is</span> <span class="literal">True</span>:</span><br><span class="line">                end_str = i</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            now_dict = now_dict[filter_str[i]]</span><br><span class="line">        num = end_str - pos + <span class="number">1</span></span><br><span class="line">        filter_str = filter_str[:pos] + <span class="string">&#x27;*&#x27;</span>*num + filter_str[end_str + <span class="number">1</span>:]</span><br><span class="line">        <span class="keyword">return</span> filter_str</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">filter_all</span>(<span class="params">self, s</span>):</span><br><span class="line">        pos_list = <span class="built_in">list</span>()</span><br><span class="line">        ss = <span class="variable language_">self</span>.draw_words(s, pos_list)</span><br><span class="line">        illegal_pos = <span class="variable language_">self</span>.find_illegal(ss)</span><br><span class="line">        <span class="keyword">while</span> illegal_pos != -<span class="number">1</span>:</span><br><span class="line">            ss = <span class="variable language_">self</span>.filter_words(ss, illegal_pos)</span><br><span class="line">            illegal_pos = <span class="variable language_">self</span>.find_illegal(ss)</span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> i &lt; <span class="built_in">len</span>(ss):</span><br><span class="line">            <span class="keyword">if</span> ss[i] == <span class="string">&#x27;*&#x27;</span>:</span><br><span class="line">                start = pos_list[i]</span><br><span class="line">                <span class="keyword">while</span> i &lt; <span class="built_in">len</span>(ss) <span class="keyword">and</span> ss[i] == <span class="string">&#x27;*&#x27;</span>:</span><br><span class="line">                    i += <span class="number">1</span></span><br><span class="line">                i -=<span class="number">1</span></span><br><span class="line">                end = pos_list[i]</span><br><span class="line">                num = end-start+<span class="number">1</span></span><br><span class="line">                s = s[:start] + <span class="string">&#x27;*&#x27;</span>*num + s[end+<span class="number">1</span>:]</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> s</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">draw_words</span>(<span class="params">_<span class="built_in">str</span>, pos_list</span>):</span><br><span class="line">        ss = <span class="built_in">str</span>()</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(_<span class="built_in">str</span>)):</span><br><span class="line">            <span class="keyword">if</span> <span class="string">&#x27;\u4e00&#x27;</span> &lt;= _<span class="built_in">str</span>[i] &lt;= <span class="string">&#x27;\u9fa5&#x27;</span> <span class="keyword">or</span> <span class="string">&#x27;\u3400&#x27;</span> &lt;= _<span class="built_in">str</span>[i] &lt;= <span class="string">&#x27;\u4db5&#x27;</span> <span class="keyword">or</span> <span class="string">&#x27;\u0030&#x27;</span> &lt;= _<span class="built_in">str</span>[i] &lt;= <span class="string">&#x27;\u0039&#x27;</span> \</span><br><span class="line">                    <span class="keyword">or</span> <span class="string">&#x27;\u0061&#x27;</span> &lt;= _<span class="built_in">str</span>[i] &lt;= <span class="string">&#x27;\u007a&#x27;</span> <span class="keyword">or</span> <span class="string">&#x27;\u0041&#x27;</span> &lt;= _<span class="built_in">str</span>[i] &lt;= <span class="string">&#x27;\u005a&#x27;</span>:</span><br><span class="line">                ss += _<span class="built_in">str</span>[i]</span><br><span class="line">                pos_list.append(i)</span><br><span class="line">        <span class="keyword">return</span> ss</span><br></pre></td></tr></table></figure>
+
+<p>敏感词需要在所有插件处理前单独判断, 因此不作为插件出现</p>
+<ul>
+<li>敏感词检测逻辑</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> dfa.exists(msg.content):</span><br><span class="line">    <span class="variable language_">self</span>.DB.add_black(msg.sender, <span class="number">2</span>)</span><br><span class="line">    <span class="variable language_">self</span>.bot.sendMsg(<span class="string">&#x27;说话太刑了, 黑名单指数+2, 请注意&#x27;</span>, to, at)</span><br><span class="line">    <span class="keyword">return</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="社区贡献指南"><a href="#社区贡献指南" class="headerlink" title="社区贡献指南"></a>社区贡献指南</h2><h3 id="🚩-提交代码时请使用标准化-Commit-Message："><a href="#🚩-提交代码时请使用标准化-Commit-Message：" class="headerlink" title="🚩 提交代码时请使用标准化 Commit Message："></a>🚩 提交代码时请使用标准化 Commit Message：</h3><ul>
+<li><code>feat</code>: 新功能</li>
+<li><code>fix</code>: Bug修复</li>
+<li><code>docs</code>: 文档更新</li>
+<li><code>style</code>: 代码格式</li>
+<li><code>ref</code>: 代码重构</li>
+<li><code>perf</code>: 性能优化</li>
+<li><code>test</code>: 测试相关</li>
+<li><code>chore</code>: 构建&#x2F;工具变更</li>
+</ul>
+<h3 id="提交贡献步骤"><a href="#提交贡献步骤" class="headerlink" title="提交贡献步骤"></a>提交贡献步骤</h3><ul>
+<li><strong>Fork项目仓库</strong>：在GitHub上找到你想要贡献的项目，点击项目页面上的”Fork”按钮</li>
+<li><strong>克隆仓库到本地</strong>：使用git clone命令将你Fork的项目克隆到本地</li>
+<li><strong>创建新分支</strong>：在本地仓库中创建一个新分支进行你的工作，这是一个良好的实践。使用git checkout -b branch-name创建并切换到新分支</li>
+<li><strong>提交更改</strong>：使用git add和git commit命令提交你的更改</li>
+<li><strong>推送更改到GitHub</strong>：使用git push origin branch-name将更改推送回你的GitHub仓库</li>
+<li><strong>创建Pull Request</strong>：在GitHub上，你会看到一个”Compare &amp; pull request”按钮。点击它，填写PR的标题和描述，然后提交</li>
+</ul>
+<h2 id="todo-list"><a href="#todo-list" class="headerlink" title="todo list"></a>todo list</h2><ul>
+<li>黑名单阈值, 达到阈值后直接不响应并踢出群聊</li>
+<li>群管理制度, 结合群众力量管理社区氛围</li>
+<li>实现引用消息相关的功能, 如下载引用的图片</li>
+<li>表情包生成插件</li>
+</ul>
+<blockquote>
+<p>项目已开源至 <a target="_blank" rel="noopener" href="https://github.com/kanwuqing/LegendWechatBot">Github</a> ，欢迎star和fork<br>若你觉得对你的开发有帮助, 或是对你的生活提供了方便, 欢迎来 <a target="_blank" rel="noopener" href="https://afdian.tv/a/kanwuqing">爱发电</a> 赞助<br><img src="/Week2%E9%A1%B9%E7%9B%AE%E8%BF%9B%E7%A8%8B/afdian-kanwuqing.jpg" alt="爱发电"><br>如果想一起开发或贡献插件等, 欢迎在相关标准制定后按照标准提交PR, 或 <a href="mailto:&#x6b;&#x61;&#110;&#119;&#x75;&#x71;&#105;&#x6e;&#103;&#64;&#49;&#54;&#x33;&#46;&#x63;&#111;&#x6d;">联系作者</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/afdian-kanwuqing.jpg" alt="Kanwuqing afdian">
+        <span>afdian</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>原作者： </strong>Kanwuqing
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://kanwuqing.github.io/Week2%E9%A1%B9%E7%9B%AE%E8%BF%9B%E7%A8%8B/" title="LegendWechatBot 项目进程 Week2(2025-03-10 ~ 2025-03-16)">https://kanwuqing.github.io/Week2项目进程/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Bot/" rel="tag"># Bot</a>
+              <a href="/tags/Wechat/" rel="tag"># Wechat</a>
+              <a href="/tags/Python/" rel="tag"># Python</a>
+              <a href="/tags/LegendBot/" rel="tag"># LegendBot</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/Week1%E9%A1%B9%E7%9B%AE%E8%BF%9B%E7%A8%8B/" rel="prev" title="LegendWechatBot 项目进程 Week1(2025-03-01 ~ 2025-03-09)">
+                  <i class="fa fa-angle-left"></i> LegendWechatBot 项目进程 Week1(2025-03-01 ~ 2025-03-09)
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Kanwuqing</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">NaNm</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">NaN:aN</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+-->
+
+<!-- 网站运行时间的设置 -->
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("03/01/2023 10:00:00"); //此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒.";
+    }
+setInterval("createtime()",250);
+</script>
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
