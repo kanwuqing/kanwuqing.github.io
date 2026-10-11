@@ -1,0 +1,37 @@
+/* 自定义：Pandoc提示框样式 */
+.note {
+    padding: 1rem 1.5rem;
+    margin: 1.5em 0;
+    border-left: 4px solid;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+    overflow: hidden;
+}
+.note p {
+    margin: 0.5em 0;
+}
+.note.IMPORTANT {
+    border-left-color: #e74c3c; /* 红色 */
+    background-color: #ffeaea;
+}
+.note.TIP {
+    border-left-color: #3498db; /* 蓝色 */
+    background-color: #e3f2fd;
+}
+.note.WARNING {
+    border-left-color: #f39c12; /* 橙色 */
+    background-color: #fff3cd;
+}
+
+.banner-button .banner-button-text {
+  font-size: 16px; /* 修改为你想用的字号，例如 16px, 1.2rem 等 */
+  /* 你还可以添加其他样式，例如： */
+  /* color: #ff9800 !important; */
+  /* font-weight: bold !important; */
+}
+
+/* 增强简介内部<b>标签的显示效果（适用于深色背景方案） */
+.author-info__description b {
+  color: #80d0ff !important; /* 将加粗文字改为更醒目的亮蓝色 */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important; /* 可选：增加文字阴影使其更立体 */
+}
