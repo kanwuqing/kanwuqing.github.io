@@ -1,4 +1,4 @@
-/* 自定义：Pandoc提示框样式 */
+/* 自定义：提示框基础样式（配合主题 {% note %} 标签使用） */
 .note {
     padding: 1rem 1.5rem;
     margin: 1.5em 0;
@@ -9,18 +9,6 @@
 }
 .note p {
     margin: 0.5em 0;
-}
-.note.IMPORTANT {
-    border-left-color: #e74c3c; /* 红色 */
-    background-color: #ffeaea;
-}
-.note.TIP {
-    border-left-color: #3498db; /* 蓝色 */
-    background-color: #e3f2fd;
-}
-.note.WARNING {
-    border-left-color: #f39c12; /* 橙色 */
-    background-color: #fff3cd;
 }
 
 .banner-button .banner-button-text {
@@ -34,4 +22,57 @@
 .author-info__description b {
   color: #80d0ff !important; /* 将加粗文字改为更醒目的亮蓝色 */
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important; /* 可选：增加文字阴影使其更立体 */
+}
+
+/* ============================================================
+   主题补丁：放在这里而不是改主题内部文件，主题升级不会被覆盖
+   ============================================================ */
+
+/* --- 1. 列表项标记（li::before）在深色模式下保持蓝色 -----------
+   主题默认用 var(--anzhiyu-main)，深色模式下它会变成琥珀色 #f2b94b，
+   白字压在琥珀上对比度很低。这里在深色下固定成蓝色系。
+   浅色模式下 --anzhiyu-main 本来就是 #425AEF，无需覆盖。 */
+[data-theme="dark"] #article-container ol li::before,
+[data-theme="dark"] #article-container ul li::before {
+  background: #425AEF;
+  color: #fff;
+}
+
+/* --- 2. note 提示框的深色模式适配 -----------------------------
+   主题的 note 背景是编译期常量（flat 用 lighten(#EEEEEE, 65%)，接近纯白），
+   深色模式只对它加了 filter: brightness(.8)，压出来是灰白，不是真正的深色。
+   这里用半透明白叠加，两种模式下都不会突兀，同时保留左侧的语义色条。 */
+[data-theme="dark"] .note {
+  filter: none !important; /* 去掉主题的 brightness(.8)，改用下面的真实深色 */
+}
+
+[data-theme="dark"] .note.warning,
+[data-theme="dark"] .note.danger,
+[data-theme="dark"] .note.info,
+[data-theme="dark"] .note.success,
+[data-theme="dark"] .note.primary,
+[data-theme="dark"] .note.default {
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* 框内标题跟随语义色，深色下要提亮一点才看得清 */
+[data-theme="dark"] .note.warning h2,
+[data-theme="dark"] .note.warning h3,
+[data-theme="dark"] .note.warning h4,
+[data-theme="dark"] .note.danger h2,
+[data-theme="dark"] .note.danger h3,
+[data-theme="dark"] .note.danger h4,
+[data-theme="dark"] .note.info h2,
+[data-theme="dark"] .note.info h3,
+[data-theme="dark"] .note.info h4,
+[data-theme="dark"] .note.success h2,
+[data-theme="dark"] .note.success h3,
+[data-theme="dark"] .note.success h4 {
+  filter: brightness(1.35);
+}
+
+/* note 框里的行内 code：深色下别用浅色底 */
+[data-theme="dark"] .note code {
+  background: rgba(255, 255, 255, 0.1) !important;
 }

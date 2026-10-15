@@ -1,0 +1,1125 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>波形发生识别系统开发日志 —— G431 波形生成 | 阚无倾的小窝</title><meta name="keywords" content="STM32,G431,波形发生识别系统"><meta name="author" content="Kanwuqing"><meta name="copyright" content="Kanwuqing"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="波形发生识别系统开发日志 —— G431 波形生成"><meta name="application-name" content="波形发生识别系统开发日志 —— G431 波形生成"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="波形发生识别系统开发日志 —— G431 波形生成"><meta property="og:url" content="https://kanwuqing.github.io/%E6%B3%A2%E5%BD%A2%E7%94%9F%E6%88%90%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-G431/index.html"><meta property="og:site_name" content="阚无倾的小窝"><meta property="og:description" content="本文只写 G431 这一半的事. 波形怎么造出来, 怎么发出去 F401 那边的采集和识别另开一篇 工程叫 Wave1, 代码都在 Core&amp;#x2F;Src 下  G431功能综述 G431 在这套系统里是个”信号源”. 它的活儿很单纯: 吐波形, 而且要用一种接收端能对得上的方式吐. 最"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://kanwuqing.github.io/img/default_bg.jpg"><meta property="article:author" content="Kanwuqing"><meta property="article:tag" content="Python,Coding"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://kanwuqing.github.io/img/default_bg.jpg"><meta name="description" content="本文只写 G431 这一半的事. 波形怎么造出来, 怎么发出去 F401 那边的采集和识别另开一篇 工程叫 Wave1, 代码都在 Core&amp;#x2F;Src 下  G431功能综述 G431 在这套系统里是个”信号源”. 它的活儿很单纯: 吐波形, 而且要用一种接收端能对得上的方式吐. 最"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://kanwuqing.github.io/%E6%B3%A2%E5%BD%A2%E7%94%9F%E6%88%90%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-G431/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@6.1.6/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/swiper/swiper.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: undefined,
+  postHeadAiDescription: undefined,
+  diytitle: undefined,
+  LA51: undefined,
+  greetingBox: {"enable":true,"default":"晚上好👋","list":[{"greeting":"晚安😴","startTime":0,"endTime":5},{"greeting":"早上好鸭👋, 祝你一天好心情！","startTime":6,"endTime":9},{"greeting":"上午好👋, 状态很好，鼓励一下～","startTime":10,"endTime":10},{"greeting":"11点多啦, 在坚持一下就吃饭啦～","startTime":11,"endTime":11},{"greeting":"午安👋","startTime":12,"endTime":14},{"greeting":"🌈充实的一天辛苦啦！","startTime":14,"endTime":18},{"greeting":"19点喽, 奖励一顿丰盛的大餐吧🍔。","startTime":19,"endTime":19},{"greeting":"晚上好👋, 在属于自己的时间好好放松😌~","startTime":20,"endTime":24}]},
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "custom",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: {"skills":["🤖️ 数码科技爱好者","🔍 分享与热心帮助","🏠 智能家居小能手","🔨 设计开发一条龙","🤝 专修交互与设计","🏃 脚踏实地行动派","🧱 团队小组发动机","💢 壮汉人狠话不多"]},
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: Kanwuqing","link":"链接: ","source":"来源: 阚无倾的小窝","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.2.0/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.2.0/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: {"enable":true,"delay":100,"shiftDelay":200},
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '阚无倾的小窝',
+  title: '波形发生识别系统开发日志 —— G431 波形生成',
+  postAI: '',
+  pageFillDescription: 'G431功能综述, 文件清单, 整体思路, 四个外设的分工, TIM2 节拍器, DAC 数模转换器, DMA 自动搬运工, USART1 把波形发出去, 波形表生成, 统一公式, 正弦波, 方波, 三角波, 锯齿波, 阶梯波, 五种波形对照, 所有波形都挤到一个引脚上, 波形怎么切换, 改表不改外设, 三种入口, 调幅度, 把波形发给电脑, 数据从哪来, justfloat 协议, 帧的语义, 为什么先打包再发, 文本和二进制不能混发, 主循环, 踩过的坑, 坑一 DAC 的 DMA 一个点都不搬, *坑三 时钟配置的假矛盾, 上位机怎么设, 当前时钟配置, 关键参数速查, 小结, todo本文只写这一半的事波形怎么造出来怎么发出去那边的采集和识别另开一篇工程叫代码都在下功能综述在这套系统里是个信号源它的活儿很单纯吐波形而且要用一种接收端能对得上的方式吐最后定了种正弦方波三角锯齿阶梯前四种是常规操作阶梯波是特意加的后面会说为什么最初的方案不是这样一开始正弦走方波走的硬件从出来两种波形两个引脚各走各的这个方案被我自己毙掉了原因在下面所有波形都挤到一个引脚上那一节文件清单文件角色关键内容波形表生成种波形全走改表即换波形主入口按键切波串口命令打包发送配置特有外设侧必须对齐配置单通道触发循环保留未用按键上拉输入两个通道中断中断向量处理整体思路先做一张表然后让按节拍把表里的数一个个喂给每报一次取一个数输出电压只改这里这样安排有几个好处几乎不参与表建好之后自己循环搬想干嘛干嘛换波形代价为零只是把表内容原地改掉外设一行都不用重配频率准节拍来自硬件定时器不受程序跑得快慢影响四个外设的分工节拍器它不产生波形只负责打拍子不分频直接用数到归零所以是个计数一轮计数周期关键的意思是每次计数器溢出时往这根内部信号线上发一个脉冲算一下也就是每一个脉冲和都需要依赖其节拍数模转换器负责把一个数字变成对应电压用的是的通道输出引脚固定是芯片内部定死位的意思是写进去输出中点它只能保持一个数所以需要有人不停给它新数这是负责的内容触发源在里配由的触发必须开否则带不动负载于是就有了这个换算更新率频率输出波形频率表长种波形全是因为共用同一个表长都是换波形只换表内容不改表长所以频率恒定自动搬运工不用插手自动把数据从内存搬到外设传统笨办法是每隔醒一次写寄存器这样就被绑死了用之后只要告诉它三件事从哪搬数组搬到哪通道的数据寄存器搬多少怎么搬搬个搬完从头再来循环模式把波形发出去引脚协议用这块单独讲见后文波形表生成统一公式种波形没有各写一套代码而是统一成这个形式中的核心一行是位中点对应是幅度单位是码值是形状函数范围每种波形的区别仅仅是怎么算加中点限幅写表这些完全共用想加新波形在里加个写一行就够了完整函数长这样不使用单纯因为懒得引用了幅度限幅留一点余量避免撞到后顶部被削平形状函数范围各波形的见下面各小节统一公式中点幅度形状是为了四舍五入夹到位范围防止浮点误差越界幅度上限取而不是是因为如果取而取到会算出超出位范围顶部被削平取正好让最高点落在正弦波直接套正弦函数这是最标准的波形主要用来检查有没有失真削顶由于对于精度要求不高使用类型即可部分含义一个完整周期是把从归一化成两者相乘得到均匀分布的相位求正弦结果正好从走到相位走完一个完整周期第个点就是下一周期的第个点所以表长是自洽的实测表内容上下各留白跨度码值也就是方波前半个周期给后半个周期给是所以输出输出边沿是在一个采样点之内完成的跳变表里第个点是第个点是在内直接从高切到低如果在采集端看到方波边沿附近有过冲或振铃不要以为电路坏了原因有两个输出后没接任何滤波器直接连到另外示波器探头或杜邦线本身有寄生电感电容快速边沿处出现振铃是正常现象实测跨度也就是三角波先线性升到顶再线性降到谷上升下降各占一半形翻成的三角这个写法有点绕跟一遍就清楚了步骤的轨迹是正好一个三角波取绝对值能得到三角波是因为是一条从升到的斜线取绝对值之后负的半边被翻上来就成了字形再乘减范围从拉伸成和锯齿波的本质区别在于三角波上升下降各占一半左右对称锯齿波只有上升回扫垂直这个区别在识别端就是靠特征抓的三角波的是锯齿波是实测跨度也就是锯齿波从谷底线性升到顶然后瞬间回到底只有上升没有下降线性一条从到的纯直线回扫是这么来的时还没到下一个点是下一圈的第个点这一跳就是垂直回扫在内从最高点直接掉回最低点这也解释了锯齿波的为什么比别的波形略小锯齿波最高点只到其他波最高点能到实测是比正弦方波三角的少约这并不是这个小差异后来在识别端变成了一个关键设计正因为各种波形不完全一致识别算法必须按实测归一化不能用固定码值这件事在那边是踩过坑的阶梯波把整个周期分成级台阶每级保持一小段再跳整数除法是生成阶梯波形的关键是所以整数除法范围点数输出码值实测去重后正好个电平相邻台阶差全是完全均匀除不尽也没关系点数是这样交替只是最后一级略窄一点肉眼看不出来台阶的电平值是精确的这才是关键阶梯波最有诊断价值的地方在于台阶数是可以数的在采集端数出级就说明导线整条链路都通采样率也对如果台阶数少了可能是采样率不够把两级并成一级如果台阶糊成斜坡可能是更新率不对或者线太长有容性负载它明显偏小最高一级只到所以码值比正弦少约这是阶梯波的定义决定的只有级最高一级到不了满幅五种波形对照波形形状函数关键特征正弦连续平滑斜率一直在变方波长时间停在两个电平上三角左右对称匀速直线锯齿只升不降垂直回扫阶梯级离散台阶所有波形都挤到一个引脚上这部分是设计取舍值得单独说方波本来有个更正统的做法用的直接从出硬件自动翻转边沿极干净工程里的配置确实还留着保留但未启用占空比但问题是如果方波从出其他波形从出采集端就得跟着换线或换通道成品上这难以接受总不能切换波形时让人去拔插头接成线路也略显复杂所以最后决定所有波形统一由建表生成只用一个引脚切换波形对采集端完全透明因为引脚从来没变过代价是方波边沿由更新率决定一个台阶不如硬件干净但这个代价可以接受波形怎么切换改表不改外设只改了一下表内容不用重启是因为的是循环模式它记的是内存地址不是数据内容读回到我们把的内容原地改掉下一圈读到自然就是新波形所以切换是零代价的不用停不用重配也不会出现切换瞬间波形断裂因为指针从没停过只是在读不同的数三种入口对外接口按键循环正弦方波三角锯齿阶梯正弦串口直接指定调幅度一条直线里有个越界保护越界忽略不破坏当前输出这个保护是有意义的如果传进来非法值会走到输出全波形就没了宁可忽略这次设置也不要把当前正常的输出搞坏调幅度和切波形完全一样还是改表因为表里的值是改了重新填一遍就行会输出一条恒定的直流测试时有用可以验证没信号时识别端会不会乱猜把波形发给电脑数据从哪来不只是发波形它自己也会采一份回采的输出采集缓冲定义采集点数单通道一帧点原始数据转成电压后的数据一帧采完的标志一帧点采样率也是所以一帧时长正好个信号周期每帧都是完整的整数个周期画出来不会半截协议是支持的二进制协议是一个上位机波形软件规则很简单一个字节小端后面跟一个固定的帧尾帧尾帧尾这个帧尾其实是浮点数正无穷的编码刚好最近写过相关的笔记详见数据类型靠它判断一帧到哪结束帧的语义这是最容易搞错的地方的语义是一帧一个时间切片帧里的每个一个通道的值想画的应该怎么发个通道个时间点发帧每帧里只有个此处所使用的个通道个时间点发帧帧里放个千万不要把个塞进一帧那样会理解成这是个通道采样次界面上冒出到五百条通道卡得一批而不是一条曲线正确做法是每点一帧打包循环字节数据字节帧尾点字节字节为什么先打包再发不能逐点调用每次调用都有固定开销检查状态算超时进出临界区逐点发要调次光开销就吃掉而且每次只发字节串口根本喂不满所以先打包到一整块缓冲打包缓冲打包缓冲点字节字节发送一次性发完字节超时给按波特率算字节约需留足余量这里阻塞是故意的必须保证一帧完整发出去是字节流协议靠帧尾定界中途插进别的字节就会解析错位文本和二进制不能混发会打印一行状态文本但这行是纯文本而波形是二进制两者共用同一个串口如果这行插进波形流中间会把这些字符的码当成的字节去解析整条曲线立刻报废所以代码里把它默认关闭文本上报开关是否输出文本状态行默认关闭这是故意的波形走的是二进制文本行一旦插进这个流里的解析器会把文本字符当成的字节整条曲线就毁了要看文本时按打开看完记得关掉或者切到纯文本模式用串口助手看主循环按键切波形放最前面保证响应不被阻塞串口命令文本上报默认关闭直接采满一帧就发出去大致算一下帧率发送时间字节字节采集时间一帧总耗时帧率约看波形形状完全够用肉眼看是流畅的踩过的坑坑一的一个点都不搬现象是配置看起来全对但输出一直是连一个点都没搬出去查出来是两个原因叠加你妹的坑死我了坑外设对齐必须是必须位的挂在上不是它的寄存器必须用位字访问配成的话一启动就产生传输错误置位被清永远不动可能不是很像人话翻译一下的不是接在慢速的总线上而是接在高速的总线上总线有个硬性条件访问的寄存器必须一次性写满位如果在里把外设数据宽度配成位一启动就会报传输错误硬件会把错误标志置起来同时自动把通道的使能位清零结果就是传输计数器永远不动数据一个也搬不到里再翻译一下的门卫只收位的大箱子如果拿位的小盒子去他直接拒收还把门关上后面所有货都进不去了这条是特有的的挂上会自动把字节拼成位那些系列反而不能用坑必须手动清是欠载标志罢工开关属于类型读清一旦它置起来开关打开会吞掉后续所有请求表现就是装好了却永远不减一动不动数据寄存器不动这个开关很特殊读它只能看到它有没有被按下必须专门写一个进去才能使其复位写没用而库的在启动时只会允许这个开关去触发中断并不会帮你把它复位偏偏该工程又没有开的中断所以这个开关一旦被按下就没人管它了造成上述现象坑二超时设读不到数据现象是想不等待地读一个字节把超时设成结果永远读不到东西原因是库把理解成已经超时了函数立刻返回一个字节都不读绕开直接轮询状态寄存器就行中读一个字节没有数据直接走人读数据寄存器顺便清标志顺带记一下和的寄存器名不一样叫叫跨芯片移植容易在这里卡住坑三时钟配置的假矛盾里写着模板默认值实际不生效而里写的是一开始以为配置冲突了后来发现不是前者在保护下只有从没被定义过时才生效编译时会这条链最终包含此时已被定义成所以那个根本不参与编译只是模板的默认占位值不要去动上位机怎么设原理图内接线就两根模块电脑线说明的数据的必须接不共地数据全是乱的的是不是这个很容易搞错是可以另外接的做遥控互不干扰设置项目值波特率数据格式协议轴范围手动锁定轴这条很重要用自动缩放的话一旦把幅度调到输出一条直流会把量表放到极小范围之后再看正常波形就糊了锁定之后波形大小变化能直观看出来当前时钟配置板载晶振输入合法输出合法外设时钟来源频率关键参数结果未用无无触发表长波形周期采样次的时钟源是不是走再本工程分频恰好是两者数值相同但哪天把改成变而仍是关键参数速查项目数值出处表长点输出频率幅度上限码值默认幅度码值中点输出引脚芯片固定采集帧长点串口帧长字节串口命令都是单字符不需要回车换行字符作用下一种波形直接选正弦方波三角锯齿阶梯幅度幅度归零输出直线幅度拉满开关文本状态上报小结波形就是一张表五种波形的区别只是的算法节奏来自硬件打拍子自动搬不参与切换就是改表不重启不重配外设所以零代价不断波形补实物照片整机显示各种波形幅度前后对比时钟自检代码还没加进工程跑一次能直接打印',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-10-13 08:43:50',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/note.css"><meta name="generator" content="Hexo 8.1.1"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><div class="back-home-button"><i class="anzhiyufont anzhiyu-icon-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" href="/html/maze.html" title="迷宫小游戏"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="迷宫小游戏"/><span class="back-menu-item-text">迷宫小游戏</span></a><a class="back-menu-item" href="/html/latex-table.html" title="LaTeX速查表"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="LaTeX速查表"/><span class="back-menu-item-text">LaTeX速查表</span></a></div></div></div></div><a id="site-name" href="/" accesskey="h"><div class="title">阚无倾的小窝</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a><div id="he-plugin-simple"></div><script>var WIDGET = {
+  "CONFIG": {
+    "modules": "0124",
+    "background": "2",
+    "tmpColor": "FFFFFF",
+    "tmpSize": "16",
+    "cityColor": "FFFFFF",
+    "citySize": "16",
+    "aqiColor": "E8D87B",
+    "aqiSize": "16",
+    "weatherIconSize": "24",
+    "alertIconSize": "18",
+    "padding": "10px 10px 10px 10px",
+    "shadow": "0",
+    "language": "auto",
+    "borderRadius": "20",
+    "fixed": "true",
+    "vertical": "top",
+    "horizontal": "left",
+    "left": "20",
+    "top": "7.1",
+    "key": "df245676fb434a0691ead1c63341cd94"
+  }
+}
+</script><link rel="stylesheet" href="https://widget.qweather.net/simple/static/css/he-simple.css?v=1.4.0"/><script src="https://widget.qweather.net/simple/static/js/he-simple.js?v=1.4.0"></script></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 归档</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于我</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/career/"><i class="anzhiyufont anzhiyu-icon-images faa-tada" style="font-size: 0.9em;"></i><span> 我的经历</span></a></li></ul></div></div></div><div id="nav-right"><div class="nav-button only-home" id="travellings_button" title="随机前往一个开往项目网站"><a class="site-page" onclick="anzhiyu.totraveling()" title="随机前往一个开往项目网站" href="javascript:void(0);" rel="external nofollow" data-pjax-state="external"><i class="anzhiyufont anzhiyu-icon-train"></i></a></div><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/AI/" style="font-size: 1.05rem;">AI<sup>12</sup></a><a href="/tags/Bot/" style="font-size: 1.05rem;">Bot<sup>7</sup></a><a href="/tags/C/" style="font-size: 1.05rem;">C++<sup>7</sup></a><a href="/tags/Canvas/" style="font-size: 1.05rem;">Canvas<sup>1</sup></a><a href="/tags/C%E8%AF%AD%E8%A8%80/" style="font-size: 1.05rem;">C语言<sup>10</sup></a><a href="/tags/F401/" style="font-size: 1.05rem;">F401<sup>1</sup></a><a href="/tags/G431/" style="font-size: 1.05rem;">G431<sup>1</sup></a><a href="/tags/HTML/" style="font-size: 1.05rem;">HTML<sup>1</sup></a><a href="/tags/Javascript/" style="font-size: 1.05rem;">Javascript<sup>1</sup></a><a href="/tags/LegendBot/" style="font-size: 1.05rem;">LegendBot<sup>7</sup></a><a href="/tags/Manim/" style="font-size: 1.05rem;">Manim<sup>1</sup></a><a href="/tags/OI/" style="font-size: 1.05rem;">OI<sup>5</sup></a><a href="/tags/Python/" style="font-size: 1.05rem;">Python<sup>13</sup></a><a href="/tags/STM32/" style="font-size: 1.05rem;">STM32<sup>3</sup></a><a href="/tags/Wechat/" style="font-size: 1.05rem;">Wechat<sup>7</sup></a><a href="/tags/docs/" style="font-size: 1.05rem;">docs<sup>1</sup></a><a href="/tags/temp/" style="font-size: 1.05rem;">temp<sup>1</sup></a><a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" style="font-size: 1.05rem;">人工智能<sup>12</sup></a><a href="/tags/%E4%BF%A1%E5%A5%A5/" style="font-size: 1.05rem;">信奥<sup>8</sup></a><a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" style="font-size: 1.05rem;">单片机<sup>1</sup></a><a href="/tags/%E5%A4%8D%E7%8E%B0/" style="font-size: 1.05rem;">复现<sup>1</sup></a><a href="/tags/%E6%8A%80%E6%9C%AF/" style="font-size: 1.05rem;">技术<sup>11</sup></a><a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 1.05rem;">教程<sup>4</sup></a><a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 1.05rem;">数学<sup>21</sup></a><a href="/tags/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/" style="font-size: 1.05rem;">数据科学<sup>1</sup></a><a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">机器学习<sup>1</sup></a><a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/" style="font-size: 1.05rem;">概率论<sup>1</sup></a><a href="/tags/%E6%B3%A2%E5%BD%A2%E5%8F%91%E7%94%9F%E8%AF%86%E5%88%AB%E7%B3%BB%E7%BB%9F/" style="font-size: 1.05rem;">波形发生识别系统<sup>2</sup></a><a href="/tags/%E7%AC%94%E8%AE%B0/" style="font-size: 1.05rem;">笔记<sup>41</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.05rem;">算法<sup>9</sup></a><a href="/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" style="font-size: 1.05rem;">线性代数<sup>11</sup></a><a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/" style="font-size: 1.05rem;">计算机<sup>3</sup></a><a href="/tags/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/" style="font-size: 1.05rem;">高等数学<sup>5</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/10/"><span class="card-archive-list-date">十月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">11</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/09/"><span class="card-archive-list-date">九月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/07/"><span class="card-archive-list-date">七月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/06/"><span class="card-archive-list-date">六月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">12</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/05/"><span class="card-archive-list-date">五月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/04/"><span class="card-archive-list-date">四月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/03/"><span class="card-archive-list-date">三月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">4</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/01/"><span class="card-archive-list-date">一月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div><div class="console-btn-item" id="consoleKeyboard" onclick="anzhiyu.keyboardToggle()" title="快捷键开关"><a class="keyboard-switch"><i class="anzhiyufont anzhiyu-icon-keyboard"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B3%A2%E5%BD%A2%E5%8F%91%E7%94%9F%E8%AF%86%E5%88%AB%E7%B3%BB%E7%BB%9F/" itemprop="url">波形发生识别系统</a></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/STM32/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>STM32</span></a><a class="article-meta__tags" href="/tags/G431/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>G431</span></a><a class="article-meta__tags" href="/tags/%E6%B3%A2%E5%BD%A2%E5%8F%91%E7%94%9F%E8%AF%86%E5%88%AB%E7%B3%BB%E7%BB%9F/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>波形发生识别系统</span></a></span></div></div><h1 class="post-title" itemprop="name headline">波形发生识别系统开发日志 —— G431 波形生成</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2026-10-12T23:39:30.000Z" title="发表于 2026-10-13 07:39:30">2026-10-13</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2026-10-13T00:43:50.090Z" title="更新于 2026-10-13 08:43:50">2026-10-13</time></span></div><div class="meta-secondline"><span class="post-meta-separator"></span><span class="post-meta-wordcount"><i class="anzhiyufont anzhiyu-icon-file-word post-meta-icon" title="文章字数"></i><span class="post-meta-label" title="文章字数">字数总计:</span><span class="word-count" title="文章字数">5.9k</span><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-clock post-meta-icon" title="阅读时长"></i><span class="post-meta-label" title="阅读时长">阅读时长:</span><span>22分钟</span></span><span class="post-meta-separator"></span><span class="post-meta-pv-cv" id="" data-flag-title="波形发生识别系统开发日志 —— G431 波形生成"><i class="anzhiyufont anzhiyu-icon-fw-eye post-meta-icon"></i><span class="post-meta-label" title="阅读量">阅读量:</span><span id="busuanzi_value_page_pv"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i></span></span><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为中国"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>中国</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="/img/default_bg.jpg"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://kanwuqing.github.io/%E6%B3%A2%E5%BD%A2%E7%94%9F%E6%88%90%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-G431/"><header><a class="post-meta-categories" href="/categories/%E6%B3%A2%E5%BD%A2%E5%8F%91%E7%94%9F%E8%AF%86%E5%88%AB%E7%B3%BB%E7%BB%9F/" itemprop="url">波形发生识别系统</a><a href="/tags/STM32/" tabindex="-1" itemprop="url">STM32</a><a href="/tags/G431/" tabindex="-1" itemprop="url">G431</a><a href="/tags/%E6%B3%A2%E5%BD%A2%E5%8F%91%E7%94%9F%E8%AF%86%E5%88%AB%E7%B3%BB%E7%BB%9F/" tabindex="-1" itemprop="url">波形发生识别系统</a><h1 id="CrawlerTitle" itemprop="name headline">波形发生识别系统开发日志 —— G431 波形生成</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">Kanwuqing</span><time itemprop="dateCreated datePublished" datetime="2026-10-12T23:39:30.000Z" title="发表于 2026-10-13 07:39:30">2026-10-13</time><time itemprop="dateCreated datePublished" datetime="2026-10-13T00:43:50.090Z" title="更新于 2026-10-13 08:43:50">2026-10-13</time></header><blockquote>
+<p>本文只写 G431 这一半的事. 波形怎么造出来, 怎么发出去</p>
+<p>F401 那边的采集和识别另开一篇</p>
+<p>工程叫 Wave1, 代码都在 <code>Core/Src</code> 下</p>
+</blockquote>
+<h2 id="g431功能综述">G431功能综述</h2>
+<p>G431 在这套系统里是个”信号源”. 它的活儿很单纯:
+<strong>吐波形</strong>, 而且要用一种接收端能对得上的方式吐.</p>
+<p>最后定了 5 种: 正弦、方波、三角、锯齿、阶梯. 前四种是常规操作,
+阶梯波是特意加的, 后面会说为什么.</p>
+<p>最初的方案不是这样. 一开始正弦走 DAC, 方波走 TIM3 的硬件 PWM 从 PA6
+出来, 两种波形两个引脚, 各走各的. 这个方案被我自己毙掉了,
+原因在下面「所有波形都挤到一个引脚上」那一节.</p>
+<h2 id="文件清单">文件清单</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>文件</th>
+<th>角色</th>
+<th>关键内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wavegen.c</code></td>
+<td>波形表生成</td>
+<td>5 种波形, 全走 PA4, 改表即换波形</td>
+</tr>
+<tr>
+<td><code>main.c</code></td>
+<td>主入口</td>
+<td>按键切波、串口命令、justfloat 打包发送</td>
+</tr>
+<tr>
+<td><code>dac.c</code></td>
+<td>DAC1 配置</td>
+<td><strong>G4 特有, 外设侧必须 WORD 对齐</strong></td>
+</tr>
+<tr>
+<td><code>adc.c</code></td>
+<td>ADC1 配置</td>
+<td>单通道 PA1, T2_TRGO 触发, DMA 循环</td>
+</tr>
+<tr>
+<td><code>tim.c</code></td>
+<td>TIM2 / TIM3</td>
+<td>TIM2 = 100 kHz TRGO, TIM3 = 1 kHz PWM(保留未用)</td>
+</tr>
+<tr>
+<td><code>usart.c</code></td>
+<td>USART1</td>
+<td>921600 8N1, PC4 = TX / PA10 = RX</td>
+</tr>
+<tr>
+<td><code>gpio.c</code></td>
+<td>GPIO</td>
+<td>PB0 按键上拉输入</td>
+</tr>
+<tr>
+<td><code>dma.c</code></td>
+<td>DMA + NVIC</td>
+<td>DMAMUX1 + DMA1, 两个通道中断</td>
+</tr>
+<tr>
+<td><code>stm32g4xx_it.c</code></td>
+<td>中断向量</td>
+<td>DMA1_CH1 / CH2 处理</td>
+</tr>
+</tbody>
+</table>
+<h2 id="整体思路">整体思路</h2>
+<p>先做一张表, 然后让 DMA 按节拍把表里的数一个个喂给 DAC.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">     TIM2                     DAC1                  PA4</span><br><span class="line">每 100 µs 报一次  ──TRGO──▶  取一个数  ──DMA──▶  输出电压</span><br><span class="line">                               ▲</span><br><span class="line">                               │</span><br><span class="line">                     s_table[100]  ← 只改这里</span><br></pre></td></tr></table></figure>
+<p>这样安排有几个好处:</p>
+<ul>
+<li><strong>CPU 几乎不参与</strong>. 表建好之后 DMA 自己循环搬, CPU
+想干嘛干嘛</li>
+<li><strong>换波形代价为零</strong>. 只是把表内容原地改掉,
+外设一行都不用重配</li>
+<li><strong>频率准</strong>. 节拍来自硬件定时器,
+不受程序跑得快慢影响</li>
+</ul>
+<h2 id="四个外设的分工">四个外设的分工</h2>
+<h3 id="tim2-节拍器">TIM2, 节拍器</h3>
+<p>它不产生波形, 只负责打拍子</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Core/Src/tim.c —— MX_TIM2_Init() */</span></span><br><span class="line">htim2.Instance = TIM2;</span><br><span class="line">htim2.Init.Prescaler = <span class="number">0</span>;          <span class="comment">/* 不分频, 直接用 170 MHz */</span></span><br><span class="line">htim2.Init.CounterMode = TIM_COUNTERMODE_UP;</span><br><span class="line">htim2.Init.Period = <span class="number">1699</span>;          <span class="comment">/* 数到 1699 归零, 所以是 1700 个计数一轮, 计数周期=1700/1.7e8=1e-5s */</span></span><br><span class="line">...</span><br><span class="line">sMasterConfig.MasterOutputTrigger = TIM_TRGO_UPDATE;   <span class="comment">/* 关键 */</span></span><br></pre></td></tr></table></figure>
+<p><code>TIM_TRGO_UPDATE</code> 的意思是: 每次计数器溢出时, 往 TRGO
+这根内部信号线上发一个脉冲.</p>
+<p>算一下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">170 MHz ÷ (0+1) ÷ (1699+1) = 170 000 000 ÷ 1700 = 100 000 Hz = 100 kHz</span><br></pre></td></tr></table></figure>
+<p>也就是每 10 µs 一个脉冲. DAC 和 ADC 都需要依赖其节拍</p>
+<h3 id="dac-数模转换器">DAC, 数模转换器</h3>
+<p>负责<strong>把一个数字变成对应电压</strong></p>
+<p>用的是 DAC1 的通道 1, 输出引脚固定是
+<strong>PA4</strong>(芯片内部定死)</p>
+<p>12 位的意思是写进去 0~4095, 输出 0~3.3 V:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">   0  →  0.000 V</span><br><span class="line">2048  →  1.650 V     ← 中点</span><br><span class="line">4095  →  3.300 V</span><br></pre></td></tr></table></figure>
+<p>它只能保持一个数, 所以需要有人不停给它新数, 这是 DMA 负责的内容</p>
+<p>触发源在 <code>dac.c</code> 里配:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Core/Src/dac.c —— MX_DAC1_Init() */</span></span><br><span class="line">sConfig.DAC_Trigger = DAC_TRIGGER_T2_TRGO;   <span class="comment">/* 由 TIM2 的 TRGO 触发 */</span></span><br><span class="line">sConfig.DAC_OutputBuffer = DAC_OUTPUTBUFFER_ENABLE;   <span class="comment">/* 必须开, 否则带不动负载 */</span></span><br></pre></td></tr></table></figure>
+<p>于是就有了这个换算:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DAC 更新率 = TIM2 频率 = 100 kHz</span><br><span class="line">输出波形频率 = 100 kHz ÷ 表长 100 = 1 kHz</span><br></pre></td></tr></table></figure>
+<p>5 种波形全是 1 kHz, 因为共用同一个 TIM2, 表长都是 100.
+换波形只换表内容不改表长, 所以频率恒定</p>
+<h3 id="dma-自动搬运工">DMA, 自动搬运工</h3>
+<p>不用 CPU 插手, 自动把数据从内存搬到外设</p>
+<p>传统笨办法是 CPU 每隔 10 µs 醒一次写寄存器, 这样 CPU 就被绑死了. 用
+DMA 之后只要告诉它三件事</p>
+<ul>
+<li>从哪搬: <code>s_table</code> 数组</li>
+<li>搬到哪: DAC1 通道 1 的数据寄存器</li>
+<li>搬多少怎么搬: 搬 100 个, 搬完从头再来(循环模式)</li>
+</ul>
+<h3 id="usart1-把波形发出去">USART1, 把波形发出去</h3>
+<p>引脚 <code>PC4</code> = TX, <code>PA10</code> = RX, 921600 8N1,
+协议用 justfloat. 这块单独讲, 见后文</p>
+<h2 id="波形表生成">波形表生成</h2>
+<h3 id="统一公式">统一公式</h3>
+<p>5 种波形没有各写一套代码, 而是统一成这个形式:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Core/Src/wavegen.c —— WaveGen_FillTable() 中的核心一行 */</span></span><br><span class="line">v = WAVE_DAC_MID + amp * s;</span><br></pre></td></tr></table></figure>
+<p><code>WAVE_DAC_MID</code> 是 2048, 12 位中点, 对应 1.65 V.
+<code>amp</code> 是幅度, 单位是码值. <strong><code>s</code> 是形状函数,
+范围 -1.0 ~ +1.0</strong>.</p>
+<p>每种波形的区别仅仅是 <code>s</code> 怎么算.
+加中点、限幅、写表这些完全共用. 想加新波形, 在 <code>switch</code>
+里加个 case 写一行 <code>s</code> 就够了.</p>
+<p>完整函数长这样:</p>
+<blockquote>
+<p>不使用fmin, fmax单纯因为懒得引用了</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Core/Src/wavegen.c —— WaveGen_FillTable() */</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">WaveGen_FillTable</span><span class="params">(WaveKind_t kind, <span class="type">uint16_t</span> amp)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">uint32_t</span> i;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 幅度限幅, 留一点余量, 避免撞到 0/4095 后顶部被削平 */</span></span><br><span class="line">  <span class="keyword">if</span> (amp &gt; <span class="number">2047U</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    amp = <span class="number">2047U</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (i = <span class="number">0U</span>; i &lt; WAVE_LEN; i++)      <span class="comment">/* WAVE_LEN = 100 */</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="type">float</span>    s;          <span class="comment">/* 形状函数, 范围 -1.0 ~ +1.0 */</span></span><br><span class="line">    <span class="type">float</span>    v;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">switch</span> (kind)</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="comment">/* ... 各波形的 s, 见下面各小节 ... */</span></span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">        s = <span class="number">0.0f</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 统一公式, 中点 + 幅度 × 形状 */</span></span><br><span class="line">    v = (<span class="type">float</span>)WAVE_DAC_MID + (<span class="type">float</span>)amp * s + <span class="number">0.5f</span>;</span><br><span class="line">    <span class="comment">/*                                        ↑ +0.5 是为了四舍五入 */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 夹到 12 位范围, 防止浮点误差越界 */</span></span><br><span class="line">    <span class="keyword">if</span> (v &lt; <span class="number">0.0f</span>)    &#123; v = <span class="number">0.0f</span>; &#125;</span><br><span class="line">    <span class="keyword">if</span> (v &gt; <span class="number">4095.0f</span>) &#123; v = <span class="number">4095.0f</span>; &#125;</span><br><span class="line"></span><br><span class="line">    s_table[i] = (<span class="type">uint16_t</span>)v;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>幅度上限取 2047 而不是 2048, 是因为 <code>v = 2048 + amp*s</code>,
+如果 <code>amp</code> 取 2048 而 <code>s</code> 取到 +1, 会算出 4096
+超出 12 位范围, 顶部被削平. 取 2047 正好让最高点落在 4095.</p>
+<h3 id="正弦波">正弦波</h3>
+<p>直接套正弦函数. 这是最标准的波形, 主要用来检查有没有失真、削顶</p>
+<p>// 由于对于精度要求不高, 使用float类型即可</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Core/Src/wavegen.c —— WaveGen_FillTable(), case WAVE_SINE */</span></span><br><span class="line"><span class="keyword">case</span> WAVE_SINE:</span><br><span class="line">  s = sinf(<span class="number">2.0f</span> * <span class="number">3.14159265f</span> * (<span class="type">float</span>)i / (<span class="type">float</span>)WAVE_LEN);</span><br><span class="line">  <span class="keyword">break</span>;</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>部分</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>2.0f * 3.14159265f</code></td>
+<td>一个完整周期是 2π</td>
+</tr>
+<tr>
+<td><code>(float)i / (float)WAVE_LEN</code></td>
+<td>把 i 从 0~99 归一化成 0.0~0.99</td>
+</tr>
+<tr>
+<td>两者相乘</td>
+<td>得到 0 ~ 2π 均匀分布的相位</td>
+</tr>
+<tr>
+<td><code>sinf(...)</code></td>
+<td>求正弦, 结果正好 -1 ~ +1</td>
+</tr>
+</tbody>
+</table>
+<p><code>i</code> 从 0 走到 99, 相位走完一个完整周期. 第 100
+个点就是下一周期的第 0 个点, 所以表长 100 是自洽的.</p>
+<p>实测表内容 248 ~ 3848(上下各248留白), 跨度 3600 码值, 也就是
+<strong>2.901 V</strong>.</p>
+<h3 id="方波">方波</h3>
+<p>前半个周期给 +1, 后半个周期给 -1.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Core/Src/wavegen.c —— WaveGen_FillTable(), case WAVE_SQUARE */</span></span><br><span class="line"><span class="keyword">case</span> WAVE_SQUARE:</span><br><span class="line">  s = (i &lt; (WAVE_LEN / <span class="number">2U</span>)) ? <span class="number">1.0f</span> : <span class="number">-1.0f</span>;</span><br><span class="line">  <span class="keyword">break</span>;</span><br></pre></td></tr></table></figure>
+<p><code>WAVE_LEN / 2</code> 是 50, 所以 i = 0~49 输出 3848, i = 50~99
+输出 248.</p>
+<p>边沿是在一个采样点之内完成的跳变. 表里第 49 个点是 3848, 第 50 个点是
+248, DAC 在 10 µs 内直接从高切到低.</p>
+<p>如果在采集端看到方波边沿附近有过冲或振铃, 不要以为电路坏了.
+原因有两个: DAC 输出后没接任何滤波器, 直接连到 ADC;
+另外示波器探头或杜邦线本身有寄生电感电容.
+快速边沿处出现振铃是正常现象.</p>
+<p>实测 248 ~ 3848, 跨度 3600, 也就是 <strong>2.901 V</strong>.</p>
+<h3 id="三角波">三角波</h3>
+<p>先线性升到顶, 再线性降到谷, 上升下降各占一半.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Core/Src/wavegen.c —— WaveGen_FillTable(), case WAVE_TRIANGLE */</span></span><br><span class="line"><span class="keyword">case</span> WAVE_TRIANGLE:</span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">float</span> x = (<span class="type">float</span>)i / (<span class="type">float</span>)WAVE_LEN;      <span class="comment">/* 0.0 ~ 1.0 */</span></span><br><span class="line">  <span class="type">float</span> d = x - <span class="number">0.5f</span>;                        <span class="comment">/* -0.5 ~ +0.5 */</span></span><br><span class="line">  <span class="keyword">if</span> (d &lt; <span class="number">0.0f</span>) &#123; d = -d; &#125;                  <span class="comment">/* 0.0 ~ 0.5, V 形 */</span></span><br><span class="line">  s = <span class="number">4.0f</span> * d - <span class="number">1.0f</span>;                       <span class="comment">/* 翻成 -1 ~ +1 的三角 */</span></span><br><span class="line">  <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个写法有点绕, 跟一遍就清楚了:</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr>
+<th>步骤</th>
+<th><code>i</code>=0</th>
+<th><code>i</code>=25</th>
+<th><code>i</code>=50</th>
+<th><code>i</code>=75</th>
+<th><code>i</code>=99</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>x = i/100</code></td>
+<td>0.00</td>
+<td>0.25</td>
+<td>0.50</td>
+<td>0.75</td>
+<td>0.99</td>
+</tr>
+<tr>
+<td><code>d = x - 0.5</code></td>
+<td>-0.50</td>
+<td>-0.25</td>
+<td>0.00</td>
+<td>+0.25</td>
+<td>+0.49</td>
+</tr>
+<tr>
+<td><code>\|d\|</code></td>
+<td>0.50</td>
+<td>0.25</td>
+<td>0.00</td>
+<td>0.25</td>
+<td>0.49</td>
+</tr>
+<tr>
+<td><code>s = 4\|d\| - 1</code></td>
+<td><strong>+1.00</strong></td>
+<td><strong>0.00</strong></td>
+<td><strong>-1.00</strong></td>
+<td><strong>0.00</strong></td>
+<td><strong>+0.96</strong></td>
+</tr>
+</tbody>
+</table>
+<p><code>s</code> 的轨迹是 +1 → 0 → -1 → 0 → +1, 正好一个三角波.</p>
+<p>取绝对值能得到三角波, 是因为 <code>x - 0.5</code> 是一条从 -0.5 升到
++0.5 的斜线, 取绝对值之后负的半边被翻上来, 就成了 V 字形. 再乘 4 减 1,
+范围从 0~0.5 拉伸成 -1~+1.</p>
+<p><strong>和锯齿波的本质区别在于</strong>, 三角波上升下降各占一半,
+左右对称, 锯齿波只有上升, 回扫垂直. 这个区别在识别端就是靠
+<code>down</code> 特征抓的, <strong>三角波的 <code>down</code> 是 0.000,
+锯齿波是 1.000</strong></p>
+<p>实测 248 ~ 3848, 跨度 3600, 也就是 <strong>2.901 V</strong>.</p>
+<h3 id="锯齿波">锯齿波</h3>
+<p>从谷底线性升到顶, 然后瞬间回到底. 只有上升, 没有下降.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Core/Src/wavegen.c —— WaveGen_FillTable(), case WAVE_SAW */</span></span><br><span class="line"><span class="keyword">case</span> WAVE_SAW:</span><br><span class="line">  s = <span class="number">2.0f</span> * (<span class="type">float</span>)i / (<span class="type">float</span>)WAVE_LEN - <span class="number">1.0f</span>;   <span class="comment">/* -1 ~ +1 线性 */</span></span><br><span class="line">  <span class="keyword">break</span>;</span><br></pre></td></tr></table></figure>
+<p><code>2 * (i/100) - 1</code>:</p>
+<table>
+<thead>
+<tr>
+<th><code>i</code></th>
+<th><code>i/100</code></th>
+<th><code>2x - 1</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0.00</td>
+<td><strong>-1.00</strong></td>
+</tr>
+<tr>
+<td>25</td>
+<td>0.25</td>
+<td>-0.50</td>
+</tr>
+<tr>
+<td>50</td>
+<td>0.50</td>
+<td>0.00</td>
+</tr>
+<tr>
+<td>75</td>
+<td>0.75</td>
+<td>+0.50</td>
+</tr>
+<tr>
+<td>99</td>
+<td>0.99</td>
+<td><strong>+0.98</strong></td>
+</tr>
+</tbody>
+</table>
+<p>一条从 -1 到 +1 的纯直线.</p>
+<p>回扫是这么来的: <code>i</code> = 99 时 <code>s</code> = 0.98, 还没到
++1. 下一个点是下一圈的第 0 个点, <code>s</code> = -1.00.
+这一跳就是垂直回扫, DAC 在 10 µs 内从最高点直接掉回最低点.</p>
+<p>这也解释了锯齿波的 Vpp 为什么比别的波形略小:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">锯齿波, 最高点只到 i=99, s = 0.98  →  2048 + 1800×0.98 = 3812</span><br><span class="line">其他波, 最高点能到 s = 1.00        →  2048 + 1800×1.00 = 3848</span><br></pre></td></tr></table></figure>
+<p>实测 Vpp 是 <strong>2.872 V</strong>, 比正弦、方波、三角的 2.901 V
+少约 0.03 V. 这并不是 bug</p>
+<p>这个小差异后来在识别端变成了一个关键设计. 正因为各种波形 Vpp
+不完全一致, 识别算法必须<strong>按实测 Vpp 归一化</strong>,
+不能用固定码值. 这件事在 F401 那边是踩过坑的</p>
+<h3 id="阶梯波">阶梯波</h3>
+<p>把整个周期分成 8 级台阶, 每级保持一小段再跳.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Core/Src/wavegen.c —— WaveGen_FillTable(), case WAVE_STAIR */</span></span><br><span class="line"><span class="keyword">case</span> WAVE_STAIR:</span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">uint32_t</span> step = (i * WAVE_STEPS) / WAVE_LEN;    <span class="comment">/* 0 .. WAVE_STEPS-1, 整数除法是生成阶梯波形的关键 */</span></span><br><span class="line">  s = <span class="number">2.0f</span> * (<span class="type">float</span>)step / (<span class="type">float</span>)WAVE_STEPS - <span class="number">1.0f</span>;</span><br><span class="line">  <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>WAVE_STEPS</code> 是 8, 所以 <code>step = (i × 8) / 100</code>,
+整数除法.</p>
+<table>
+<thead>
+<tr>
+<th><code>i</code> 范围</th>
+<th>点数</th>
+<th><code>step</code></th>
+<th>输出码值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 ~ 12</td>
+<td>13</td>
+<td>0</td>
+<td><strong>248</strong></td>
+</tr>
+<tr>
+<td>13 ~ 24</td>
+<td>12</td>
+<td>1</td>
+<td><strong>698</strong></td>
+</tr>
+<tr>
+<td>25 ~ 37</td>
+<td>13</td>
+<td>2</td>
+<td><strong>1148</strong></td>
+</tr>
+<tr>
+<td>38 ~ 49</td>
+<td>12</td>
+<td>3</td>
+<td><strong>1598</strong></td>
+</tr>
+<tr>
+<td>50 ~ 62</td>
+<td>13</td>
+<td>4</td>
+<td><strong>2048</strong></td>
+</tr>
+<tr>
+<td>63 ~ 74</td>
+<td>12</td>
+<td>5</td>
+<td><strong>2498</strong></td>
+</tr>
+<tr>
+<td>75 ~ 87</td>
+<td>13</td>
+<td>6</td>
+<td><strong>2948</strong></td>
+</tr>
+<tr>
+<td>88 ~ 99</td>
+<td>12</td>
+<td>7</td>
+<td><strong>3398</strong></td>
+</tr>
+</tbody>
+</table>
+<p>实测去重后正好 8 个电平, 相邻台阶差全是 450, 完全均匀.</p>
+<p><code>100 / 8</code> 除不尽也没关系, 点数是 13、12、13、12 这样交替,
+只是最后一级略窄一点, 肉眼看不出来. 台阶的电平值是精确的,
+这才是关键.</p>
+<p>阶梯波最有诊断价值的地方在于台阶数是可以数的. 在采集端数出 8 级,
+就说明 DAC、导线、ADC 整条链路都通, 采样率也对. 如果台阶数少了,
+可能是采样率不够把两级并成一级; 如果台阶糊成斜坡, 可能是 DAC
+更新率不对或者线太长有容性负载</p>
+<p>它 Vpp 明显偏小, 最高一级只到 3398, 所以 Vpp = 3150 码值 =
+<strong>2.538 V</strong>, 比正弦少约 12%. 这是阶梯波的定义决定的, 只有 8
+级, 最高一级到不了满幅</p>
+<h3 id="五种波形对照">五种波形对照</h3>
+<table>
+<thead>
+<tr>
+<th>波形</th>
+<th>形状函数 <code>s</code></th>
+<th>关键特征</th>
+<th>Vpp(amp=1800)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>正弦</td>
+<td><code>sin(2πi/100)</code></td>
+<td>连续平滑, 斜率一直在变</td>
+<td>2.901 V</td>
+</tr>
+<tr>
+<td>方波</td>
+<td><code>i&lt;50 ? +1 : -1</code></td>
+<td>长时间停在两个电平上</td>
+<td>2.901 V</td>
+</tr>
+<tr>
+<td>三角</td>
+<td><code>4·\|i/100 − 0.5\| − 1</code></td>
+<td>左右对称, 匀速直线</td>
+<td>2.901 V</td>
+</tr>
+<tr>
+<td>锯齿</td>
+<td><code>2·i/100 − 1</code></td>
+<td>只升不降, 垂直回扫</td>
+<td>2.872 V</td>
+</tr>
+<tr>
+<td>阶梯</td>
+<td><code>2·step/8 − 1</code></td>
+<td>8 级离散台阶</td>
+<td>2.538 V</td>
+</tr>
+</tbody>
+</table>
+<h2 id="所有波形都挤到一个引脚上">所有波形都挤到一个引脚上</h2>
+<p>这部分是设计取舍, 值得单独说.</p>
+<p>方波本来有个更正统的做法, 用 TIM3 的 PWM 直接从 PA6 出, 硬件自动翻转,
+边沿极干净. 工程里 TIM3 的配置确实还留着:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Core/Src/tim.c —— MX_TIM3_Init(), 保留但未启用 */</span></span><br><span class="line">htim3.Init.Prescaler = <span class="number">170</span><span class="number">-1</span>;      <span class="comment">/* 170MHz/170 = 1MHz */</span></span><br><span class="line">htim3.Init.Period = <span class="number">999</span>;           <span class="comment">/* 1MHz/1000 = 1kHz */</span></span><br><span class="line">sConfigOC.OCMode = TIM_OCMODE_PWM1;</span><br><span class="line">sConfigOC.Pulse = <span class="number">500</span>;             <span class="comment">/* 50% 占空比 */</span></span><br></pre></td></tr></table></figure>
+<p>但问题是, 如果方波从 PA6 出, 其他波形从 PA4 出,
+采集端就得跟着换线或换通道.</p>
+<p>成品上这难以接受, 总不能切换波形时让人去拔插头, 接成线路也略显复杂.
+所以最后决定:</p>
+<blockquote>
+<p><strong>所有波形统一由 DAC 建表生成, 只用一个引脚 PA4</strong>
+切换波形对采集端完全透明, 因为引脚从来没变过</p>
+</blockquote>
+<p><em>代价是方波边沿由 DAC 更新率决定, 10 µs 一个台阶, 不如硬件 PWM
+干净. 但这个代价可以接受</em></p>
+<h2 id="波形怎么切换">波形怎么切换</h2>
+<h3 id="改表不改外设">改表不改外设</h3>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Core/Src/wavegen.c —— WaveGen_Next() */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">WaveGen_Next</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">  s_kind = (WaveKind_t)(((<span class="type">uint32_t</span>)s_kind + <span class="number">1U</span>) % (<span class="type">uint32_t</span>)WAVE_KIND_COUNT);</span><br><span class="line">  WaveGen_FillTable(s_kind, s_amp);      <span class="comment">/* ★ 只改了一下表内容 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不用重启 DMA, 是因为 DAC 的 DMA 是循环模式,
+它记的是内存地址不是数据内容:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">读 s_table[0] → s_table[1] → ... → s_table[99] → 回到 s_table[0] → ...</span><br></pre></td></tr></table></figure>
+<p>我们把 <code>s_table</code> 的内容原地改掉, DMA
+下一圈读到自然就是新波形. 所以切换是零代价的, 不用停 DMA, 不用重配 DAC,
+也不会出现切换瞬间波形断裂, 因为 DMA 指针从没停过, 只是在读不同的数.</p>
+<h3 id="三种入口">三种入口</h3>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Core/Src/wavegen.h —— 对外接口 */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">WaveGen_Next</span><span class="params">(<span class="type">void</span>)</span>;                  <span class="comment">/* 按键循环, 正弦→方波→三角→锯齿→阶梯→正弦 */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">WaveGen_SetKind</span><span class="params">(WaveKind_t kind)</span>;    <span class="comment">/* 串口 &#x27;1&#x27;~&#x27;5&#x27; 直接指定 */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">WaveGen_SetAmp</span><span class="params">(<span class="type">uint16_t</span> amp)</span>;        <span class="comment">/* 调幅度, 0 = 一条直线 */</span></span><br></pre></td></tr></table></figure>
+<p><code>WaveGen_SetKind</code> 里有个越界保护:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Core/Src/wavegen.c —— WaveGen_SetKind() */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">WaveGen_SetKind</span><span class="params">(WaveKind_t kind)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">if</span> ((<span class="type">uint32_t</span>)kind &gt;= (<span class="type">uint32_t</span>)WAVE_KIND_COUNT)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">return</span>;   <span class="comment">/* 越界忽略, 不破坏当前输出 */</span></span><br><span class="line">  &#125;</span><br><span class="line">  s_kind = kind;</span><br><span class="line">  WaveGen_FillTable(s_kind, s_amp);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个保护是有意义的. 如果传进来非法值, <code>switch</code> 会走到
+<code>default</code> 输出全 0, 波形就没了. 宁可忽略这次设置,
+也不要把当前正常的输出搞坏.</p>
+<h3 id="调幅度">调幅度</h3>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Core/Src/wavegen.c —— WaveGen_SetAmp() */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">WaveGen_SetAmp</span><span class="params">(<span class="type">uint16_t</span> amp)</span></span><br><span class="line">&#123;</span><br><span class="line">  s_amp = (amp &gt; <span class="number">2047U</span>) ? <span class="number">2047U</span> : amp;</span><br><span class="line">  WaveGen_FillTable(s_kind, s_amp);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>和切波形完全一样, 还是改表. 因为表里的值是 <code>2048 + amp*s</code>,
+改了 <code>amp</code> 重新填一遍就行.</p>
+<p><code>amp = 0</code> 会输出一条恒定的 1.65 V 直流. 测试时有用,
+可以验证没信号时识别端会不会乱猜.</p>
+<h2 id="把波形发给电脑">把波形发给电脑</h2>
+<h3 id="数据从哪来">数据从哪来</h3>
+<p>G431 不只是发波形, 它自己也会采一份, PA1 = ADC1_IN2 回采 PA4
+的输出:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Core/Src/main.c —— 采集缓冲定义 */</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ADC_BUF_LEN  500U      <span class="comment">/* 采集点数(单通道, 一帧 500 点) */</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">uint16_t</span> adc_buf[ADC_BUF_LEN];    <span class="comment">/* ADC 原始数据 */</span></span><br><span class="line"><span class="type">static</span> <span class="type">float</span>    tx_buf[ADC_BUF_LEN];     <span class="comment">/* 转成电压后的数据 */</span></span><br><span class="line"><span class="type">static</span> <span class="keyword">volatile</span> <span class="type">uint8_t</span> adc_ready = <span class="number">0U</span>;  <span class="comment">/* 一帧采完的标志 */</span></span><br></pre></td></tr></table></figure>
+<p>一帧 500 点, 采样率也是 100 kHz, 所以:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">一帧时长 = 500 ÷ 100 kHz = 5 ms = 正好 5 个信号周期(1 kHz)</span><br></pre></td></tr></table></figure>
+<p>每帧都是完整的整数个周期, 画出来不会半截.</p>
+<h3 id="justfloat-协议">justfloat 协议</h3>
+<p>justfloat 是 VOFA+ 支持的二进制协议, VOFA+ 是一个上位机波形软件.
+规则很简单:</p>
+<blockquote>
+<p><strong>一个 float(4 字节小端)后面跟一个固定的帧尾
+<code>00 00 80 7F</code></strong></p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Core/Src/main.c —— justfloat 帧尾 */</span></span><br><span class="line"><span class="type">static</span> <span class="type">const</span> <span class="type">uint8_t</span> jf_tail[<span class="number">4</span>] = &#123;<span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x80</span>, <span class="number">0x7F</span>&#125;;  <span class="comment">/* justfloat 帧尾 */</span></span><br></pre></td></tr></table></figure>
+<p>这个帧尾其实是浮点数正无穷的 IEEE754 编码(刚好最近写过相关的笔记,
+详见<a
+href="/%E6%B3%A2%E5%BD%A2%E7%94%9F%E6%88%90%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-G431/../C语言学习笔记——数据类型">数据类型</a>),
+VOFA+ 靠它判断一帧到哪结束.</p>
+<h3 id="帧的语义">帧的语义</h3>
+<p>这是最容易搞错的地方. justfloat 的语义是:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">一帧 = 一个时间切片</span><br><span class="line">帧里的每个 float = 一个[通道]的值</span><br></pre></td></tr></table></figure>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>想画的</th>
+<th>应该怎么发</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 个通道, 500 个时间点</td>
+<td>发 <strong>500 帧</strong>, 每帧里只有 <strong>1 个</strong>
+float(此处所使用的)</td>
+</tr>
+<tr>
+<td>4 个通道, 1 个时间点</td>
+<td>发 <strong>1 帧</strong>, 帧里放 <strong>4 个</strong> float</td>
+</tr>
+</tbody>
+</table>
+<p>千万不要把 500 个 float 塞进一帧. 那样 VOFA+ 会理解成这是 500 个通道,
+采样 1 次, 界面上冒出 <code>I0</code> 到 <code>I499</code> 五百条通道,
+卡得一批, 而不是一条曲线.</p>
+<p>正确做法是每点一帧:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Core/Src/main.c —— 打包循环 */</span></span><br><span class="line"><span class="keyword">for</span> (i = <span class="number">0U</span>; i &lt; ADC_BUF_LEN; i++)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="built_in">memcpy</span>(&amp;jf_buf[i * <span class="number">8U</span>],      &amp;tx_buf[i], <span class="number">4</span>);   <span class="comment">/* 4 字节, 数据 */</span></span><br><span class="line">  <span class="built_in">memcpy</span>(&amp;jf_buf[i * <span class="number">8U</span> + <span class="number">4U</span>], jf_tail,    <span class="number">4</span>);   <span class="comment">/* 4 字节, 帧尾 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>500 点 × 8 字节 = <strong>4000 字节</strong>.</p>
+<h3 id="为什么先打包再发">为什么先打包再发</h3>
+<p>不能逐点调用 <code>HAL_UART_Transmit</code>. 每次调用都有固定开销,
+检查状态、算超时、进出临界区, 逐点发要调 500 次, 光开销就吃掉 1~2 ms,
+而且每次只发 8 字节, 串口根本喂不满.</p>
+<p>所以先打包到一整块缓冲:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Core/Src/main.c —— 打包缓冲 */</span></span><br><span class="line"><span class="comment">/* justfloat 打包缓冲, 500 点 x 8 字节 = 4000 字节 */</span></span><br><span class="line"><span class="type">static</span> <span class="type">uint8_t</span>  jf_buf[ADC_BUF_LEN * <span class="number">8U</span>];</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Core/Src/main.c —— 发送 */</span></span><br><span class="line"><span class="comment">/* 一次性发完 4000 字节</span></span><br><span class="line"><span class="comment">   超时给 200ms, 按 921600 波特率算, 4000 字节约需 43ms, 留足余量 */</span></span><br><span class="line">HAL_UART_Transmit(&amp;huart1, jf_buf, ADC_BUF_LEN * <span class="number">8U</span>, <span class="number">200U</span>);</span><br></pre></td></tr></table></figure>
+<p>这里阻塞是故意的, 必须保证一帧完整发出去. justfloat
+是字节流协议靠帧尾定界, 中途插进别的字节就会解析错位.</p>
+<h3 id="文本和二进制不能混发">文本和二进制不能混发</h3>
+<p><code>Report_Poll()</code> 会打印一行状态文本:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wave=SQUARE  amp=1800  Vpp=3.601  min=0.200  max=3.801  avg=1.648</span><br></pre></td></tr></table></figure>
+<p>但这行是纯文本, 而波形是二进制 justfloat, 两者共用同一个串口.</p>
+<p>如果这行插进波形流中间, VOFA+ 会把 <code>w</code>、<code>a</code>
+这些字符的 ASCII 码当成 float 的字节去解析, 整条曲线立刻报废.</p>
+<p>所以代码里把它默认关闭:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Core/Src/main.c —— 文本上报开关 */</span></span><br><span class="line"><span class="comment">/* 是否输出【文本状态行】</span></span><br><span class="line"><span class="comment">   ！！默认关闭, 这是故意的！！</span></span><br><span class="line"><span class="comment">   波形走的是二进制 justfloat, 文本行一旦插进这个流里,</span></span><br><span class="line"><span class="comment">   VOFA+ 的解析器会把文本字符当成 float 的字节, 整条曲线就毁了 */</span></span><br><span class="line"><span class="type">static</span> <span class="keyword">volatile</span> <span class="type">uint8_t</span> s_text_report_on = <span class="number">0U</span>;</span><br></pre></td></tr></table></figure>
+<p>要看文本时按 <code>'T'</code> 打开, 看完记得关掉,
+或者切到纯文本模式用串口助手看.</p>
+<h3 id="主循环">主循环</h3>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Core/Src/main.c —— while(1) */</span></span><br><span class="line"><span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">&#123;</span><br><span class="line">  Button_Poll();      <span class="comment">/* 0) 按键切波形, 放最前面保证响应不被阻塞 */</span></span><br><span class="line">  Serial_Poll();      <span class="comment">/* 0.5) 串口命令 */</span></span><br><span class="line">  Report_Poll();      <span class="comment">/* 0.8) 文本上报(默认关闭, 直接 return) */</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 1) 采满一帧就发出去 */</span></span><br><span class="line">  <span class="keyword">if</span> (adc_ready)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="type">uint32_t</span> i;</span><br><span class="line">    adc_ready = <span class="number">0U</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0U</span>; i &lt; ADC_BUF_LEN; i++)</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="built_in">memcpy</span>(&amp;jf_buf[i * <span class="number">8U</span>],      &amp;tx_buf[i], <span class="number">4</span>);</span><br><span class="line">      <span class="built_in">memcpy</span>(&amp;jf_buf[i * <span class="number">8U</span> + <span class="number">4U</span>], jf_tail,    <span class="number">4</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    HAL_UART_Transmit(&amp;huart1, jf_buf, ADC_BUF_LEN * <span class="number">8U</span>, <span class="number">200U</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>大致算一下帧率:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">发送时间, 4000 字节 × 10 bit/字节 ÷ 921600 = 43.4 ms</span><br><span class="line">采集时间, 5 ms</span><br><span class="line">──────────────────────────────────</span><br><span class="line">一帧总耗时 ≈ 48 ms  →  帧率约 20 Hz</span><br></pre></td></tr></table></figure>
+<p>20 Hz 看波形形状完全够用, 肉眼看是流畅的.</p>
+<h2 id="踩过的坑">踩过的坑</h2>
+<h3 id="坑一-dac-的-dma-一个点都不搬">坑一, DAC 的 DMA 一个点都不搬</h3>
+<p>现象是配置看起来全对, 但 DAC 输出一直是 0, 连一个点都没搬出去.</p>
+<p>查出来是两个原因叠加<del>你妹的坑死我了</del></p>
+<p><strong>坑 A, 外设对齐必须是 WORD</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Core/Src/dac.c —— hdma_dac1_ch1.Init */</span></span><br><span class="line">hdma_dac1_ch1.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;   <span class="comment">/* ★ 必须 32 位 */</span></span><br></pre></td></tr></table></figure>
+<p>STM32G4 的 DAC 挂在 <strong>AHB2</strong> 上, 不是 APB,
+它的寄存器必须用 32 位字访问. 配成 <code>HALFWORD</code> 的话, DMA
+一启动就产生传输错误, <code>TEIF</code> 置位, <code>EN</code> 被清 0,
+<code>CNDTR</code> 永远不动.</p>
+<blockquote>
+<p>可能不是很像人话, 翻译一下, STM32G4 的 DAC 不是接在慢速的 APB 总线上,
+而是接在高速的 AHB2 总线上. AHB2 总线有个硬性条件: <strong>访问 DAC
+的寄存器必须一次性写满 32 位</strong>. 如果在 DMA 里把外设数据宽度配成
+16 位(HALFWORD), DMA 一启动就会报传输错误, 硬件会把错误标志置起来,
+同时自动把 DMA 通道的使能位清零, 结果就是传输计数器永远不动,
+数据一个也搬不到 DAC 里</p>
+</blockquote>
+<blockquote>
+<p>再翻译一下, DAC 的门卫只收 32 位的大箱子, 如果拿 16 位的小盒子去,
+他直接拒收, 还把门关上, 后面所有货都进不去了</p>
+</blockquote>
+<p>这条是 G4 特有的. F4、L1、L4 的 DAC 挂 APB 上, APB 会自动把字节拼成
+32 位, 那些系列反而<strong>不能用 WORD</strong></p>
+<p><strong>坑 B, DMAUDR1 必须手动清</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Core/Src/wavegen.c —— WaveGen_Init() */</span></span><br><span class="line">__HAL_DAC_CLEAR_FLAG(&amp;hdac1, DAC_FLAG_DMAUDR1);</span><br></pre></td></tr></table></figure>
+<p><code>DMAUDR1</code> 是 DMA 欠载标志(罢工开关), 属于 rc_w1 类型,
+读清. 一旦它置起来(开关打开), DAC 会吞掉后续所有 DMA 请求, 表现就是
+<code>CNDTR</code> 装好了却永远不减, <code>DHR12R1</code>
+一动不动(数据寄存器不动)</p>
+<blockquote>
+<p>这个开关很特殊, 读它只能看到它有没有被按下, 必须专门写一个 1
+进去才能使其复位, 写 0 没用</p>
+</blockquote>
+<p>而 HAL 库的 HAL_DAC_Start_DMA() 在启动 DMA 时,
+只会允许这个开关去触发中断, 并不会帮你把它复位. 偏偏该工程又没有开 DAC1
+的 NVIC 中断, 所以这个开关一旦被按下, 就没人管它了, 造成上述现象</p>
+<h3 id="坑二-hal_uart_receive-超时设-0-读不到数据">坑二,
+HAL_UART_Receive 超时设 0 读不到数据</h3>
+<p>现象是想不等待地读一个字节, 把超时设成 0, 结果永远读不到东西.</p>
+<p>原因是 HAL 库把 <code>Timeout = 0</code> 理解成已经超时了,
+函数立刻返回 <code>HAL_TIMEOUT</code>, 一个字节都不读.</p>
+<p>绕开 HAL 直接轮询状态寄存器就行:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Core/Src/main.c —— Serial_Poll() 中读一个字节 */</span></span><br><span class="line"><span class="keyword">if</span> (__HAL_UART_GET_FLAG(&amp;huart1, UART_FLAG_RXNE) == RESET)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">return</span>;      <span class="comment">/* 没有数据, 直接走人 */</span></span><br><span class="line">&#125;</span><br><span class="line">ch = (<span class="type">uint8_t</span>)(huart1.Instance-&gt;RDR &amp; <span class="number">0xFFU</span>);    <span class="comment">/* 读数据寄存器, 顺便清标志 */</span></span><br></pre></td></tr></table></figure>
+<p>顺带记一下, F4 和 G4 的寄存器名不一样. G4 叫 <code>RDR</code>, F4 叫
+<code>DR</code>. 跨芯片移植容易在这里卡住.</p>
+<h3 id="坑三-时钟配置的假矛盾">*坑三, 时钟配置的假矛盾</h3>
+<p><code>system_stm32g4xx.c</code> 里写着:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Core/Src/system_stm32g4xx.c —— 模板默认值, 实际不生效 */</span></span><br><span class="line"><span class="meta">#<span class="keyword">if</span> !defined  (HSE_VALUE)</span></span><br><span class="line">  <span class="meta">#<span class="keyword">define</span> HSE_VALUE     24000000U</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<p>而 <code>Core/Inc/stm32g4xx_hal_conf.h</code> 里写的是 8 MHz.</p>
+<p>一开始以为配置冲突了, 后来发现不是. 前者在 <code>#if !defined</code>
+保护下, 只有 HSE_VALUE 从没被定义过时才生效. 编译时
+<code>system_stm32g4xx.c</code> 会 <code>#include "stm32g4xx.h"</code>,
+这条链最终包含 <code>stm32g4xx_hal_conf.h</code>, 此时
+<code>HSE_VALUE</code> 已被定义成 8 MHz, 所以那个 24000000U
+根本不参与编译.</p>
+<p>24 MHz 只是 CubeMX 模板的默认占位值, 不要去动!</p>
+<h2 id="上位机怎么设">上位机怎么设</h2>
+<p>原理图内接线就两根:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">G431                    USB-TTL 模块              电脑</span><br><span class="line">┌────────┐              ┌──────────┐</span><br><span class="line">│  PC4 ●─┼──────────────┼─● RX     │</span><br><span class="line">│  GND ●─┼──────────────┼─● GND    │─────────▶ USB ──▶ VOFA+</span><br><span class="line">└────────┘              └──────────┘</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>线</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PC4</code>(TX)→ USB-TTL 的 <code>RX</code></td>
+<td>数据</td>
+</tr>
+<tr>
+<td><code>GND</code> → USB-TTL 的 <code>GND</code></td>
+<td><strong>必须接, 不共地数据全是乱的</strong></td>
+</tr>
+</tbody>
+</table>
+<p>G431 的 TX 是 <code>PC4</code>, 不是 PA9, 这个很容易搞错.
+<code>PA10</code> 是 RX, 可以另外接 F401 的 TX 做遥控, 互不干扰.</p>
+<p>VOFA+ 设置:</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>波特率</td>
+<td><strong>921600</strong></td>
+</tr>
+<tr>
+<td>数据格式</td>
+<td>8N1</td>
+</tr>
+<tr>
+<td>协议</td>
+<td><strong>justfloat</strong></td>
+</tr>
+<tr>
+<td>Y 轴范围</td>
+<td><strong>手动锁定 0 ~ 3.3 V</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Y 轴这条很重要. 用自动缩放的话, 一旦把幅度调到 0, 输出一条直流, VOFA+
+会把量表放到极小范围, 之后再看正常波形就糊了. 锁定 0~3.3 V
+之后波形大小变化能直观看出来.</p>
+<h2 id="当前时钟配置">当前时钟配置</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HSE 8 MHz (板载晶振, PF0/PF1)</span><br><span class="line">  │</span><br><span class="line">  ├─ /M(2) ──▶   4 MHz     [VCO输入, 合法 2.66~16 MHz]</span><br><span class="line">  ├─ ×N(85) ─▶ 340 MHz     [VCO输出, 合法 96~344 MHz]</span><br><span class="line">  └─ /R(2) ──▶ 170 MHz  ← SYSCLK</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>外设</th>
+<th>时钟来源</th>
+<th>频率</th>
+<th>关键参数</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TIM2</td>
+<td>APB1</td>
+<td>170 MHz</td>
+<td>PSC=0, ARR=1699</td>
+<td><strong>100 kHz</strong> TRGO</td>
+</tr>
+<tr>
+<td>TIM3</td>
+<td>APB1</td>
+<td>170 MHz</td>
+<td>PSC=169, ARR=999</td>
+<td><strong>1 kHz</strong> PWM(未用)</td>
+</tr>
+<tr>
+<td>DAC1</td>
+<td>无</td>
+<td>无</td>
+<td>触发 T2_TRGO, 表长 100</td>
+<td><strong>1 kHz</strong> 波形</td>
+</tr>
+<tr>
+<td>ADC1</td>
+<td><strong>SYSCLK/4</strong></td>
+<td><strong>42.5 MHz</strong></td>
+<td>47.5 周期采样</td>
+<td>1.412 µs/次</td>
+</tr>
+<tr>
+<td>USART1</td>
+<td>APB2</td>
+<td>170 MHz</td>
+<td>921600 8N1</td>
+<td>921600</td>
+</tr>
+</tbody>
+</table>
+<p>ADC 的时钟源是 <strong>SYSCLK</strong> 不是 PCLK2, 走
+<code>RCC_ADC12CLKSOURCE_SYSCLK</code> 再 DIV4. 本工程 APB2 分频恰好是
+1, 两者数值相同. 但哪天把 APB2 改成 /2, PCLK2 变 85 MHz 而 ADC 仍是 42.5
+MHz.</p>
+<h2 id="关键参数速查">关键参数速查</h2>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>数值</th>
+<th>出处</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>表长</td>
+<td>100 点</td>
+<td><code>wavegen.c</code> <code>WAVE_LEN</code></td>
+</tr>
+<tr>
+<td>输出频率</td>
+<td>1.000 kHz</td>
+<td>100 kHz ÷ 100</td>
+</tr>
+<tr>
+<td>幅度上限</td>
+<td>2047 码值</td>
+<td><code>WaveGen_FillTable</code></td>
+</tr>
+<tr>
+<td>默认幅度</td>
+<td>1800 码值</td>
+<td><code>wavegen.h</code></td>
+</tr>
+<tr>
+<td>DAC 中点</td>
+<td>2048(1.65 V)</td>
+<td><code>WAVE_DAC_MID</code></td>
+</tr>
+<tr>
+<td>输出引脚</td>
+<td>PA4</td>
+<td>芯片固定</td>
+</tr>
+<tr>
+<td>采集帧长</td>
+<td>500 点</td>
+<td><code>main.c</code> <code>ADC_BUF_LEN</code></td>
+</tr>
+<tr>
+<td>串口帧长</td>
+<td>4000 字节</td>
+<td>500 × 8</td>
+</tr>
+</tbody>
+</table>
+<p>串口命令都是单字符, 不需要回车换行:</p>
+<table>
+<thead>
+<tr>
+<th>字符</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>n</code></td>
+<td>下一种波形</td>
+</tr>
+<tr>
+<td><code>1</code> ~ <code>5</code></td>
+<td>直接选, 正弦/方波/三角/锯齿/阶梯</td>
+</tr>
+<tr>
+<td><code>+</code> / <code>-</code></td>
+<td>幅度 ±100</td>
+</tr>
+<tr>
+<td><code>0</code></td>
+<td>幅度归零, 输出直线</td>
+</tr>
+<tr>
+<td><code>a</code></td>
+<td>幅度拉满 2047</td>
+</tr>
+<tr>
+<td><code>T</code></td>
+<td>开/关文本状态上报</td>
+</tr>
+</tbody>
+</table>
+<h2 id="小结">小结</h2>
+<p>波形就是一张表, 五种波形的区别只是 <code>s</code> 的算法.</p>
+<p>节奏来自 TIM2, 硬件打拍子, DMA 自动搬, CPU 不参与</p>
+<p>切换就是改表, 不重启 DMA, 不重配外设, 所以零代价, 不断波形.</p>
+<h2 id="todo">todo</h2>
+<ul class="task-list">
+<li><label><input type="checkbox" />补实物照片, 整机、OLED
+显示各种波形、幅度前后对比</label></li>
+<li><label><input type="checkbox" />时钟自检代码还没加进工程,
+跑一次能直接打印 SYSCLK/HCLK/PCLK1/PCLK2/ADC1</label></li>
+</ul>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/avatar.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/avatar.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">Kanwuqing</div><div class="post-copyright__author_desc">To Be Legend</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://kanwuqing.github.io/%E6%B3%A2%E5%BD%A2%E7%94%9F%E6%88%90%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-G431/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://kanwuqing.github.io/%E6%B3%A2%E5%BD%A2%E7%94%9F%E6%88%90%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-G431/')">波形发生识别系统开发日志 —— G431 波形生成</span></a></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://kanwuqing.github.io" target="_blank">阚无倾的小窝</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/STM32/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>STM32<span class="tagsPageCount">3</span></a><a class="post-meta__box__tags" href="/tags/G431/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>G431<span class="tagsPageCount">1</span></a><a class="post-meta__box__tags" href="/tags/%E6%B3%A2%E5%BD%A2%E5%8F%91%E7%94%9F%E8%AF%86%E5%88%AB%E7%B3%BB%E7%BB%9F/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>波形发生识别系统<span class="tagsPageCount">2</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="/img/default_bg.jpg" data-sites="wechat,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E8%BF%90%E7%AE%97%E7%AC%A6%E4%B8%8E%E8%A1%A8%E8%BE%BE%E5%BC%8F/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">C语言学习笔记——运算符与表达式</div></div></a></div><div class="next-post pull-right"><a href="/%E6%B3%A2%E5%BD%A2%E7%94%9F%E6%88%90%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-F401/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">波形发生识别系统开发日志 —— F401 采集与识别</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/%E6%B3%A2%E5%BD%A2%E7%94%9F%E6%88%90%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-F401/" title="波形发生识别系统开发日志 —— F401 采集与识别"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2026-10-13</div><div class="title">波形发生识别系统开发日志 —— F401 采集与识别</div></div></a></div><div><a href="/%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8D%95%E7%89%87%E6%9C%BA%E9%A1%B9%E7%9B%AE%E2%80%94%E2%80%94%E7%8A%B6%E6%80%81%E6%9C%BA%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97/" title="第一个单片机项目——状态机开发日志"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2026-09-03</div><div class="title">第一个单片机项目——状态机开发日志</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info__sayhi" id="author-info__sayhi" onclick="anzhiyu.changeSayHelloText()"></div><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-status"><img class="g-status" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/emoji.png" alt="status"/></div></div><div class="author-info__description"><div style="font-size:16px;line-height:1.38;margin:0.6rem 0;text-align:justify;color:rgba(0, 0, 0, 0.8);">这里是我在探索记录与实践复盘的数字角落，主要存放开发中的踩坑记录、解决方案、项目日志和学习笔记。</div> <div style="font-size:16px;line-height:1.38;margin:0.6rem 0;text-align:justify;color:rgba(0, 0, 0, 0.8);>相信这些源于实战的思考与总结，能为你我照亮些许前行的路。欢迎交流与指正。</div></div><div class="author-info__bottom-group"><a class="author-info__bottom-group-left" href="/about"><h1 class="author-info__name">Kanwuqing</h1><div class="author-info__desc">To Be Legend</div></a><div class="card-info-social-icons is-center"><a class="social-icon faa-parent animated-hover" href="https://github.com/kanwuqing" target="_blank" title="Github"><i class="anzhiyufont anzhiyu-icon-github"></i></a></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#g431%E5%8A%9F%E8%83%BD%E7%BB%BC%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">G431功能综述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%B8%85%E5%8D%95"><span class="toc-number">2.</span> <span class="toc-text">文件清单</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%80%9D%E8%B7%AF"><span class="toc-number">3.</span> <span class="toc-text">整体思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E4%B8%AA%E5%A4%96%E8%AE%BE%E7%9A%84%E5%88%86%E5%B7%A5"><span class="toc-number">4.</span> <span class="toc-text">四个外设的分工</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tim2-%E8%8A%82%E6%8B%8D%E5%99%A8"><span class="toc-number">4.1.</span> <span class="toc-text">TIM2, 节拍器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dac-%E6%95%B0%E6%A8%A1%E8%BD%AC%E6%8D%A2%E5%99%A8"><span class="toc-number">4.2.</span> <span class="toc-text">DAC, 数模转换器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dma-%E8%87%AA%E5%8A%A8%E6%90%AC%E8%BF%90%E5%B7%A5"><span class="toc-number">4.3.</span> <span class="toc-text">DMA, 自动搬运工</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#usart1-%E6%8A%8A%E6%B3%A2%E5%BD%A2%E5%8F%91%E5%87%BA%E5%8E%BB"><span class="toc-number">4.4.</span> <span class="toc-text">USART1, 把波形发出去</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A2%E5%BD%A2%E8%A1%A8%E7%94%9F%E6%88%90"><span class="toc-number">5.</span> <span class="toc-text">波形表生成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%9F%E4%B8%80%E5%85%AC%E5%BC%8F"><span class="toc-number">5.1.</span> <span class="toc-text">统一公式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A3%E5%BC%A6%E6%B3%A2"><span class="toc-number">5.2.</span> <span class="toc-text">正弦波</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%A2"><span class="toc-number">5.3.</span> <span class="toc-text">方波</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E8%A7%92%E6%B3%A2"><span class="toc-number">5.4.</span> <span class="toc-text">三角波</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%AF%E9%BD%BF%E6%B3%A2"><span class="toc-number">5.5.</span> <span class="toc-text">锯齿波</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%B6%E6%A2%AF%E6%B3%A2"><span class="toc-number">5.6.</span> <span class="toc-text">阶梯波</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94%E7%A7%8D%E6%B3%A2%E5%BD%A2%E5%AF%B9%E7%85%A7"><span class="toc-number">5.7.</span> <span class="toc-text">五种波形对照</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%80%E6%9C%89%E6%B3%A2%E5%BD%A2%E9%83%BD%E6%8C%A4%E5%88%B0%E4%B8%80%E4%B8%AA%E5%BC%95%E8%84%9A%E4%B8%8A"><span class="toc-number">6.</span> <span class="toc-text">所有波形都挤到一个引脚上</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A2%E5%BD%A2%E6%80%8E%E4%B9%88%E5%88%87%E6%8D%A2"><span class="toc-number">7.</span> <span class="toc-text">波形怎么切换</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B9%E8%A1%A8%E4%B8%8D%E6%94%B9%E5%A4%96%E8%AE%BE"><span class="toc-number">7.1.</span> <span class="toc-text">改表不改外设</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E7%A7%8D%E5%85%A5%E5%8F%A3"><span class="toc-number">7.2.</span> <span class="toc-text">三种入口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E5%B9%85%E5%BA%A6"><span class="toc-number">7.3.</span> <span class="toc-text">调幅度</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%8A%E6%B3%A2%E5%BD%A2%E5%8F%91%E7%BB%99%E7%94%B5%E8%84%91"><span class="toc-number">8.</span> <span class="toc-text">把波形发给电脑</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E4%BB%8E%E5%93%AA%E6%9D%A5"><span class="toc-number">8.1.</span> <span class="toc-text">数据从哪来</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#justfloat-%E5%8D%8F%E8%AE%AE"><span class="toc-number">8.2.</span> <span class="toc-text">justfloat 协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%A7%E7%9A%84%E8%AF%AD%E4%B9%89"><span class="toc-number">8.3.</span> <span class="toc-text">帧的语义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%85%88%E6%89%93%E5%8C%85%E5%86%8D%E5%8F%91"><span class="toc-number">8.4.</span> <span class="toc-text">为什么先打包再发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E6%9C%AC%E5%92%8C%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%8D%E8%83%BD%E6%B7%B7%E5%8F%91"><span class="toc-number">8.5.</span> <span class="toc-text">文本和二进制不能混发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E5%BE%AA%E7%8E%AF"><span class="toc-number">8.6.</span> <span class="toc-text">主循环</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B8%A9%E8%BF%87%E7%9A%84%E5%9D%91"><span class="toc-number">9.</span> <span class="toc-text">踩过的坑</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9D%91%E4%B8%80-dac-%E7%9A%84-dma-%E4%B8%80%E4%B8%AA%E7%82%B9%E9%83%BD%E4%B8%8D%E6%90%AC"><span class="toc-number">9.1.</span> <span class="toc-text">坑一, DAC 的 DMA 一个点都不搬</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9D%91%E4%BA%8C-hal_uart_receive-%E8%B6%85%E6%97%B6%E8%AE%BE-0-%E8%AF%BB%E4%B8%8D%E5%88%B0%E6%95%B0%E6%8D%AE"><span class="toc-number">9.2.</span> <span class="toc-text">坑二,
+HAL_UART_Receive 超时设 0 读不到数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9D%91%E4%B8%89-%E6%97%B6%E9%92%9F%E9%85%8D%E7%BD%AE%E7%9A%84%E5%81%87%E7%9F%9B%E7%9B%BE"><span class="toc-number">9.3.</span> <span class="toc-text">*坑三, 时钟配置的假矛盾</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8A%E4%BD%8D%E6%9C%BA%E6%80%8E%E4%B9%88%E8%AE%BE"><span class="toc-number">10.</span> <span class="toc-text">上位机怎么设</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BD%93%E5%89%8D%E6%97%B6%E9%92%9F%E9%85%8D%E7%BD%AE"><span class="toc-number">11.</span> <span class="toc-text">当前时钟配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E5%8F%82%E6%95%B0%E9%80%9F%E6%9F%A5"><span class="toc-number">12.</span> <span class="toc-text">关键参数速查</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">13.</span> <span class="toc-text">小结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#todo"><span class="toc-number">14.</span> <span class="toc-text">todo</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E7%A8%8B%E5%BA%8F%E8%B7%91%E4%B8%8D%E5%AF%B9%E6%80%8E%E4%B9%88%E5%8A%9E/" title="C语言学习笔记——程序跑不对怎么办"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C语言学习笔记——程序跑不对怎么办"/></a><div class="content"><a class="title" href="/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E7%A8%8B%E5%BA%8F%E8%B7%91%E4%B8%8D%E5%AF%B9%E6%80%8E%E4%B9%88%E5%8A%9E/" title="C语言学习笔记——程序跑不对怎么办">C语言学习笔记——程序跑不对怎么办</a><time datetime="2026-10-17T08:10:00.000Z" title="发表于 2026-10-17 16:10:00">2026-10-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E6%95%B0%E7%BB%84%E4%B8%8E%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="C语言学习笔记——数组与字符串"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C语言学习笔记——数组与字符串"/></a><div class="content"><a class="title" href="/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E6%95%B0%E7%BB%84%E4%B8%8E%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="C语言学习笔记——数组与字符串">C语言学习笔记——数组与字符串</a><time datetime="2026-10-16T06:35:00.000Z" title="发表于 2026-10-16 14:35:00">2026-10-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/" title="C语言学习笔记——流程控制"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C语言学习笔记——流程控制"/></a><div class="content"><a class="title" href="/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/" title="C语言学习笔记——流程控制">C语言学习笔记——流程控制</a><time datetime="2026-10-15T01:20:00.000Z" title="发表于 2026-10-15 09:20:00">2026-10-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/%E6%B3%A2%E5%BD%A2%E7%94%9F%E6%88%90%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-F401/" title="波形发生识别系统开发日志 —— F401 采集与识别"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="波形发生识别系统开发日志 —— F401 采集与识别"/></a><div class="content"><a class="title" href="/%E6%B3%A2%E5%BD%A2%E7%94%9F%E6%88%90%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-F401/" title="波形发生识别系统开发日志 —— F401 采集与识别">波形发生识别系统开发日志 —— F401 采集与识别</a><time datetime="2026-10-13T02:20:00.000Z" title="发表于 2026-10-13 10:20:00">2026-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/%E6%B3%A2%E5%BD%A2%E7%94%9F%E6%88%90%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-G431/" title="波形发生识别系统开发日志 —— G431 波形生成"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="波形发生识别系统开发日志 —— G431 波形生成"/></a><div class="content"><a class="title" href="/%E6%B3%A2%E5%BD%A2%E7%94%9F%E6%88%90%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-G431/" title="波形发生识别系统开发日志 —— G431 波形生成">波形发生识别系统开发日志 —— G431 波形生成</a><time datetime="2026-10-12T23:39:30.000Z" title="发表于 2026-10-13 07:39:30">2026-10-13</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2026 By <a class="footer-bar-link" href="/" title="Kanwuqing" target="_blank">Kanwuqing</a></div></div><div id="footer-type-tips"></div><div class="js-pjax"><script>function subtitleType () {
+  fetch('https://v1.hitokoto.cn')
+    .then(response => response.json())
+    .then(data => {
+      if (true) {
+        const from = '出自 ' + data.from
+        const sub = ["生活明朗&#44; 万物可爱&#44; 人间值得&#44; 未来可期."]
+        sub.unshift(data.hitokoto, from)
+        window.typed = new Typed('#footer-type-tips', {
+          strings: sub,
+          startDelay: 300,
+          typeSpeed: 150,
+          loop: true,
+          backSpeed: 50,
+        })
+      } else {
+        document.getElementById('footer-type-tips').innerHTML = data.hitokoto
+      }
+    })
+}
+
+if (true) {
+  if (typeof Typed === 'function') {
+    subtitleType()
+  } else {
+    getScript('https://cdn.cbd.int/typed.js@2.1.0/dist/typed.umd.js').then(subtitleType)
+  }
+} else {
+  subtitleType()
+}
+</script></div></div><div class="footer-bar-right"><a class="footer-bar-link" href="/"></a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">33</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">4</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" href="/html/maze.html" title="迷宫小游戏"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="迷宫小游戏"/><span class="back-menu-item-text">迷宫小游戏</span></a><a class="back-menu-item" href="/html/latex-table.html" title="LaTeX速查表"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="LaTeX速查表"/><span class="back-menu-item-text">LaTeX速查表</span></a></div></div></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 归档</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于我</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/career/"><i class="anzhiyufont anzhiyu-icon-images faa-tada" style="font-size: 0.9em;"></i><span> 我的经历</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/AI/" style="font-size: 0.88rem;">AI<sup>12</sup></a><a href="/tags/Bot/" style="font-size: 0.88rem;">Bot<sup>7</sup></a><a href="/tags/C/" style="font-size: 0.88rem;">C++<sup>7</sup></a><a href="/tags/Canvas/" style="font-size: 0.88rem;">Canvas<sup>1</sup></a><a href="/tags/C%E8%AF%AD%E8%A8%80/" style="font-size: 0.88rem;">C语言<sup>10</sup></a><a href="/tags/F401/" style="font-size: 0.88rem;">F401<sup>1</sup></a><a href="/tags/G431/" style="font-size: 0.88rem;">G431<sup>1</sup></a><a href="/tags/HTML/" style="font-size: 0.88rem;">HTML<sup>1</sup></a><a href="/tags/Javascript/" style="font-size: 0.88rem;">Javascript<sup>1</sup></a><a href="/tags/LegendBot/" style="font-size: 0.88rem;">LegendBot<sup>7</sup></a><a href="/tags/Manim/" style="font-size: 0.88rem;">Manim<sup>1</sup></a><a href="/tags/OI/" style="font-size: 0.88rem;">OI<sup>5</sup></a><a href="/tags/Python/" style="font-size: 0.88rem;">Python<sup>13</sup></a><a href="/tags/STM32/" style="font-size: 0.88rem;">STM32<sup>3</sup></a><a href="/tags/Wechat/" style="font-size: 0.88rem;">Wechat<sup>7</sup></a><a href="/tags/docs/" style="font-size: 0.88rem;">docs<sup>1</sup></a><a href="/tags/temp/" style="font-size: 0.88rem;">temp<sup>1</sup></a><a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" style="font-size: 0.88rem;">人工智能<sup>12</sup></a><a href="/tags/%E4%BF%A1%E5%A5%A5/" style="font-size: 0.88rem;">信奥<sup>8</sup></a><a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" style="font-size: 0.88rem;">单片机<sup>1</sup></a><a href="/tags/%E5%A4%8D%E7%8E%B0/" style="font-size: 0.88rem;">复现<sup>1</sup></a><a href="/tags/%E6%8A%80%E6%9C%AF/" style="font-size: 0.88rem;">技术<sup>11</sup></a><a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 0.88rem;">教程<sup>4</sup></a><a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 0.88rem;">数学<sup>21</sup></a><a href="/tags/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/" style="font-size: 0.88rem;">数据科学<sup>1</sup></a><a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">机器学习<sup>1</sup></a><a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/" style="font-size: 0.88rem;">概率论<sup>1</sup></a><a href="/tags/%E6%B3%A2%E5%BD%A2%E5%8F%91%E7%94%9F%E8%AF%86%E5%88%AB%E7%B3%BB%E7%BB%9F/" style="font-size: 0.88rem;">波形发生识别系统<sup>2</sup></a><a href="/tags/%E7%AC%94%E8%AE%B0/" style="font-size: 0.88rem;">笔记<sup>41</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 0.88rem;">算法<sup>9</sup></a><a href="/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" style="font-size: 0.88rem;">线性代数<sup>11</sup></a><a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/" style="font-size: 0.88rem;">计算机<sup>3</sup></a><a href="/tags/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/" style="font-size: 0.88rem;">高等数学<sup>5</sup></a></div></div><hr/></div></div><div id="keyboard-tips"><div class="keyboardTitle">博客快捷键</div><div class="keybordList"><div class="keybordItem"><div class="keyGroup"><div class="key">shift K</div></div><div class="keyContent"><div class="content">关闭快捷键功能</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift A</div></div><div class="keyContent"><div class="content">打开/关闭中控台</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift M</div></div><div class="keyContent"><div class="content">播放/暂停音乐</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift D</div></div><div class="keyContent"><div class="content">深色/浅色显示模式</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift S</div></div><div class="keyContent"><div class="content">站内搜索</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift R</div></div><div class="keyContent"><div class="content">随机访问</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift H</div></div><div class="keyContent"><div class="content">返回首页</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift F</div></div><div class="keyContent"><div class="content">友链鱼塘</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift L</div></div><div class="keyContent"><div class="content">友链页面</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift P</div></div><div class="keyContent"><div class="content">关于本站</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift I</div></div><div class="keyContent"><div class="content">原版/本站右键菜单</div></div></div></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8904880904" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="is-center" id="loading-database"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-pulse-icon"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@6.1.6/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script async src="/anzhiyu/random.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://cdn.cbd.int/qrcodejs@1.0.0/qrcode.min.js"></script><script src="/js/anzhiyu/right_click_menu.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
