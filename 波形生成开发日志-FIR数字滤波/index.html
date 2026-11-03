@@ -1,0 +1,566 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>波形发生识别系统开发日志 —— FIR 数字滤波 | 阚无倾的小窝</title><meta name="keywords" content="STM32,波形发生识别系统,F401,数字信号处理"><meta name="author" content="Kanwuqing"><meta name="copyright" content="Kanwuqing"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="波形发生识别系统开发日志 —— FIR 数字滤波"><meta name="application-name" content="波形发生识别系统开发日志 —— FIR 数字滤波"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="波形发生识别系统开发日志 —— FIR 数字滤波"><meta property="og:url" content="https://kanwuqing.github.io/%E6%B3%A2%E5%BD%A2%E7%94%9F%E6%88%90%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-FIR%E6%95%B0%E5%AD%97%E6%BB%A4%E6%B3%A2/index.html"><meta property="og:site_name" content="阚无倾的小窝"><meta property="og:description" content="这篇写采集链路上那一级 FIR 低通. 怎么定参数, 代码怎么写, 效果怎么验 工程叫 Wave2, 滤波相关代码在 Core&amp;#x2F;Src&amp;#x2F;fir.c 和 Core&amp;#x2F;Inc&amp;#x2F;fir.h  为什么要加这一级 F401 的识别链路原本是裸的 1ADC 采 500 点 -&amp;gt; 提取 5"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://kanwuqing.github.io/img/default_bg.jpg"><meta property="article:author" content="Kanwuqing"><meta property="article:tag" content="Python,Coding"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://kanwuqing.github.io/img/default_bg.jpg"><meta name="description" content="这篇写采集链路上那一级 FIR 低通. 怎么定参数, 代码怎么写, 效果怎么验 工程叫 Wave2, 滤波相关代码在 Core&amp;#x2F;Src&amp;#x2F;fir.c 和 Core&amp;#x2F;Inc&amp;#x2F;fir.h  为什么要加这一级 F401 的识别链路原本是裸的 1ADC 采 500 点 -&amp;gt; 提取 5"><link rel="shortcut icon" href="/img/kanwuqing.ico"><link rel="canonical" href="https://kanwuqing.github.io/%E6%B3%A2%E5%BD%A2%E7%94%9F%E6%88%90%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-FIR%E6%95%B0%E5%AD%97%E6%BB%A4%E6%B3%A2/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@6.1.6/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/swiper/swiper.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: undefined,
+  postHeadAiDescription: undefined,
+  diytitle: undefined,
+  LA51: undefined,
+  greetingBox: {"enable":true,"default":"晚上好👋","list":[{"greeting":"晚安😴","startTime":0,"endTime":5},{"greeting":"早上好鸭👋, 祝你一天好心情！","startTime":6,"endTime":9},{"greeting":"上午好👋, 状态很好，鼓励一下～","startTime":10,"endTime":10},{"greeting":"11点多啦, 在坚持一下就吃饭啦～","startTime":11,"endTime":11},{"greeting":"午安👋","startTime":12,"endTime":14},{"greeting":"🌈充实的一天辛苦啦！","startTime":14,"endTime":18},{"greeting":"19点喽, 奖励一顿丰盛的大餐吧🍔。","startTime":19,"endTime":19},{"greeting":"晚上好👋, 在属于自己的时间好好放松😌~","startTime":20,"endTime":24}]},
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "custom",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: {"skills":["🤖️ 数码科技爱好者","🔍 分享与热心帮助","🏠 智能家居小能手","🔨 设计开发一条龙","🤝 专修交互与设计","🏃 脚踏实地行动派","🧱 团队小组发动机","💢 壮汉人狠话不多"]},
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: Kanwuqing","link":"链接: ","source":"来源: 阚无倾的小窝","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.2.0/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.2.0/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: {"enable":true,"delay":100,"shiftDelay":200},
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '阚无倾的小窝',
+  title: '波形发生识别系统开发日志 —— FIR 数字滤波',
+  postAI: '',
+  pageFillDescription: '为什么要加这一级, 设计约束, 基波必须无损, 调幅波的载波要保住, 为什么选 FIR 不选 IIR, Gibbs 现象的权衡, 最终参数, 代码实现, 就地逆序迭代, 边界重复首尾点, 浮点累加后夹紧, 群延迟, 算力, 接进识别链路, 效果 波形变干净了, 用串口接 G431 看原始波形, 滤波之后, 实测结果, 关键参数, 加进 Keil 工程, todo这篇写采集链路上那一级低通怎么定参数代码怎么写效果怎么验工程叫滤波相关代码在和为什么要加这一级的识别链路原本是裸的采点提取个特征顺序判定多数表决上屏原始码值直接喂给上跑模型时这样没问题因为模拟信号是干净数学生成的接上实物之后就露出问题了链路上有两个噪声源的输出端没有模拟滤波方波和锯齿的陡沿后面拖着明显振铃两板之间连的是一根普通杜邦线没有屏蔽振铃对特征的影响很直接方波的一个陡沿过去后面跟着一串高频抖动这些点的相邻差超过了的判据被判成在动因此被拉低波形看起来就没那么方了锯齿波的情况更糟因为它只有一个陡沿振铃全压在那一个沿上所以加了一级低通把边沿的高频毛刺磨掉让特征提取拿到的是一份干净的数据设计约束截止频率不能随便定有两条硬约束夹着基波必须无损采集是一帧点信号基频每周期点数点一帧点正好个完整周期如果低通把削掉一部分后面所有特征算的都是假数据所以必须落在通带里而且衰减要小到可以忽略调幅波的载波要保住这条更苛刻调幅波在那边的生成方式是调幅波载波包络调制深度在采样率下一周期只有个点这个密度下任何靠近的衰减都会直接削掉峰值让失真调幅波就认不出来了实测不同截止频率对调幅波的影响偏差载波被削烂可以接受所以截止频率压不下去附近是比较合适的位置为什么选不选的相位是非线性的不同频率的延迟不一样波形过一遍形状会被扭方波的上升沿和下降沿会呈现不对称的过冲这个作品识别看的就是形状相位失真会直接污染和可以做成严格线性相位条件很简单系数对称系数对称时所有频率的延迟都等于个采样点波形只是整体平移形状一点不变代价是同样抑制强度下阶数要高不少但在这个尺度上算力不是瓶颈后面具体算现象的权衡阶数不能无脑往上堆这里有个反直觉的地方方波理论上是无限带宽的任何低通截断它的高频分量都会在边沿两侧留下过冲这就是现象阶数越高过渡带越陡过冲越明显实测阶截止处抑制理论上很强的结果方波被抬高方波被抬高了近而在这个作品里是承重结构判断信号是否存在的分子分母都以为基准的直方图分桶按划分一变整套特征就跟着歪扫了一遍阶数和截止频率的组合最大偏差选这个但调幅波被削规律很清楚阶数越高过冲越大这不是参数没调好是现象的必然结果最终参数阶截止窗系数严格对称直流增益精确为系数和频率响应基波无损调幅波载波几乎无损失六种波形的保真全部在以内这个指标值得单独强调一下滤波器的意义是让波形变干净但前提是不能把波形本身改掉偏差全部压在以内说明这一级滤波只动了高频毛刺没碰波形的骨架后面的特征提取才能放心用代码实现必须从后往前算边界用重复首尾点不用补零三个实现细节都值得说就地逆序迭代这是就地滤波的正确写法如果从前往后算第个点的输出会立刻覆盖掉原始数据后面算时窗口里读到的就是被污染过的输入那样实际实现的就不是而是一个奇怪的结果完全不可控倒着算就没这个问题算第点时窗口覆盖而这些位置的值要么还是原始数据要么是已经算好但不再被读取的位置边界重复首尾点帧头帧尾的窗口会越界两种处理方式补零的话帧头第一个点会被当成从跳变到实际值制造出一个假的半台阶会把这个台阶数成运动点直接污染特征重复首尾点没有真实的延拓信息但至少不会凭空造出一个突变对一帧点来说只有头尾各个点受影响占比可以忽略浮点累加后夹紧用累加最后夹到再转回不夹的话负的累加结果转无符号会回绕成一个巨大的值比如变成画到屏幕上就是一根戳出天际的线加是为了四舍五入直接截断会引入固定的码值偏移累积起来会啃掉一点群延迟阶的群延迟是个采样点微秒相对的信号周期这个延迟是而且它是同一帧内的整体平移不影响波形形状也不影响特征提取特征都是相对量和绝对时间无关算力点抽头次乘加是带单周期浮点单元周期抽头周期微秒采集周期是所以占对比一下旁边那个开销整屏刷新一次要滤波连刷屏的都不到完全不是瓶颈居中对齐逆序迭代边界判断这些开销都算进去了即使按周期抽头估也只有占还有大量余量接进识别链路拷出点数字滤波在识别之前把边沿毛刺压掉识别入口位置很关键必须卡在之后之前这样做的效果是看和认用的是同一份数据屏幕画的是滤波后的波形特征提取算的也是滤波后的波形屏幕上看到什么算法就用什么自检路径也走了同一套滤波保证自检结果和实时识别对得上效果波形变干净了用串口接看原始波形想直接看到滤波前后的差别最方便的办法是把的串口接到电脑用看它输出的原始波形接线的电脑的电脑参数波特率数据位校验无停止位协议的发送格式是二进制每个点字节字节小端加字节帧尾一帧发点也就是字节注意模块的要悬空只接和的是它的发送脚接错成对接会两边对着推打开之后切波形看得很清楚方波和锯齿的陡沿上会看到毛刺和过冲三角波和正弦相对干净调幅波的载波上有明显的高频抖动这就是收到的东西滤波之后侧的波形画在上直接就能和上面串口看到的原始波形对比方波边沿的高频毛刺被磨平沿变得更利落但过渡带宽度只有几个采样点肉眼看不出圆角锯齿的陡降沿干净了不再有沿后抖动正弦和三角几乎看不出变化它们本来就没有陡沿高频成分少调幅波的载波保留完整包络仍然清楚关键在于形状没有被改方波还是方的锯齿还是斜的阶梯的台阶还是台阶滤波只带走了边沿上那些不该有的高频抖动实测结果六种波形在板子上全部能认偶尔有个别帧抖动靠帧多数表决抹平板子上的观感和模型不完全一样因为模型里只有噪声而实物链路上还有的非线性和线路上的容性负载这些在模型里模拟不出来早期在上做过一版纯数学的仿真里面用理想方波加人为注入的振铃结论偏保守实物的真实波形没有仿真里那么极端滤波后的实际效果比那个仿真好以板子上跑出来的为准关键参数项目值出处阶数截止频率设计值窗函数群延迟采样点系数和归一化单帧耗时占采集周期开关加进工程是后加的文件需要手动拖进工程左侧窗口右键所在的那个组选重新编译头文件不用管已经在里了漏了这步会报补滤波前后波形的截图对比串口一张一张识别耗时的实测数据还没有目前是理论估算如果想进一步抑制振铃可以试阶配但需要重新验证偏差',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-10-26 13:52:45',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/note.css"><meta name="generator" content="Hexo 8.1.1"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><div class="back-home-button"><i class="anzhiyufont anzhiyu-icon-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/kanwuqing.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" href="/html/maze.html" title="迷宫小游戏"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/kanwuqing.ico" alt="迷宫小游戏"/><span class="back-menu-item-text">迷宫小游戏</span></a><a class="back-menu-item" href="/html/latex-table.html" title="LaTeX速查表"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/kanwuqing.ico" alt="LaTeX速查表"/><span class="back-menu-item-text">LaTeX速查表</span></a></div></div></div></div><a id="site-name" href="/" accesskey="h"><div class="title">阚无倾的小窝</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a><div id="he-plugin-simple"></div><script>var WIDGET = {
+  "CONFIG": {
+    "modules": "0124",
+    "background": "2",
+    "tmpColor": "FFFFFF",
+    "tmpSize": "16",
+    "cityColor": "FFFFFF",
+    "citySize": "16",
+    "aqiColor": "E8D87B",
+    "aqiSize": "16",
+    "weatherIconSize": "24",
+    "alertIconSize": "18",
+    "padding": "10px 10px 10px 10px",
+    "shadow": "0",
+    "language": "auto",
+    "borderRadius": "20",
+    "fixed": "true",
+    "vertical": "top",
+    "horizontal": "left",
+    "left": "20",
+    "top": "7.1",
+    "key": "df245676fb434a0691ead1c63341cd94"
+  }
+}
+</script><link rel="stylesheet" href="https://widget.qweather.net/simple/static/css/he-simple.css?v=1.4.0"/><script src="https://widget.qweather.net/simple/static/js/he-simple.js?v=1.4.0"></script></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 归档</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于我</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/career/"><i class="anzhiyufont anzhiyu-icon-images faa-tada" style="font-size: 0.9em;"></i><span> 我的经历</span></a></li></ul></div></div></div><div id="nav-right"><div class="nav-button only-home" id="travellings_button" title="随机前往一个开往项目网站"><a class="site-page" onclick="anzhiyu.totraveling()" title="随机前往一个开往项目网站" href="javascript:void(0);" rel="external nofollow" data-pjax-state="external"><i class="anzhiyufont anzhiyu-icon-train"></i></a></div><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/AI/" style="font-size: 1.05rem;">AI<sup>12</sup></a><a href="/tags/Bot/" style="font-size: 1.05rem;">Bot<sup>7</sup></a><a href="/tags/C/" style="font-size: 1.05rem;">C++<sup>7</sup></a><a href="/tags/Canvas/" style="font-size: 1.05rem;">Canvas<sup>1</sup></a><a href="/tags/C%E8%AF%AD%E8%A8%80/" style="font-size: 1.05rem;">C语言<sup>12</sup></a><a href="/tags/F401/" style="font-size: 1.05rem;">F401<sup>2</sup></a><a href="/tags/G431/" style="font-size: 1.05rem;">G431<sup>1</sup></a><a href="/tags/HTML/" style="font-size: 1.05rem;">HTML<sup>1</sup></a><a href="/tags/Javascript/" style="font-size: 1.05rem;">Javascript<sup>1</sup></a><a href="/tags/LegendBot/" style="font-size: 1.05rem;">LegendBot<sup>7</sup></a><a href="/tags/Manim/" style="font-size: 1.05rem;">Manim<sup>1</sup></a><a href="/tags/OI/" style="font-size: 1.05rem;">OI<sup>5</sup></a><a href="/tags/Python/" style="font-size: 1.05rem;">Python<sup>13</sup></a><a href="/tags/STM32/" style="font-size: 1.05rem;">STM32<sup>4</sup></a><a href="/tags/Wechat/" style="font-size: 1.05rem;">Wechat<sup>7</sup></a><a href="/tags/docs/" style="font-size: 1.05rem;">docs<sup>1</sup></a><a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" style="font-size: 1.05rem;">人工智能<sup>12</sup></a><a href="/tags/%E4%BF%A1%E5%A5%A5/" style="font-size: 1.05rem;">信奥<sup>8</sup></a><a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" style="font-size: 1.05rem;">单片机<sup>1</sup></a><a href="/tags/%E5%A4%8D%E7%8E%B0/" style="font-size: 1.05rem;">复现<sup>1</sup></a><a href="/tags/%E6%8A%80%E6%9C%AF/" style="font-size: 1.05rem;">技术<sup>11</sup></a><a href="/tags/%E6%8C%87%E9%92%88/" style="font-size: 1.05rem;">指针<sup>1</sup></a><a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 1.05rem;">教程<sup>4</sup></a><a href="/tags/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/" style="font-size: 1.05rem;">数字信号处理<sup>1</sup></a><a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 1.05rem;">数学<sup>21</sup></a><a href="/tags/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/" style="font-size: 1.05rem;">数据科学<sup>1</sup></a><a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">机器学习<sup>1</sup></a><a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/" style="font-size: 1.05rem;">概率论<sup>1</sup></a><a href="/tags/%E6%B3%A2%E5%BD%A2%E5%8F%91%E7%94%9F%E8%AF%86%E5%88%AB%E7%B3%BB%E7%BB%9F/" style="font-size: 1.05rem;">波形发生识别系统<sup>3</sup></a><a href="/tags/%E7%AC%94%E8%AE%B0/" style="font-size: 1.05rem;">笔记<sup>43</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.05rem;">算法<sup>9</sup></a><a href="/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" style="font-size: 1.05rem;">线性代数<sup>11</sup></a><a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/" style="font-size: 1.05rem;">计算机<sup>4</sup></a><a href="/tags/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/" style="font-size: 1.05rem;">高等数学<sup>5</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/10/"><span class="card-archive-list-date">十月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">14</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/09/"><span class="card-archive-list-date">九月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/07/"><span class="card-archive-list-date">七月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/06/"><span class="card-archive-list-date">六月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">12</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/05/"><span class="card-archive-list-date">五月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/04/"><span class="card-archive-list-date">四月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/03/"><span class="card-archive-list-date">三月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">4</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/01/"><span class="card-archive-list-date">一月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div><div class="console-btn-item" id="consoleKeyboard" onclick="anzhiyu.keyboardToggle()" title="快捷键开关"><a class="keyboard-switch"><i class="anzhiyufont anzhiyu-icon-keyboard"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B3%A2%E5%BD%A2%E5%8F%91%E7%94%9F%E8%AF%86%E5%88%AB%E7%B3%BB%E7%BB%9F/" itemprop="url">波形发生识别系统</a></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/STM32/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>STM32</span></a><a class="article-meta__tags" href="/tags/%E6%B3%A2%E5%BD%A2%E5%8F%91%E7%94%9F%E8%AF%86%E5%88%AB%E7%B3%BB%E7%BB%9F/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>波形发生识别系统</span></a><a class="article-meta__tags" href="/tags/F401/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>F401</span></a><a class="article-meta__tags" href="/tags/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>数字信号处理</span></a></span></div></div><h1 class="post-title" itemprop="name headline">波形发生识别系统开发日志 —— FIR 数字滤波</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2026-10-26T06:00:00.000Z" title="发表于 2026-10-26 14:00:00">2026-10-26</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2026-10-26T05:52:45.512Z" title="更新于 2026-10-26 13:52:45">2026-10-26</time></span></div><div class="meta-secondline"><span class="post-meta-separator"></span><span class="post-meta-wordcount"><i class="anzhiyufont anzhiyu-icon-file-word post-meta-icon" title="文章字数"></i><span class="post-meta-label" title="文章字数">字数总计:</span><span class="word-count" title="文章字数">3k</span><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-clock post-meta-icon" title="阅读时长"></i><span class="post-meta-label" title="阅读时长">阅读时长:</span><span>10分钟</span></span><span class="post-meta-separator"></span><span class="post-meta-pv-cv" id="" data-flag-title="波形发生识别系统开发日志 —— FIR 数字滤波"><i class="anzhiyufont anzhiyu-icon-fw-eye post-meta-icon"></i><span class="post-meta-label" title="阅读量">阅读量:</span><span id="busuanzi_value_page_pv"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i></span></span><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为中国"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>中国</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="/img/default_bg.jpg"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://kanwuqing.github.io/%E6%B3%A2%E5%BD%A2%E7%94%9F%E6%88%90%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-FIR%E6%95%B0%E5%AD%97%E6%BB%A4%E6%B3%A2/"><header><a class="post-meta-categories" href="/categories/%E6%B3%A2%E5%BD%A2%E5%8F%91%E7%94%9F%E8%AF%86%E5%88%AB%E7%B3%BB%E7%BB%9F/" itemprop="url">波形发生识别系统</a><a href="/tags/STM32/" tabindex="-1" itemprop="url">STM32</a><a href="/tags/%E6%B3%A2%E5%BD%A2%E5%8F%91%E7%94%9F%E8%AF%86%E5%88%AB%E7%B3%BB%E7%BB%9F/" tabindex="-1" itemprop="url">波形发生识别系统</a><a href="/tags/F401/" tabindex="-1" itemprop="url">F401</a><a href="/tags/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/" tabindex="-1" itemprop="url">数字信号处理</a><h1 id="CrawlerTitle" itemprop="name headline">波形发生识别系统开发日志 —— FIR 数字滤波</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">Kanwuqing</span><time itemprop="dateCreated datePublished" datetime="2026-10-26T06:00:00.000Z" title="发表于 2026-10-26 14:00:00">2026-10-26</time><time itemprop="dateCreated datePublished" datetime="2026-10-26T05:52:45.512Z" title="更新于 2026-10-26 13:52:45">2026-10-26</time></header><blockquote>
+<p>这篇写采集链路上那一级 FIR 低通. 怎么定参数, 代码怎么写,
+效果怎么验</p>
+<p>工程叫 Wave2, 滤波相关代码在 <code>Core/Src/fir.c</code> 和
+<code>Core/Inc/fir.h</code></p>
+</blockquote>
+<h2 id="为什么要加这一级">为什么要加这一级</h2>
+<p>F401 的识别链路原本是裸的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ADC 采 500 点 -&gt; 提取 5 个特征 -&gt; 顺序判定 -&gt; 多数表决 -&gt; 上屏</span><br></pre></td></tr></table></figure>
+<p>原始码值直接喂给 <code>WaveId_Extract()</code>. PC
+上跑模型时这样没问题, 因为模拟信号是干净数学生成的.</p>
+<p>接上实物之后就露出问题了. 链路上有两个噪声源</p>
+<ul>
+<li>G431 的 DAC 输出端没有模拟滤波,
+方波和锯齿的陡沿后面拖着明显振铃</li>
+<li>两板之间连的是一根普通杜邦线, 没有屏蔽</li>
+</ul>
+<p>振铃对特征的影响很直接. 方波的一个陡沿过去, 后面跟着一串高频抖动,
+这些点的相邻差超过了 <code>WV_FLAT_FRAC</code>（3% Vpp）的判据,
+被判成”在动”. <code>flat</code> 因此被拉低,
+波形看起来就没那么”方”了.</p>
+<p>锯齿波的情况更糟, 因为它只有一个陡沿, 振铃全压在那一个沿上.</p>
+<p>所以加了一级低通, 把边沿的高频毛刺磨掉,
+让特征提取拿到的是一份干净的数据.</p>
+<h2 id="设计约束">设计约束</h2>
+<p>截止频率不能随便定, 有两条硬约束夹着.</p>
+<h3 id="基波必须无损">基波必须无损</h3>
+<p>采集是 100 kHz, 一帧 500 点, 信号基频 1 kHz.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">每周期点数 = 100000 / 1000 = 100 点</span><br><span class="line">一帧 500 点 = 正好 5 个完整周期</span><br></pre></td></tr></table></figure>
+<p>如果低通把 1 kHz 削掉一部分, 后面所有特征算的都是假数据. 所以 1 kHz
+必须落在通带里, 而且衰减要小到可以忽略.</p>
+<h3 id="调幅波的载波要保住">调幅波的载波要保住</h3>
+<p>这条更苛刻. 调幅波在 G431 那边的生成方式是</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Wave1/Core/Src/wavegen.c —— 调幅波 */</span></span><br><span class="line">s = sinf(wc) * (<span class="number">1.0f</span> + m * cosf(we)) / (<span class="number">1.0f</span> + m);</span><br></pre></td></tr></table></figure>
+<p>载波 10 kHz, 包络 1 kHz, 调制深度 m = 4/5.</p>
+<p>10 kHz 在 100 kHz 采样率下<strong>一周期只有 10 个点</strong>.
+这个密度下, 任何靠近 10 kHz 的衰减都会直接削掉峰值, 让
+<code>env_ratio</code> 失真, 调幅波就认不出来了.</p>
+<p>实测不同截止频率对调幅波 Vpp 的影响</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">taps  fc       AM Vpp 偏差</span><br><span class="line">9     15 kHz   -19.4%      载波被削烂</span><br><span class="line">9     25 kHz    -4.6%</span><br><span class="line">5     40 kHz    -2.3%      可以接受</span><br></pre></td></tr></table></figure>
+<p>所以截止频率压不下去, 40 kHz 附近是比较合适的位置.</p>
+<h2 id="为什么选-fir-不选-iir">为什么选 FIR 不选 IIR</h2>
+<p>IIR 的相位是非线性的, 不同频率的延迟不一样. 波形过一遍 IIR,
+形状会被”扭”——方波的上升沿和下降沿会呈现不对称的过冲.</p>
+<p>这个作品识别看的就是形状, 相位失真会直接污染 <code>flat</code> 和
+<code>peak_share</code>.</p>
+<p>FIR 可以做成严格线性相位, 条件很简单: <strong>系数对称</strong>.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">h[0] == h[N-1]</span><br><span class="line">h[1] == h[N-2]</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>系数对称时, 所有频率的延迟都等于 <code>(N-1)/2</code> 个采样点,
+波形只是整体平移, 形状一点不变.</p>
+<p>代价是同样抑制强度下阶数要高不少, 但在这个尺度上算力不是瓶颈,
+后面具体算.</p>
+<h2 id="gibbs-现象的权衡">Gibbs 现象的权衡</h2>
+<p>阶数不能无脑往上堆, 这里有个反直觉的地方.</p>
+<p>方波理论上是无限带宽的. 任何低通截断它的高频分量,
+都会在边沿两侧留下过冲, 这就是 Gibbs 现象. 阶数越高, 过渡带越陡,
+过冲越明显.</p>
+<p>实测 15 阶、截止 15 kHz（30 kHz 处抑制 -57 dB, 理论上很强）的结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SINE        -0.11%</span><br><span class="line">SQUARE      +8.83%   &lt;- 方波 Vpp 被抬高</span><br><span class="line">TRIANGLE    -2.17%</span><br><span class="line">SAW         +1.04%</span><br><span class="line">STAIR       +5.56%</span><br><span class="line">AM         -12.69%</span><br></pre></td></tr></table></figure>
+<p>方波 Vpp 被抬高了近 9%. 而 Vpp 在这个作品里是承重结构</p>
+<ul>
+<li><code>WV_MIN_VPP</code> 判断信号是否存在</li>
+<li><code>flat</code> 的分子分母都以 Vpp 为基准</li>
+<li><code>peak_share</code> 的直方图分桶按 Vpp 划分</li>
+</ul>
+<p>Vpp 一变, 整套特征就跟着歪.</p>
+<p>扫了一遍阶数和截止频率的组合</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">taps  fc(kHz)   最大 Vpp 偏差</span><br><span class="line">3     20         2.1%</span><br><span class="line">5     40         2.5%     &lt;- 选这个</span><br><span class="line">9     15         0.8%     但调幅波被削 19.4%</span><br><span class="line">9     30        11.5%</span><br><span class="line">15    15         7.8%</span><br><span class="line">15    35        18.9%</span><br><span class="line">21    25        16.3%</span><br></pre></td></tr></table></figure>
+<p>规律很清楚: 阶数越高过冲越大. 这不是参数没调好, 是 Gibbs
+现象的必然结果.</p>
+<h2 id="最终参数">最终参数</h2>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Core/Src/fir.c */</span></span><br><span class="line"><span class="type">static</span> <span class="type">const</span> <span class="type">float</span> s_fir_taps[FIR_TAPS] = &#123;</span><br><span class="line">  <span class="number">-0.012383558f</span>,  <span class="number">0.103321705f</span>,  <span class="number">0.818123706f</span>,  <span class="number">0.103321705f</span>, <span class="number">-0.012383558f</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>5 阶, 截止 40 kHz, Hamming 窗. 系数严格对称, 直流增益精确为 1（系数和
+= 1.000000000000）.</p>
+<p>频率响应</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> 1 kHz   -0.00 dB    基波无损</span><br><span class="line"> 5 kHz   -0.05 dB</span><br><span class="line">10 kHz   -0.20 dB    调幅波载波, 几乎无损失</span><br><span class="line">20 kHz   -0.90 dB</span><br><span class="line">30 kHz   -2.22 dB</span><br><span class="line">40 kHz   -3.83 dB</span><br></pre></td></tr></table></figure>
+<p>六种波形的 Vpp 保真</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SINE        -0.0%</span><br><span class="line">SQUARE      +2.5%</span><br><span class="line">TRIANGLE    -0.5%</span><br><span class="line">SAW         +0.5%</span><br><span class="line">STAIR       +2.5%</span><br><span class="line">AM          -2.3%</span><br></pre></td></tr></table></figure>
+<p>全部在 ±2.5% 以内.</p>
+<p>这个指标值得单独强调一下. 滤波器的意义是”让波形变干净”,
+但前提是<strong>不能把波形本身改掉</strong>. Vpp 偏差全部压在 ±2.5%
+以内, 说明这一级滤波只动了高频毛刺, 没碰波形的骨架.
+后面的特征提取才能放心用.</p>
+<h2 id="代码实现">代码实现</h2>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Core/Src/fir.c */</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FIR_TAPS        5U</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FIR_GROUP_DELAY (FIR_TAPS / 2U)   <span class="comment">/* = 2 */</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">FIR_LowPass</span><span class="params">(<span class="type">uint16_t</span> *buf, <span class="type">uint32_t</span> len)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">uint32_t</span> i;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* ！！必须从后往前算！！ */</span></span><br><span class="line">  <span class="keyword">for</span> (i = len; i-- &gt; <span class="number">0U</span>; )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="type">float</span> acc = <span class="number">0.0f</span>;</span><br><span class="line">    <span class="type">uint32_t</span> k;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (k = <span class="number">0U</span>; k &lt; FIR_TAPS; k++)</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="type">int32_t</span> idx = (<span class="type">int32_t</span>)i + (<span class="type">int32_t</span>)k - (<span class="type">int32_t</span>)FIR_GROUP_DELAY;</span><br><span class="line"></span><br><span class="line">      <span class="comment">/* 边界用重复首尾点, 不用补零 */</span></span><br><span class="line">      <span class="keyword">if</span> (idx &lt; <span class="number">0</span>)              &#123; idx = <span class="number">0</span>; &#125;</span><br><span class="line">      <span class="keyword">if</span> (idx &gt;= (<span class="type">int32_t</span>)len)  &#123; idx = (<span class="type">int32_t</span>)len - <span class="number">1</span>; &#125;</span><br><span class="line"></span><br><span class="line">      acc += (<span class="type">float</span>)buf[idx] * s_fir_taps[k];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (acc &lt; <span class="number">0.0f</span>)         &#123; acc = <span class="number">0.0f</span>; &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (acc &gt; <span class="number">4095.0f</span>) &#123; acc = <span class="number">4095.0f</span>; &#125;</span><br><span class="line"></span><br><span class="line">    buf[i] = (<span class="type">uint16_t</span>)(acc + <span class="number">0.5f</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>三个实现细节都值得说.</p>
+<h3 id="就地逆序迭代">就地逆序迭代</h3>
+<p>这是就地滤波的正确写法.</p>
+<p>如果从前往后算, 第 <code>i</code> 个点的输出会立刻覆盖掉原始数据,
+后面算 <code>i+1</code> 时窗口里读到的就是被污染过的输入.
+那样实际实现的就不是 FIR, 而是一个奇怪的 IIR, 结果完全不可控.</p>
+<p>倒着算就没这个问题: 算第 <code>i</code> 点时, 窗口覆盖
+<code>[i-2, i+2]</code>, 而这些位置的值要么还是原始数据,
+要么是已经算好但不再被读取的位置.</p>
+<h3 id="边界重复首尾点">边界重复首尾点</h3>
+<p>帧头帧尾的窗口会越界. 两种处理方式:</p>
+<p>补零的话, 帧头第一个点会被当成”从 0 跳变到实际值”, 制造出一个假的半
+Vpp 台阶. <code>flat</code> 会把这个台阶数成”运动点”, 直接污染特征.</p>
+<p>重复首尾点没有真实的延拓信息, 但至少不会凭空造出一个突变. 对一帧 500
+点来说, 只有头尾各 2 个点受影响, 占比 0.8%, 可以忽略.</p>
+<h3 id="浮点累加后夹紧">浮点累加后夹紧</h3>
+<p><code>acc</code> 用 <code>float</code> 累加, 最后夹到
+<code>[0, 4095]</code> 再转回 <code>uint16_t</code>.</p>
+<p>不夹的话, 负的累加结果转无符号会回绕成一个巨大的值（比如 -5 变成
+65531）, 画到屏幕上就是一根戳出天际的线.</p>
+<p>加 <code>0.5f</code> 是为了四舍五入, 直接截断会引入固定的 -0.5
+码值偏移, 累积起来会啃掉一点 Vpp.</p>
+<h2 id="群延迟">群延迟</h2>
+<p>5 阶 FIR 的群延迟是 <code>(5-1)/2 = 2</code> 个采样点.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2 / 100 kHz = 20 微秒</span><br></pre></td></tr></table></figure>
+<p>相对 1 ms 的信号周期, 这个延迟是 2%,
+而且它是<strong>同一帧内的整体平移</strong>, 不影响波形形状,
+也不影响特征提取（特征都是相对量, 和绝对时间无关）.</p>
+<h2 id="算力">算力</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">500 点 x 5 抽头 = 2500 次乘加</span><br></pre></td></tr></table></figure>
+<p>F401 是 Cortex-M4 <span class="citation" data-cites="84">@84</span>
+MHz, 带单周期浮点单元.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2500 x 3 周期/抽头 = 7500 周期</span><br><span class="line">7500 / 84 MHz = 89 微秒</span><br></pre></td></tr></table></figure>
+<p>采集周期是 5 ms, 所以占 <strong>1.8%</strong>.</p>
+<p>对比一下旁边那个开销: I2C 整屏刷新一次要 <strong>10 ms</strong>.
+滤波连刷屏的 1% 都不到, 完全不是瓶颈.</p>
+<p>居中对齐、逆序迭代、边界判断这些开销都算进去了, 即使按 4
+周期/抽头估也只有 0.6 ms, 占 12%, 还有大量余量.</p>
+<h2 id="接进识别链路">接进识别链路</h2>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Core/Src/app.c —— app_process_frame() */</span></span><br><span class="line">  ADC_GetFrame(s_frame);          <span class="comment">/* 拷出 500 点 */</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 数字滤波：在识别之前把边沿毛刺压掉 */</span></span><br><span class="line">  FIR_LowPass(s_frame, WAVEID_FRAME_LEN);</span><br><span class="line"></span><br><span class="line">  WaveId_Classify(s_frame, &amp;raw); <span class="comment">/* ★ 识别入口 */</span></span><br></pre></td></tr></table></figure>
+<p>位置很关键, 必须卡在 <code>ADC_GetFrame</code>
+之后、<code>WaveId_Classify</code> 之前.</p>
+<p>这样做的效果是”看”和”认”用的是同一份数据: 屏幕画的是滤波后的波形,
+特征提取算的也是滤波后的波形. 屏幕上看到什么, 算法就用什么.</p>
+<p>自检路径也走了同一套滤波, 保证自检结果和实时识别对得上.</p>
+<h2 id="效果-波形变干净了">效果: 波形变干净了</h2>
+<h3 id="用串口接-g431-看原始波形">用串口接 G431 看原始波形</h3>
+<p>想直接看到滤波前后的差别, 最方便的办法是把 G431 的串口接到电脑, 用
+VOFA+ 看它输出的原始波形.</p>
+<p>接线</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">G431 PC4  --(USB-TTL 的 RXD)--&gt;  电脑</span><br><span class="line">G431 GND  --(USB-TTL 的 GND)--&gt;  电脑</span><br></pre></td></tr></table></figure>
+<p>参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">波特率   921600</span><br><span class="line">数据位   8</span><br><span class="line">校验     无</span><br><span class="line">停止位   1</span><br><span class="line">协议     justfloat</span><br></pre></td></tr></table></figure>
+<p>G431 的发送格式是二进制 justfloat, 每个点 8 字节: 4 字节小端 float 加
+4 字节帧尾 <code>00 00 80 7F</code>. 一帧发 200 点, 也就是 1600
+字节.</p>
+<blockquote>
+<p>注意 USB-TTL 模块的 TXD 要悬空, 只接 RXD 和 GND. G431 的 PC4
+是它的发送脚, 接错成对接会两边对着推</p>
+</blockquote>
+<p>打开 VOFA+ 之后, 切波形看得很清楚:</p>
+<ul>
+<li>方波和锯齿的陡沿上会看到毛刺和过冲</li>
+<li>三角波和正弦相对干净</li>
+<li>调幅波的载波上有明显的高频抖动</li>
+</ul>
+<p>这就是 F401 收到的东西.</p>
+<h3 id="滤波之后">滤波之后</h3>
+<p>F401 侧的波形画在 OLED 上, 直接就能和上面串口看到的原始波形对比:</p>
+<ul>
+<li>方波边沿的高频毛刺被磨平, 沿变得更”利落”,
+但过渡带宽度只有几个采样点, 肉眼看不出圆角</li>
+<li>锯齿的陡降沿干净了, 不再有沿后抖动</li>
+<li>正弦和三角几乎看不出变化（它们本来就没有陡沿, 高频成分少）</li>
+<li>调幅波的载波保留完整, 包络仍然清楚</li>
+</ul>
+<p>关键在于<strong>形状没有被改</strong>: 方波还是方的, 锯齿还是斜的,
+阶梯的台阶还是台阶. 滤波只带走了边沿上那些不该有的高频抖动.</p>
+<h2 id="实测结果">实测结果</h2>
+<p>六种波形在板子上全部能认, 偶尔有个别帧抖动, 靠 5 帧多数表决抹平.</p>
+<p>板子上的观感和 PC 模型不完全一样, 因为模型里只有噪声,
+而实物链路上还有 DAC 的非线性和线路上的容性负载,
+这些在模型里模拟不出来.</p>
+<blockquote>
+<p>早期在 PC 上做过一版纯数学的仿真, 里面用理想方波加人为注入的振铃,
+结论偏保守. 实物的真实波形没有仿真里那么极端,
+滤波后的实际效果比那个仿真好. 以板子上跑出来的为准.</p>
+</blockquote>
+<h2 id="关键参数">关键参数</h2>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>值</th>
+<th>出处</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>阶数</td>
+<td>5</td>
+<td><code>FIR_TAPS</code></td>
+</tr>
+<tr>
+<td>截止频率</td>
+<td>40 kHz</td>
+<td>设计值</td>
+</tr>
+<tr>
+<td>窗函数</td>
+<td>Hamming</td>
+<td>—</td>
+</tr>
+<tr>
+<td>群延迟</td>
+<td>2 采样点（20 µs）</td>
+<td><code>FIR_GROUP_DELAY</code></td>
+</tr>
+<tr>
+<td>系数和</td>
+<td>1.000000000000</td>
+<td>归一化</td>
+</tr>
+<tr>
+<td>单帧耗时</td>
+<td>~89 µs</td>
+<td>占采集周期 1.8%</td>
+</tr>
+<tr>
+<td>开关</td>
+<td><code>APP_USE_FIR</code></td>
+<td><code>app.c</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="加进-keil-工程">加进 Keil 工程</h2>
+<p><code>fir.c</code> 是后加的文件, 需要手动拖进工程</p>
+<ol type="1">
+<li>左侧 Project 窗口, 右键 <code>app.c</code> 所在的那个组</li>
+<li>Add Existing Files to Group …</li>
+<li>选 <code>Core\Src\fir.c</code>, Add, Close</li>
+<li>重新编译</li>
+</ol>
+<p>头文件不用管, <code>Core\Inc</code> 已经在 Include Paths 里了.</p>
+<p>漏了这步会报 <code>Undefined symbol FIR_LowPass</code>.</p>
+<h2 id="todo">todo</h2>
+<ul class="task-list">
+<li><label><input type="checkbox" />补滤波前后波形的截图对比, 串口 VOFA+
+一张, OLED 一张</label></li>
+<li><label><input type="checkbox" />识别耗时的实测数据还没有,
+目前是理论估算</label></li>
+<li><label><input type="checkbox" />如果想进一步抑制振铃, 可以试 7 阶配
+45 kHz, 但需要重新验证 Vpp 偏差</label></li>
+</ul>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/avatar.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/avatar.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">Kanwuqing</div><div class="post-copyright__author_desc">To Be Legend</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://kanwuqing.github.io/%E6%B3%A2%E5%BD%A2%E7%94%9F%E6%88%90%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-FIR%E6%95%B0%E5%AD%97%E6%BB%A4%E6%B3%A2/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://kanwuqing.github.io/%E6%B3%A2%E5%BD%A2%E7%94%9F%E6%88%90%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-FIR%E6%95%B0%E5%AD%97%E6%BB%A4%E6%B3%A2/')">波形发生识别系统开发日志 —— FIR 数字滤波</span></a></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://kanwuqing.github.io" target="_blank">阚无倾的小窝</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/STM32/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>STM32<span class="tagsPageCount">4</span></a><a class="post-meta__box__tags" href="/tags/%E6%B3%A2%E5%BD%A2%E5%8F%91%E7%94%9F%E8%AF%86%E5%88%AB%E7%B3%BB%E7%BB%9F/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>波形发生识别系统<span class="tagsPageCount">3</span></a><a class="post-meta__box__tags" href="/tags/F401/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>F401<span class="tagsPageCount">2</span></a><a class="post-meta__box__tags" href="/tags/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>数字信号处理<span class="tagsPageCount">1</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="/img/default_bg.jpg" data-sites="wechat,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E6%8C%87%E9%92%88/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">C语言学习笔记——指针</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/%E6%B3%A2%E5%BD%A2%E7%94%9F%E6%88%90%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-F401/" title="波形发生识别系统开发日志 —— F401 采集与识别"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2026-10-13</div><div class="title">波形发生识别系统开发日志 —— F401 采集与识别</div></div></a></div><div><a href="/%E6%B3%A2%E5%BD%A2%E7%94%9F%E6%88%90%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-G431/" title="波形发生识别系统开发日志 —— G431 波形生成"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2026-10-13</div><div class="title">波形发生识别系统开发日志 —— G431 波形生成</div></div></a></div><div><a href="/%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8D%95%E7%89%87%E6%9C%BA%E9%A1%B9%E7%9B%AE%E2%80%94%E2%80%94%E7%8A%B6%E6%80%81%E6%9C%BA%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97/" title="第一个单片机项目——状态机开发日志"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2026-09-03</div><div class="title">第一个单片机项目——状态机开发日志</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info__sayhi" id="author-info__sayhi" onclick="anzhiyu.changeSayHelloText()"></div><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-status"><img class="g-status" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/emoji.png" alt="status"/></div></div><div class="author-info__description"><div style="font-size:16px;line-height:1.38;margin:0.6rem 0;text-align:justify;color:rgba(0, 0, 0, 0.8);">这里是我在探索记录与实践复盘的数字角落，主要存放开发中的踩坑记录、解决方案、项目日志和学习笔记。</div> <div style="font-size:16px;line-height:1.38;margin:0.6rem 0;text-align:justify;color:rgba(0, 0, 0, 0.8);>相信这些源于实战的思考与总结，能为你我照亮些许前行的路。欢迎交流与指正。</div></div><div class="author-info__bottom-group"><a class="author-info__bottom-group-left" href="/about"><h1 class="author-info__name">Kanwuqing</h1><div class="author-info__desc">To Be Legend</div></a><div class="card-info-social-icons is-center"><a class="social-icon faa-parent animated-hover" href="https://github.com/kanwuqing" target="_blank" title="Github"><i class="anzhiyufont anzhiyu-icon-github"></i></a></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%8A%A0%E8%BF%99%E4%B8%80%E7%BA%A7"><span class="toc-number">1.</span> <span class="toc-text">为什么要加这一级</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E7%BA%A6%E6%9D%9F"><span class="toc-number">2.</span> <span class="toc-text">设计约束</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%B3%A2%E5%BF%85%E9%A1%BB%E6%97%A0%E6%8D%9F"><span class="toc-number">2.1.</span> <span class="toc-text">基波必须无损</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E5%B9%85%E6%B3%A2%E7%9A%84%E8%BD%BD%E6%B3%A2%E8%A6%81%E4%BF%9D%E4%BD%8F"><span class="toc-number">2.2.</span> <span class="toc-text">调幅波的载波要保住</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%80%89-fir-%E4%B8%8D%E9%80%89-iir"><span class="toc-number">3.</span> <span class="toc-text">为什么选 FIR 不选 IIR</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gibbs-%E7%8E%B0%E8%B1%A1%E7%9A%84%E6%9D%83%E8%A1%A1"><span class="toc-number">4.</span> <span class="toc-text">Gibbs 现象的权衡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E7%BB%88%E5%8F%82%E6%95%B0"><span class="toc-number">5.</span> <span class="toc-text">最终参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">6.</span> <span class="toc-text">代码实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%B1%E5%9C%B0%E9%80%86%E5%BA%8F%E8%BF%AD%E4%BB%A3"><span class="toc-number">6.1.</span> <span class="toc-text">就地逆序迭代</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%B9%E7%95%8C%E9%87%8D%E5%A4%8D%E9%A6%96%E5%B0%BE%E7%82%B9"><span class="toc-number">6.2.</span> <span class="toc-text">边界重复首尾点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%AE%E7%82%B9%E7%B4%AF%E5%8A%A0%E5%90%8E%E5%A4%B9%E7%B4%A7"><span class="toc-number">6.3.</span> <span class="toc-text">浮点累加后夹紧</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BE%A4%E5%BB%B6%E8%BF%9F"><span class="toc-number">7.</span> <span class="toc-text">群延迟</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E5%8A%9B"><span class="toc-number">8.</span> <span class="toc-text">算力</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A5%E8%BF%9B%E8%AF%86%E5%88%AB%E9%93%BE%E8%B7%AF"><span class="toc-number">9.</span> <span class="toc-text">接进识别链路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%88%E6%9E%9C-%E6%B3%A2%E5%BD%A2%E5%8F%98%E5%B9%B2%E5%87%80%E4%BA%86"><span class="toc-number">10.</span> <span class="toc-text">效果: 波形变干净了</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E4%B8%B2%E5%8F%A3%E6%8E%A5-g431-%E7%9C%8B%E5%8E%9F%E5%A7%8B%E6%B3%A2%E5%BD%A2"><span class="toc-number">10.1.</span> <span class="toc-text">用串口接 G431 看原始波形</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BB%A4%E6%B3%A2%E4%B9%8B%E5%90%8E"><span class="toc-number">10.2.</span> <span class="toc-text">滤波之后</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E6%B5%8B%E7%BB%93%E6%9E%9C"><span class="toc-number">11.</span> <span class="toc-text">实测结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E5%8F%82%E6%95%B0"><span class="toc-number">12.</span> <span class="toc-text">关键参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E8%BF%9B-keil-%E5%B7%A5%E7%A8%8B"><span class="toc-number">13.</span> <span class="toc-text">加进 Keil 工程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#todo"><span class="toc-number">14.</span> <span class="toc-text">todo</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/%E6%B3%A2%E5%BD%A2%E7%94%9F%E6%88%90%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-FIR%E6%95%B0%E5%AD%97%E6%BB%A4%E6%B3%A2/" title="波形发生识别系统开发日志 —— FIR 数字滤波"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="波形发生识别系统开发日志 —— FIR 数字滤波"/></a><div class="content"><a class="title" href="/%E6%B3%A2%E5%BD%A2%E7%94%9F%E6%88%90%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-FIR%E6%95%B0%E5%AD%97%E6%BB%A4%E6%B3%A2/" title="波形发生识别系统开发日志 —— FIR 数字滤波">波形发生识别系统开发日志 —— FIR 数字滤波</a><time datetime="2026-10-26T06:00:00.000Z" title="发表于 2026-10-26 14:00:00">2026-10-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E6%8C%87%E9%92%88/" title="C语言学习笔记——指针"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C语言学习笔记——指针"/></a><div class="content"><a class="title" href="/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E6%8C%87%E9%92%88/" title="C语言学习笔记——指针">C语言学习笔记——指针</a><time datetime="2026-10-19T02:12:00.000Z" title="发表于 2026-10-19 10:12:00">2026-10-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E5%87%BD%E6%95%B0/" title="C语言学习笔记——函数"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C语言学习笔记——函数"/></a><div class="content"><a class="title" href="/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E5%87%BD%E6%95%B0/" title="C语言学习笔记——函数">C语言学习笔记——函数</a><time datetime="2026-10-18T02:15:00.000Z" title="发表于 2026-10-18 10:15:00">2026-10-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E7%A8%8B%E5%BA%8F%E8%B7%91%E4%B8%8D%E5%AF%B9%E6%80%8E%E4%B9%88%E5%8A%9E/" title="C语言学习笔记——程序跑不对怎么办"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C语言学习笔记——程序跑不对怎么办"/></a><div class="content"><a class="title" href="/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E7%A8%8B%E5%BA%8F%E8%B7%91%E4%B8%8D%E5%AF%B9%E6%80%8E%E4%B9%88%E5%8A%9E/" title="C语言学习笔记——程序跑不对怎么办">C语言学习笔记——程序跑不对怎么办</a><time datetime="2026-10-17T08:10:00.000Z" title="发表于 2026-10-17 16:10:00">2026-10-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E6%95%B0%E7%BB%84%E4%B8%8E%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="C语言学习笔记——数组与字符串"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C语言学习笔记——数组与字符串"/></a><div class="content"><a class="title" href="/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E6%95%B0%E7%BB%84%E4%B8%8E%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="C语言学习笔记——数组与字符串">C语言学习笔记——数组与字符串</a><time datetime="2026-10-16T06:35:32.000Z" title="发表于 2026-10-16 14:35:32">2026-10-16</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2026 By <a class="footer-bar-link" href="/" title="Kanwuqing" target="_blank">Kanwuqing</a></div></div><div id="footer-type-tips"></div><div class="js-pjax"><script>function subtitleType () {
+  fetch('https://v1.hitokoto.cn')
+    .then(response => response.json())
+    .then(data => {
+      if (true) {
+        const from = '出自 ' + data.from
+        const sub = ["生活明朗&#44; 万物可爱&#44; 人间值得&#44; 未来可期."]
+        sub.unshift(data.hitokoto, from)
+        window.typed = new Typed('#footer-type-tips', {
+          strings: sub,
+          startDelay: 300,
+          typeSpeed: 150,
+          loop: true,
+          backSpeed: 50,
+        })
+      } else {
+        document.getElementById('footer-type-tips').innerHTML = data.hitokoto
+      }
+    })
+}
+
+if (true) {
+  if (typeof Typed === 'function') {
+    subtitleType()
+  } else {
+    getScript('https://cdn.cbd.int/typed.js@2.1.0/dist/typed.umd.js').then(subtitleType)
+  }
+} else {
+  subtitleType()
+}
+</script></div></div><div class="footer-bar-right"><a class="footer-bar-link" href="/"></a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">59</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">34</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">4</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/kanwuqing.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" href="/html/maze.html" title="迷宫小游戏"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/kanwuqing.ico" alt="迷宫小游戏"/><span class="back-menu-item-text">迷宫小游戏</span></a><a class="back-menu-item" href="/html/latex-table.html" title="LaTeX速查表"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/kanwuqing.ico" alt="LaTeX速查表"/><span class="back-menu-item-text">LaTeX速查表</span></a></div></div></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 归档</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于我</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/career/"><i class="anzhiyufont anzhiyu-icon-images faa-tada" style="font-size: 0.9em;"></i><span> 我的经历</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/AI/" style="font-size: 0.88rem;">AI<sup>12</sup></a><a href="/tags/Bot/" style="font-size: 0.88rem;">Bot<sup>7</sup></a><a href="/tags/C/" style="font-size: 0.88rem;">C++<sup>7</sup></a><a href="/tags/Canvas/" style="font-size: 0.88rem;">Canvas<sup>1</sup></a><a href="/tags/C%E8%AF%AD%E8%A8%80/" style="font-size: 0.88rem;">C语言<sup>12</sup></a><a href="/tags/F401/" style="font-size: 0.88rem;">F401<sup>2</sup></a><a href="/tags/G431/" style="font-size: 0.88rem;">G431<sup>1</sup></a><a href="/tags/HTML/" style="font-size: 0.88rem;">HTML<sup>1</sup></a><a href="/tags/Javascript/" style="font-size: 0.88rem;">Javascript<sup>1</sup></a><a href="/tags/LegendBot/" style="font-size: 0.88rem;">LegendBot<sup>7</sup></a><a href="/tags/Manim/" style="font-size: 0.88rem;">Manim<sup>1</sup></a><a href="/tags/OI/" style="font-size: 0.88rem;">OI<sup>5</sup></a><a href="/tags/Python/" style="font-size: 0.88rem;">Python<sup>13</sup></a><a href="/tags/STM32/" style="font-size: 0.88rem;">STM32<sup>4</sup></a><a href="/tags/Wechat/" style="font-size: 0.88rem;">Wechat<sup>7</sup></a><a href="/tags/docs/" style="font-size: 0.88rem;">docs<sup>1</sup></a><a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" style="font-size: 0.88rem;">人工智能<sup>12</sup></a><a href="/tags/%E4%BF%A1%E5%A5%A5/" style="font-size: 0.88rem;">信奥<sup>8</sup></a><a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" style="font-size: 0.88rem;">单片机<sup>1</sup></a><a href="/tags/%E5%A4%8D%E7%8E%B0/" style="font-size: 0.88rem;">复现<sup>1</sup></a><a href="/tags/%E6%8A%80%E6%9C%AF/" style="font-size: 0.88rem;">技术<sup>11</sup></a><a href="/tags/%E6%8C%87%E9%92%88/" style="font-size: 0.88rem;">指针<sup>1</sup></a><a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 0.88rem;">教程<sup>4</sup></a><a href="/tags/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/" style="font-size: 0.88rem;">数字信号处理<sup>1</sup></a><a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 0.88rem;">数学<sup>21</sup></a><a href="/tags/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/" style="font-size: 0.88rem;">数据科学<sup>1</sup></a><a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">机器学习<sup>1</sup></a><a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/" style="font-size: 0.88rem;">概率论<sup>1</sup></a><a href="/tags/%E6%B3%A2%E5%BD%A2%E5%8F%91%E7%94%9F%E8%AF%86%E5%88%AB%E7%B3%BB%E7%BB%9F/" style="font-size: 0.88rem;">波形发生识别系统<sup>3</sup></a><a href="/tags/%E7%AC%94%E8%AE%B0/" style="font-size: 0.88rem;">笔记<sup>43</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 0.88rem;">算法<sup>9</sup></a><a href="/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" style="font-size: 0.88rem;">线性代数<sup>11</sup></a><a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/" style="font-size: 0.88rem;">计算机<sup>4</sup></a><a href="/tags/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/" style="font-size: 0.88rem;">高等数学<sup>5</sup></a></div></div><hr/></div></div><div id="keyboard-tips"><div class="keyboardTitle">博客快捷键</div><div class="keybordList"><div class="keybordItem"><div class="keyGroup"><div class="key">shift K</div></div><div class="keyContent"><div class="content">关闭快捷键功能</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift A</div></div><div class="keyContent"><div class="content">打开/关闭中控台</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift M</div></div><div class="keyContent"><div class="content">播放/暂停音乐</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift D</div></div><div class="keyContent"><div class="content">深色/浅色显示模式</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift S</div></div><div class="keyContent"><div class="content">站内搜索</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift R</div></div><div class="keyContent"><div class="content">随机访问</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift H</div></div><div class="keyContent"><div class="content">返回首页</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift F</div></div><div class="keyContent"><div class="content">友链鱼塘</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift L</div></div><div class="keyContent"><div class="content">友链页面</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift P</div></div><div class="keyContent"><div class="content">关于本站</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift I</div></div><div class="keyContent"><div class="content">原版/本站右键菜单</div></div></div></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8904880904" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="is-center" id="loading-database"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-pulse-icon"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@6.1.6/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script async src="/anzhiyu/random.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://cdn.cbd.int/qrcodejs@1.0.0/qrcode.min.js"></script><script src="/js/anzhiyu/right_click_menu.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
