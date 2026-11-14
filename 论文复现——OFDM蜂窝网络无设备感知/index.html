@@ -1,0 +1,1164 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>OFDM 蜂窝网络无设备感知复现日志 | 阚无倾的小窝</title><meta name="keywords" content="Python,技术,复现,OFDM,ISAC,通感一体化"><meta name="author" content="Kanwuqing"><meta name="copyright" content="Kanwuqing"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="OFDM 蜂窝网络无设备感知复现日志"><meta name="application-name" content="OFDM 蜂窝网络无设备感知复现日志"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="OFDM 蜂窝网络无设备感知复现日志"><meta property="og:url" content="https://kanwuqing.github.io/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0%E2%80%94%E2%80%94OFDM%E8%9C%82%E7%AA%9D%E7%BD%91%E7%BB%9C%E6%97%A0%E8%AE%BE%E5%A4%87%E6%84%9F%E7%9F%A5/index.html"><meta property="og:site_name" content="阚无倾的小窝"><meta property="og:description" content="复现了 Shi 等人 2022 年发在 JSAC 上的一篇通感一体化论文, 内容是让蜂窝网里的基站不发专门的探测波, 直接用 OFDM 业务信号把周围没带设备的人找出来  论文: Device-Free Sensing in OFDM Cellular Network 作者: Q. Shi, L."><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://kanwuqing.github.io/img/default_bg.jpg"><meta property="article:author" content="Kanwuqing"><meta property="article:tag" content="Python,Coding"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://kanwuqing.github.io/img/default_bg.jpg"><meta name="description" content="复现了 Shi 等人 2022 年发在 JSAC 上的一篇通感一体化论文, 内容是让蜂窝网里的基站不发专门的探测波, 直接用 OFDM 业务信号把周围没带设备的人找出来  论文: Device-Free Sensing in OFDM Cellular Network 作者: Q. Shi, L."><link rel="shortcut icon" href="/img/kanwuqing.ico"><link rel="canonical" href="https://kanwuqing.github.io/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0%E2%80%94%E2%80%94OFDM%E8%9C%82%E7%AA%9D%E7%BD%91%E7%BB%9C%E6%97%A0%E8%AE%BE%E5%A4%87%E6%84%9F%E7%9F%A5/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@6.1.6/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/swiper/swiper.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: undefined,
+  postHeadAiDescription: undefined,
+  diytitle: undefined,
+  LA51: undefined,
+  greetingBox: {"enable":true,"default":"晚上好👋","list":[{"greeting":"晚安😴","startTime":0,"endTime":5},{"greeting":"早上好鸭👋, 祝你一天好心情！","startTime":6,"endTime":9},{"greeting":"上午好👋, 状态很好，鼓励一下～","startTime":10,"endTime":10},{"greeting":"11点多啦, 在坚持一下就吃饭啦～","startTime":11,"endTime":11},{"greeting":"午安👋","startTime":12,"endTime":14},{"greeting":"🌈充实的一天辛苦啦！","startTime":14,"endTime":18},{"greeting":"19点喽, 奖励一顿丰盛的大餐吧🍔。","startTime":19,"endTime":19},{"greeting":"晚上好👋, 在属于自己的时间好好放松😌~","startTime":20,"endTime":24}]},
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "custom",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: {"skills":["🤖️ 数码科技爱好者","🔍 分享与热心帮助","🏠 智能家居小能手","🔨 设计开发一条龙","🤝 专修交互与设计","🏃 脚踏实地行动派","🧱 团队小组发动机","💢 壮汉人狠话不多"]},
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: Kanwuqing","link":"链接: ","source":"来源: 阚无倾的小窝","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.2.0/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.2.0/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: {"enable":true,"delay":100,"shiftDelay":200},
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '阚无倾的小窝',
+  title: 'OFDM 蜂窝网络无设备感知复现日志',
+  postAI: '',
+  pageFillDescription: '系统设定, 官方代码的缺口, 环境, 阶段一 信号级测距, 最小二乘, 抽头检测和距离换算, 抽头数按带宽自适应 ★★★★★, 阶段二 数据关联与定位, 位置精修, 鬼影检测, 最大似然关联, 残差预算 ★★★★, 实验, E1 误差概率随目标个数的变化 ★★★★, E2 误差概率随带宽的变化 ★★★★★, E3 鬼影目标存在概率 ★★★★, E4 阶段一信号级恢复精度 ★★★★, E5 消融 ★★★★★, 验证, 单元级自检, 枚举剪枝的验证, 鬼影检测的验证与正控制, 一键复现, 误差来源, 与论文结论的对照, 局限, 结果文件, 引用复现了等人年发在上的一篇通感一体化论文内容是让蜂窝网里的基站不发专门的探测波直接用业务信号把周围没带设备的人找出来论文作者期刊预印本官方代码在的目录里这个官方代码包只有个文件没有也没有信号级的阶段一所以这次的工作一半是复现一半是自己补系统设定系统里有个基站个目标基站发导频信号打到人身上反射回来基站从回波里量出时延时延换算成距离麻烦的地方在于接收端只能拿到一组距离数值不知道哪个距离属于哪个人比如个基站个人每个基站交上来个距离一共个数字但谁跟谁是一伙的完全没有标签论文把这个拆成两段阶段工作输出阶段一测距每个基站独立处理自己的回波找出有几个可分辨的时延个大小为的无标签距离集合阶段二定位用各基站距离集合之间的几何约束把距离配对解出坐标个目标的位置官方代码的缺口归档下来的个文件是这样文件作用阶段二的蒙特卡洛主驱动高斯牛顿位置精修三站线性三边定位初值估计与真值的匈牙利配对目标函数辅助匈牙利算法写的里有这么一句这一步把真实距离量化到距离单元中点然后直接当作阶段一的输出喂给阶段二也就是说阶段一在官方代码里被整体假设掉了论文最核心的信道估计那一层根本没跑所以这次的活分成性质不同的两块部分内容性质阶段二鬼影检测数据关联位置精修复现论文算法阶段一信道估计抽头检测距离换算实现论文公式官方没给代码环境随机种子固定成各实验的网格点按确定性规则从它派生实验种子派生式误差概率随误差概率随鬼影概率阶段一精度消融里存着全部种子每点样本数区域尺寸和各库版本逐点结果也在里面可以直接当运行凭证阶段一信号级测距基站收到的信号本质上是条反射路径的叠加每条路径对应一个抽头处理流程是构造真实信道合成接收信号叠加噪声估计信道检测抽头换算距离最小二乘标准做法要求解其中是傅里叶字典求逆代价但的列向量两两正交单位阵的逆就是倍单位阵整个求逆可以约掉这时候计算量降到相当于一次逆傅里叶变换这是精确的不是近似拿它跟显式伪逆逐元素比取三种规模最大差值都是时实测快约倍顺带一提那个等式两边在浮点下完全相等没有精度损失抽头检测和距离换算对每个抽头算能量超过阈值判为非零抽头阈值取这样纯噪声被误判的概率恰好是跟噪声强弱无关检测完如果抽头数超过保留能量最强的个一个都没检出就兜底取最强的个第个抽头对应的单程距离取单元中点取中点是因为真实距离在单元内均匀分布这样最大误差最小误差上界就是论文式整套系统的精度下限就是这个时算出来米论文写相差是论文取整造成的抽头数按带宽自适应抽头序号由往返路径长度决定所以个抽头能表示的最大往返距离是换算成单程是论文给了仿真区域米但对角线米才是区域内任意两点的最大距离如果取得不够大远端目标的回波会绕回格子外面混叠进来混叠之后有个更阴的地方混叠后的距离数值可能反而落回以内光看距离不超过这个条件根本发现不了真正的合法性由抽头序号小于保证所以按带宽自适应取单程实际最大抽头序号覆盖是是是是是是末两列是关键实际最大抽头序号始终小于六档带宽都没有饱和那档是被无混叠约束顶上去的不是受这个下限钳制复跑时某一档出现异常远的定位点先查抽头序号离还有多远另外代码里在抽样阶段就加了拦截目标距离超过无模糊上限直接抛异常这种错误事后很难从结果里认出来拦在抽样阶段最省事阶段二数据关联与定位位置精修对应从三站线性三边定位的闭式解出发按阻尼牛顿方向迭代雅可比只有正规方程用显式闭式求逆几何接近降秩时加对角阻尼对系统这跟伪逆等价但快因为最大似然算法会把它调几百次步长范数小于米或满次就停鬼影检测一个候选关联是一致的当且仅当存在一点使该点到各基站的距离恰好等于给定的个距离值如果除了真实关联之外还有别的关联也闭合且交点不落在任何真实目标上那个点就是鬼影朴素做法是枚举每个基站上个距离的全部排列共种里最大最大这个数量级跑不动实际用的剪枝策略先枚举前三个基站的候选三元组对满足一致性的延拓到剩余基站每个基站只在时间里检验候选距离是否落在某条路径上最大似然关联三步前三个基站距离集合上取笛卡尔积共个候选先过三角不等式再用高斯牛顿解位置残差和超预算的剔除每个目标槽位选一个三元组三个基站上用掉的个距离必须恰好等于各自集合实现里按第一站距离值分组递归时持续检查已用距离仍是各站集合的子多重集第到第个基站用目标当前估计位置到该站的距离与该站各候选距离之差的绝对值做代价矩阵匈牙利算法配对再精修一次最后按全部个基站的残差总和排序取最小残差预算把距离换成单元中点所以就算关联完全正确每个基站仍会留下最多的残差三站合计最多论文给的也就是预算这个数比误差模型本身能达到的水平还紧会把几乎所有有效候选都排除掉而且带宽越大越小越严重现在的做法是保留参数默认值对应论文但没显式指定时把实际预算取成即再乘让预算跟误差模型量级对上想跑论文原始那套过紧规则显式传就行实验误差概率随目标个数的变化每个点个几何剔除中位误差灾难性不可行从涨到关联组合空间大了上万倍错误概率只从爬到全程没超过剔除后的从涨到看着像是恶化了但中位误差几乎没动到极差两个数对照一下恶化来自尾部变厚整体精度没降越大错误关联的候选越多少数样本被推到更远的地方去了灾难性率也没随单调恶化时最低和涨到和又回落这个指标反映的是尾部事件的抽样波动不是大必然出错误差概率随带宽的变化每点个几何个目标样本论文的核心结论在这一条上剔除中位误差灾难性错误概率从降到跨六档带宽下降倍剔除后的从米降到米降幅倍而且是跟着一起走的从往上每一档的剔除后都压在的到倍之间精度天花板由量化下限定死算法写得再花也压不到以下单调性用程序验过错误概率的逐档差分全为非正剔除后的逐档差分全为负中位误差从降到降幅倍这个倍数比带宽的倍小因为那边误差是量化主导有米到了已经进误关联尾部主导的区间均值和中位数的差距反而拉大灾难性计数带宽一提变小错误关联产生的残差越来越难跟正确关联竞争鬼影目标存在概率完美测距条件用真实距离的量化结果不加噪声个几何样本一个鬼影都没有按单组置信上界是阶段一信号级恢复精度带宽到取各个几何指标是距离单元精确命中率档平均唯一的失分在加那格个几何漏了个那档米带宽最窄加上六个目标的距离单元最挤恒虚警率检测漏检了该点的距离直接到米漏一个抽头就把距离整个推偏一个单元以上这里有个容易画错的地方距离误差只有两档命中是未命中是几十米中间没有平滑过渡所以的右图画的是各带宽下命中与漏检的几何占比不是距离随带宽的连续曲线硬画成曲线会让人以为误差在平滑恶化消融每组个几何人为违反正交频假设再改路径损耗指数跨站路径入带路径损耗指数精确恢复率否论文假设否是是跨站反射一进来阶段一直接归零机理是双站路径的等效距离落在与自路径不同的距离单元上等于凭空多出倍的抽头每个基站恰好条路径这个阶段二赖以成立的结构被破坏论文关于相邻基站用不同频率的那个假设对整套框架是必要条件不是可有可无的前提路径损耗指数那个更有意思自由空间的看着更物理但同一个基站里近目标的反射强度会比远目标高约倍远目标必然掉到任何合理阈值下面这反而违反了论文自己条路径可分辨的假设所以默认取单站动态范围约到倍精确恢复率放进消融恢复率论文没给基站与目标之间的反射系数模型只要求条路径可分辨这两个数都不是从论文里抄的是按那条可分辨性假设反推的验证单元级自检算法级交叉验证统计级正负控制三层各管一段单元级自检冒烟测试编号检查内容结果波形参数自洽距离刻度与论文值比对得米论文相对误差无噪单径下最小二乘是否精确相对误差快速估计与显式伪逆是否一致三种规模最大差均为抽头序号与距离的往返换算四个测试点误差均小于超出无模糊距离被拒绝正确抛出异常单基站端到端恢复真实距离个有效几何精确恢复线性三边定位还原已知点真值估计最大残差完美测距下最大似然关联个几何中个定位误差小于米一致性检验拒绝扰动几何原始判为一致扰动后判为不一致量化测距下关联的稳健性个几何中个定位误差小于米第项完美测距下鬼影也可能存在论文的结论是鬼影罕见而并非不可能判据定成不少于通过枚举剪枝的验证快速路径把第一个基站的顺序钉死理论候选数应该恰好是暴力的实测暴力候选快速候选倍数目标值差最大点偏差目标值差恒为最大点偏差恒为快速路径找到的解跟暴力穷举完全相同还有一例是两边都判不可行第例两者均不可行暴力秒快速秒两边都没解的情况也记一致鬼影检测的验证与正控制从到从到的网格上快速检测器跟暴力置换枚举的判定完全一致每组个样本暴力法耗时随规模爆得很快最早网格里带过那格个样本跑了秒平均一个样本秒快速法同一批秒后来把这格从常规网格里拿掉了留着只适合单独跑网格现在是取多基站和多目标两个维度都覆盖到了又不会让一次验证变成半小时报的是所以还得证明这个检测器不是死的两个正控制一个负控制正控制一四基站摆成正方形两个目标放在和两目标关于方形中心镜像对称交换关联后同样能交汇在那个点不是任何真实目标暴力和快速都正确报出正控制二三个基站摆在半径米的圆周上两个目标关于原点对称放在和交换后同样闭合交点落在真实目标位置上两种方法都判定存在鬼影负控制个随机非对称几何两种方法一致都没误报两个正控制都报出鬼影负控制个几何没误报过批量脚本按从快到慢的顺序跑四项全过通过秒通过秒通过秒通过秒个全过耗时每次跑差别不小有一次跑了秒是机器负载的关系判定结果没变一键复现环境自检不产生文件跑全部实验出图四项交叉验证跑实验那一档实测秒里写的约至分钟是留了余量的说法两次从空的重跑五个逐字节一致只有里的耗时字段不同误差来源按对最终定位精度的贡献排序来源量级性质主要证据量化误差与成正比不可消除只能压缩图关联错误的样本误差数十米可部分缓解灾难性计数不可行几何的几何属几何本质的字段阶段一漏检需自适应阈值的加假设违反使全部指标失效属前提条件第一种是主项且消不掉下米实测剔除后米中位误差米量级对得上图把画在的参考线上两条线几乎平行第二种是尾部主项少数目标被扔到区域另一端误差到米成因在算法结构最大似然的目标函数是残差之和两个不同关联的残差接近时会选错大时特别容易缓解方向是加跨帧的时间一致性约束这属于论文之外的扩展第三种是算法明确报告找不到合法解的几何和里各出现到例每个几何脚本把它单独计进字段既不混进误差统计也不额外赋值里和各有是没随单调恶化说明主要是几何布局本身的问题不是穷举漏解与论文结论的对照论文结论本复现结果判定定位精度随带宽提升剔除米错误概率单调吻合量化界为米为米得和相差吻合鬼影目标存在概率可忽略上界有正控制吻合数据关联非根本性限制时错误概率恒低于吻合对照止于趋势与量级参考的是正式刊出的版本可能有数值修订版本身也没给取到的完整错误概率表逐格比对做不了局限噪声方差固定信号级对应极高的没做信噪比扫描真实系统里低信噪比才是主要矛盾这次的结论不能直接外推过去阶段一没有对照官方就个文件没有信号级阶段一自己写的那部分过了单元测试和交叉验证但缺少跟原作者实现的对比信道模型只有直达反射路径消融里加了跨站路径墙面的多径目标之间的遮挡目标运动带来的多普勒频移都没碰结果文件逐点指标列逐点指标列各网格点的几何数与鬼影数各带宽与目标数的恢复率距离误差四组消融配置的恢复率种子版本逐点结果总耗时张图与各一份时间戳每项验证的开始结束时间与返回码里每个网格点都带和报告里引用的数字不用去读图全能在里查到引用预印本官方代码本复现代码',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-11-14 14:06:14',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/note.css"><meta name="generator" content="Hexo 8.1.1"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><div class="back-home-button"><i class="anzhiyufont anzhiyu-icon-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/kanwuqing.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" href="/html/maze.html" title="迷宫小游戏"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/kanwuqing.ico" alt="迷宫小游戏"/><span class="back-menu-item-text">迷宫小游戏</span></a><a class="back-menu-item" href="/html/latex-table.html" title="LaTeX速查表"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/kanwuqing.ico" alt="LaTeX速查表"/><span class="back-menu-item-text">LaTeX速查表</span></a></div></div></div></div><a id="site-name" href="/" accesskey="h"><div class="title">阚无倾的小窝</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a><div id="he-plugin-simple"></div><script>var WIDGET = {
+  "CONFIG": {
+    "modules": "0124",
+    "background": "2",
+    "tmpColor": "FFFFFF",
+    "tmpSize": "16",
+    "cityColor": "FFFFFF",
+    "citySize": "16",
+    "aqiColor": "E8D87B",
+    "aqiSize": "16",
+    "weatherIconSize": "24",
+    "alertIconSize": "18",
+    "padding": "10px 10px 10px 10px",
+    "shadow": "0",
+    "language": "auto",
+    "borderRadius": "20",
+    "fixed": "true",
+    "vertical": "top",
+    "horizontal": "left",
+    "left": "20",
+    "top": "7.1",
+    "key": "df245676fb434a0691ead1c63341cd94"
+  }
+}
+</script><link rel="stylesheet" href="https://widget.qweather.net/simple/static/css/he-simple.css?v=1.4.0"/><script src="https://widget.qweather.net/simple/static/js/he-simple.js?v=1.4.0"></script></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 归档</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于我</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/career/"><i class="anzhiyufont anzhiyu-icon-images faa-tada" style="font-size: 0.9em;"></i><span> 我的经历</span></a></li></ul></div></div></div><div id="nav-right"><div class="nav-button only-home" id="travellings_button" title="随机前往一个开往项目网站"><a class="site-page" onclick="anzhiyu.totraveling()" title="随机前往一个开往项目网站" href="javascript:void(0);" rel="external nofollow" data-pjax-state="external"><i class="anzhiyufont anzhiyu-icon-train"></i></a></div><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/AI/" style="font-size: 1.05rem;">AI<sup>12</sup></a><a href="/tags/Bot/" style="font-size: 1.05rem;">Bot<sup>7</sup></a><a href="/tags/C/" style="font-size: 1.05rem;">C++<sup>7</sup></a><a href="/tags/Canvas/" style="font-size: 1.05rem;">Canvas<sup>1</sup></a><a href="/tags/C%E8%AF%AD%E8%A8%80/" style="font-size: 1.05rem;">C语言<sup>12</sup></a><a href="/tags/F401/" style="font-size: 1.05rem;">F401<sup>2</sup></a><a href="/tags/G431/" style="font-size: 1.05rem;">G431<sup>1</sup></a><a href="/tags/HTML/" style="font-size: 1.05rem;">HTML<sup>1</sup></a><a href="/tags/ISAC/" style="font-size: 1.05rem;">ISAC<sup>1</sup></a><a href="/tags/Javascript/" style="font-size: 1.05rem;">Javascript<sup>1</sup></a><a href="/tags/LegendBot/" style="font-size: 1.05rem;">LegendBot<sup>7</sup></a><a href="/tags/Manim/" style="font-size: 1.05rem;">Manim<sup>1</sup></a><a href="/tags/OFDM/" style="font-size: 1.05rem;">OFDM<sup>1</sup></a><a href="/tags/OI/" style="font-size: 1.05rem;">OI<sup>5</sup></a><a href="/tags/Python/" style="font-size: 1.05rem;">Python<sup>13</sup></a><a href="/tags/STM32/" style="font-size: 1.05rem;">STM32<sup>4</sup></a><a href="/tags/Wechat/" style="font-size: 1.05rem;">Wechat<sup>7</sup></a><a href="/tags/docs/" style="font-size: 1.05rem;">docs<sup>1</sup></a><a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" style="font-size: 1.05rem;">人工智能<sup>12</sup></a><a href="/tags/%E4%BF%A1%E5%A5%A5/" style="font-size: 1.05rem;">信奥<sup>8</sup></a><a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" style="font-size: 1.05rem;">单片机<sup>1</sup></a><a href="/tags/%E5%A4%8D%E7%8E%B0/" style="font-size: 1.05rem;">复现<sup>1</sup></a><a href="/tags/%E6%8A%80%E6%9C%AF/" style="font-size: 1.05rem;">技术<sup>11</sup></a><a href="/tags/%E6%8C%87%E9%92%88/" style="font-size: 1.05rem;">指针<sup>1</sup></a><a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 1.05rem;">教程<sup>4</sup></a><a href="/tags/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/" style="font-size: 1.05rem;">数字信号处理<sup>1</sup></a><a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 1.05rem;">数学<sup>21</sup></a><a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/" style="font-size: 1.05rem;">概率论<sup>1</sup></a><a href="/tags/%E6%B3%A2%E5%BD%A2%E5%8F%91%E7%94%9F%E8%AF%86%E5%88%AB%E7%B3%BB%E7%BB%9F/" style="font-size: 1.05rem;">波形发生识别系统<sup>3</sup></a><a href="/tags/%E7%AC%94%E8%AE%B0/" style="font-size: 1.05rem;">笔记<sup>43</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.05rem;">算法<sup>9</sup></a><a href="/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" style="font-size: 1.05rem;">线性代数<sup>11</sup></a><a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/" style="font-size: 1.05rem;">计算机<sup>4</sup></a><a href="/tags/%E9%80%9A%E6%84%9F%E4%B8%80%E4%BD%93%E5%8C%96/" style="font-size: 1.05rem;">通感一体化<sup>1</sup></a><a href="/tags/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/" style="font-size: 1.05rem;">高等数学<sup>5</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/11/"><span class="card-archive-list-date">十一月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/10/"><span class="card-archive-list-date">十月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">14</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/09/"><span class="card-archive-list-date">九月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/07/"><span class="card-archive-list-date">七月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/06/"><span class="card-archive-list-date">六月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">12</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/05/"><span class="card-archive-list-date">五月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/04/"><span class="card-archive-list-date">四月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/03/"><span class="card-archive-list-date">三月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">4</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div><div class="console-btn-item" id="consoleKeyboard" onclick="anzhiyu.keyboardToggle()" title="快捷键开关"><a class="keyboard-switch"><i class="anzhiyufont anzhiyu-icon-keyboard"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/" itemprop="url">论文复现</a></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/Python/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>Python</span></a><a class="article-meta__tags" href="/tags/%E6%8A%80%E6%9C%AF/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>技术</span></a><a class="article-meta__tags" href="/tags/%E5%A4%8D%E7%8E%B0/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>复现</span></a><a class="article-meta__tags" href="/tags/OFDM/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>OFDM</span></a><a class="article-meta__tags" href="/tags/ISAC/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>ISAC</span></a><a class="article-meta__tags" href="/tags/%E9%80%9A%E6%84%9F%E4%B8%80%E4%BD%93%E5%8C%96/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>通感一体化</span></a></span></div></div><h1 class="post-title" itemprop="name headline">OFDM 蜂窝网络无设备感知复现日志</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2026-11-13T13:40:00.000Z" title="发表于 2026-11-13 21:40:00">2026-11-13</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2026-11-14T06:06:14.377Z" title="更新于 2026-11-14 14:06:14">2026-11-14</time></span></div><div class="meta-secondline"><span class="post-meta-separator"></span><span class="post-meta-wordcount"><i class="anzhiyufont anzhiyu-icon-file-word post-meta-icon" title="文章字数"></i><span class="post-meta-label" title="文章字数">字数总计:</span><span class="word-count" title="文章字数">6k</span><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-clock post-meta-icon" title="阅读时长"></i><span class="post-meta-label" title="阅读时长">阅读时长:</span><span>22分钟</span></span><span class="post-meta-separator"></span><span class="post-meta-pv-cv" id="" data-flag-title="OFDM 蜂窝网络无设备感知复现日志"><i class="anzhiyufont anzhiyu-icon-fw-eye post-meta-icon"></i><span class="post-meta-label" title="阅读量">阅读量:</span><span id="busuanzi_value_page_pv"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i></span></span><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为中国"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>中国</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="/img/default_bg.jpg"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://kanwuqing.github.io/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0%E2%80%94%E2%80%94OFDM%E8%9C%82%E7%AA%9D%E7%BD%91%E7%BB%9C%E6%97%A0%E8%AE%BE%E5%A4%87%E6%84%9F%E7%9F%A5/"><header><a class="post-meta-categories" href="/categories/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/" itemprop="url">论文复现</a><a href="/tags/Python/" tabindex="-1" itemprop="url">Python</a><a href="/tags/%E6%8A%80%E6%9C%AF/" tabindex="-1" itemprop="url">技术</a><a href="/tags/%E5%A4%8D%E7%8E%B0/" tabindex="-1" itemprop="url">复现</a><a href="/tags/OFDM/" tabindex="-1" itemprop="url">OFDM</a><a href="/tags/ISAC/" tabindex="-1" itemprop="url">ISAC</a><a href="/tags/%E9%80%9A%E6%84%9F%E4%B8%80%E4%BD%93%E5%8C%96/" tabindex="-1" itemprop="url">通感一体化</a><h1 id="CrawlerTitle" itemprop="name headline">OFDM 蜂窝网络无设备感知复现日志</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">Kanwuqing</span><time itemprop="dateCreated datePublished" datetime="2026-11-13T13:40:00.000Z" title="发表于 2026-11-13 21:40:00">2026-11-13</time><time itemprop="dateCreated datePublished" datetime="2026-11-14T06:06:14.377Z" title="更新于 2026-11-14 14:06:14">2026-11-14</time></header><p>复现了 Shi 等人 2022 年发在 JSAC 上的一篇通感一体化论文, 内容是让蜂窝网里的基站不发专门的探测波, 直接用 OFDM 业务信号把周围没带设备的人找出来</p>
+<blockquote>
+<p>论文: Device-Free Sensing in OFDM Cellular Network<br>
+作者: Q. Shi, L. Liu, S. Zhang, S. Cui<br>
+期刊: IEEE JSAC, vol. 40, no. 6, pp. 1838–1853, Jun. 2022<br>
+doi: 10.1109/JSAC.2022.3155543<br>
+预印本: <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2108.09177">arXiv:2108.09177</a></p>
+</blockquote>
+<p>官方代码在 <a target="_blank" rel="noopener" href="https://github.com/PolyuWirelessCommunicationLab/Data-Association-in-Network-Device-Free-Sensing">PolyuWirelessCommunicationLab/Data-Association-in-Network-Device-Free-Sensing</a> 的 <code>Device-free Sensing in OFDM Cellular Network/</code> 目录里</p>
+<blockquote>
+<p>这个官方代码包只有 6 个 <code>.m</code> 文件, 没有 <code>main.m</code>, 也没有信号级的阶段一. 所以这次的工作一半是复现, 一半是自己补</p>
+</blockquote>
+<h2 id="系统设定">系统设定</h2>
+<p>系统里有 $M$ 个基站, $K$ 个目标. 基站发 OFDM 导频, 信号打到人身上反射回来, 基站从回波里量出时延, 时延换算成距离</p>
+<p>麻烦的地方在于接收端只能拿到一组距离数值, 不知道哪个距离属于哪个人. 比如 4 个基站, 3 个人, 每个基站交上来 3 个距离, 一共 12 个数字, 但谁跟谁是一伙的完全没有标签</p>
+<p>论文把这个拆成两段</p>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>工作</th>
+<th>输出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>阶段一 测距</td>
+<td>每个基站独立处理自己的回波, 找出有几个可分辨的时延</td>
+<td>$M$ 个大小为 $K$ 的无标签距离集合</td>
+</tr>
+<tr>
+<td>阶段二 定位</td>
+<td>用各基站距离集合之间的几何约束把距离配对, 解出坐标</td>
+<td>$K$ 个目标的位置</td>
+</tr>
+</tbody>
+</table>
+<h2 id="官方代码的缺口">官方代码的缺口</h2>
+<p>归档下来的 6 个文件是这样</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>model.m</code></td>
+<td>阶段二的蒙特卡洛主驱动</td>
+</tr>
+<tr>
+<td><code>coorest.m</code></td>
+<td>高斯–牛顿位置精修</td>
+</tr>
+<tr>
+<td><code>initial_est.m</code></td>
+<td>三站线性三边定位初值</td>
+</tr>
+<tr>
+<td><code>diffdist.m</code></td>
+<td>估计与真值的匈牙利配对</td>
+</tr>
+<tr>
+<td><code>distsum.m</code></td>
+<td>目标函数辅助</td>
+</tr>
+<tr>
+<td><code>munkres.m</code></td>
+<td>匈牙利算法, Yi Cao 写的</td>
+</tr>
+</tbody>
+</table>
+<p><code>model.m</code> 里有这么一句</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dist_m(m,k) = <span class="built_in">ceil</span>(dist_r(m,k)/delta_d)*delta_d - delta_d/<span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+<p>这一步把真实距离量化到距离单元中点, 然后直接当作阶段一的输出喂给阶段二. 也就是说阶段一在官方代码里被整体假设掉了, 论文最核心的 OFDM 信道估计那一层根本没跑</p>
+<p>所以这次的活分成性质不同的两块</p>
+<table>
+<thead>
+<tr>
+<th>部分</th>
+<th>内容</th>
+<th>性质</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>阶段二</td>
+<td>鬼影检测, 数据关联, 位置精修</td>
+<td><strong>复现</strong>论文算法</td>
+</tr>
+<tr>
+<td>阶段一</td>
+<td>OFDM 信道估计, 抽头检测, 距离换算</td>
+<td><strong>实现</strong>论文公式, 官方没给代码</td>
+</tr>
+</tbody>
+</table>
+<h2 id="环境">环境</h2>
+<p>Windows 11 (10.0.26100), Python 3.12.10</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">numpy==2.5.4</span><br><span class="line">scipy==1.18.1</span><br><span class="line">matplotlib==3.11.2</span><br><span class="line">pandas==3.0.6</span><br></pre></td></tr></table></figure>
+<p>随机种子固定成 <code>20240929</code>, 各实验的网格点按确定性规则从它派生</p>
+<table>
+<thead>
+<tr>
+<th>实验</th>
+<th>种子派生式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E1 误差概率随 $K$</td>
+<td><code>default_rng(seed + k)</code></td>
+</tr>
+<tr>
+<td>E2 误差概率随 $B$</td>
+<td><code>default_rng(seed + int(B/1e6))</code></td>
+</tr>
+<tr>
+<td>E3 鬼影概率</td>
+<td><code>default_rng(seed + 100*M + k)</code></td>
+</tr>
+<tr>
+<td>E4 阶段一精度</td>
+<td><code>default_rng(seed + int(B/1e6) + k)</code></td>
+</tr>
+<tr>
+<td>E5 消融</td>
+<td><code>default_rng(seed + int(cross)*7 + int(ple*3))</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>results/data/manifest.json</code> 里存着全部种子, 每点样本数, 区域尺寸和各库版本, 逐点结果也在里面, 可以直接当运行凭证</p>
+<h2 id="阶段一-信号级测距">阶段一: 信号级测距</h2>
+<p>基站收到的信号, 本质上是 $K$ 条反射路径的叠加, 每条路径对应一个抽头. 处理流程是: 构造真实信道 → 合成接收信号 → 叠加噪声 → 估计信道 → 检测抽头 → 换算距离</p>
+<h3 id="最小二乘">最小二乘</h3>
+<p>标准做法要求解</p>
+<p>$$\hat{h} = (G^H G)^{-1} G^H (\bar{s}^* \odot \bar{y})$$</p>
+<p>其中 $G$ 是傅里叶字典, $G[n,l] = e^{-j2\pi(n-1)(l-1)/N}$, 求逆代价 $O(L^2 N)$</p>
+<p>但 $G$ 的列向量两两正交, $G^H G = N \cdot I$, 单位阵的逆就是 $1/N$ 倍单位阵, 整个求逆可以约掉</p>
+<p>$$\hat{h} = \frac{1}{N\sqrt{p}} G^H (\bar{s}^* \odot \bar{y})$$</p>
+<p>这时候计算量降到 $O(NL)$, 相当于一次逆傅里叶变换</p>
+<p>这是<strong>精确的, 不是近似</strong>. 拿它跟显式伪逆逐元素比, $L$ 取 64 / 227 / 512 三种规模, 最大差值都是 <code>0.000e+00</code></p>
+<blockquote>
+<p>$L=512$ 时实测快约 500 倍. 顺带一提, 那个等式两边在浮点下完全相等, 没有精度损失</p>
+</blockquote>
+<h3 id="抽头检测和距离换算">抽头检测和距离换算</h3>
+<p>对每个抽头算能量 $|\hat{h}_l|^2$, 超过阈值判为非零抽头. 阈值取</p>
+<p>$$\gamma = \sigma_h^2 \ln(1/p_{fa}), \qquad \sigma_h^2 = \frac{\sigma^2}{N p}$$</p>
+<p>这样纯噪声被误判的概率恰好是 $p_{fa}$, 跟噪声强弱无关</p>
+<p>检测完如果抽头数超过 $K$, 保留能量最强的 $K$ 个; 一个都没检出就兜底取最强的 $K$ 个</p>
+<p>第 $l$ 个抽头对应的单程距离取单元中点</p>
+<p>$$\bar{d} = (l-1)\frac{c_0}{2B} + \frac{c_0}{4B}$$</p>
+<p>取中点是因为真实距离在单元内均匀分布, 这样最大误差最小. 误差上界就是论文式(8)</p>
+<p>$$|\bar{d} - d| \le \Delta_d = \frac{c_0}{4B}$$</p>
+<p>整套系统的精度下限就是这个 $\Delta_d$. 100 MHz 时算出来 0.7495 米, 论文写 0.75, 相差 0.07%, 是论文取整造成的</p>
+<h3 id="抽头数按带宽自适应-★★★★★">抽头数按带宽自适应 ★★★★★</h3>
+<p>抽头序号由<strong>往返</strong>路径长度 $2d$ 决定, 所以 $L$ 个抽头能表示的最大往返距离是 $L c_0 / B$, 换算成单程是</p>
+<p>$$d_{max} = \min(L, Q)\cdot \frac{c_0}{2B}$$</p>
+<p>论文给了仿真区域 $R = 240$ 米, 但对角线 $R\sqrt{2} \approx 339.41$ 米才是区域内任意两点的最大距离. 如果 $L$ 取得不够大, 远端目标的回波会绕回格子外面混叠进来</p>
+<p>混叠之后有个更阴的地方: 混叠后的距离数值可能反而落回 $d_{max}$ 以内, 光看「距离不超过 $d_{max}$」这个条件根本发现不了. 真正的合法性由「抽头序号小于 $L$」保证</p>
+<p>所以 $L$ 按带宽自适应取 $\lceil 2 R\sqrt{2} B/c_0 \rceil + 2$</p>
+<table>
+<thead>
+<tr>
+<th>$B$ (MHz)</th>
+<th>$\Delta_d$ (m)</th>
+<th>$L$</th>
+<th>$Q$</th>
+<th>单程 $d_{max}$ (m)</th>
+<th>实际最大抽头序号</th>
+<th>覆盖 339.41 m</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td>7.4948</td>
+<td>64</td>
+<td>2048</td>
+<td>959.34</td>
+<td>23</td>
+<td>是</td>
+</tr>
+<tr>
+<td>20</td>
+<td>3.7474</td>
+<td>64</td>
+<td>2048</td>
+<td>479.67</td>
+<td>46</td>
+<td>是</td>
+</tr>
+<tr>
+<td>50</td>
+<td>1.4990</td>
+<td>116</td>
+<td>2048</td>
+<td>347.76</td>
+<td>114</td>
+<td>是</td>
+</tr>
+<tr>
+<td>100</td>
+<td>0.7495</td>
+<td>229</td>
+<td>2048</td>
+<td>343.26</td>
+<td>227</td>
+<td>是</td>
+</tr>
+<tr>
+<td>200</td>
+<td>0.3747</td>
+<td>455</td>
+<td>2048</td>
+<td>341.01</td>
+<td>453</td>
+<td>是</td>
+</tr>
+<tr>
+<td>400</td>
+<td>0.1874</td>
+<td>908</td>
+<td>2048</td>
+<td>340.26</td>
+<td>906</td>
+<td>是</td>
+</tr>
+</tbody>
+</table>
+<p>末两列是关键: 实际最大抽头序号始终小于 $L$ (227 &lt; 229, 453 &lt; 455, 906 &lt; 908), 六档带宽都没有饱和</p>
+<p>50 MHz 那档 $L = 116$ 是被无混叠约束顶上去的, 不是受 64 这个下限钳制. 复跑时某一档出现异常远的定位点, 先查抽头序号离 $L$ 还有多远</p>
+<p>另外代码里在抽样阶段就加了拦截, 目标距离超过无模糊上限直接抛异常</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">validate_unambiguous</span>(<span class="params">self, max_distance_m: <span class="built_in">float</span></span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">    limit = <span class="built_in">min</span>(<span class="variable language_">self</span>.max_paths, <span class="variable language_">self</span>.cp_len) * C0 / (<span class="number">2.0</span> * <span class="variable language_">self</span>.bandwidth)</span><br><span class="line">    <span class="keyword">if</span> max_distance_m &gt; limit:</span><br><span class="line">        <span class="keyword">raise</span> ValueError(...)</span><br></pre></td></tr></table></figure>
+<p>这种错误事后很难从结果里认出来, 拦在抽样阶段最省事</p>
+<h2 id="阶段二-数据关联与定位">阶段二: 数据关联与定位</h2>
+<h3 id="位置精修">位置精修</h3>
+<p>对应 <code>coorest.m</code>. 从三站线性三边定位的闭式解出发, 按阻尼牛顿方向迭代</p>
+<p>$$\beta \leftarrow \beta - \lambda (J^T J)^{-1} J^T r$$</p>
+<p>雅可比 $J$ 只有 $2\times 2$, 正规方程用显式闭式求逆, 几何接近降秩时加对角阻尼. 对 $2\times 2$ 系统这跟伪逆等价, 但快, 因为最大似然算法会把它调几百次. $\lambda = 0.2$, 步长范数小于 0.05 米或满 50 次就停</p>
+<h3 id="鬼影检测">鬼影检测</h3>
+<p>一个候选关联是一致的, 当且仅当存在一点 $x$ 使该点到各基站的距离恰好等于给定的 $M$ 个距离值. 如果除了真实关联之外还有别的关联也闭合, 且交点不落在任何真实目标上, 那个点就是鬼影</p>
+<p>朴素做法是枚举每个基站上 $K$ 个距离的全部排列, 共 $(K!)^{M-1}$ 种. E3 里 $M$ 最大 6, $K$ 最大 6, 这个数量级跑不动</p>
+<p>实际用的剪枝策略: 先枚举前三个基站的候选三元组, 对满足一致性的延拓到剩余基站, 每个基站只在 $O(K)$ 时间里检验候选距离是否落在某条路径上</p>
+<h3 id="最大似然关联">最大似然关联</h3>
+<p>三步</p>
+<ol>
+<li>前三个基站距离集合上取笛卡尔积, 共 $K^3$ 个候选, 先过三角不等式, 再用高斯–牛顿解位置, 残差和超预算的剔除</li>
+<li>每个目标槽位选一个三元组, 三个基站上用掉的 $K$ 个距离必须恰好等于各自集合. 实现里按第一站距离值分组, 递归时持续检查已用距离仍是各站集合的子多重集</li>
+<li>第 4 到第 $M$ 个基站, 用「目标当前估计位置到该站的距离」与「该站各候选距离」之差的绝对值做代价矩阵, 匈牙利算法配对, 再精修一次</li>
+</ol>
+<p>最后按全部 $M$ 个基站的残差总和排序取最小</p>
+<h3 id="残差预算-★★★★">残差预算 ★★★★</h3>
+<p><code>model.m</code> 把距离换成单元中点, 所以就算关联完全正确, 每个基站仍会留下最多 $\Delta_d$ 的残差, 三站合计最多 $3\Delta_d$</p>
+<p>论文给的 <code>feasibility_factor = 1.5</code>, 也就是预算 $1.5 M \sigma_d = 1.5 M \Delta_d/2 = 0.75 M \Delta_d$. 这个数比误差模型本身能达到的水平还紧, 会把几乎所有有效候选都排除掉, 而且带宽越大 ($\Delta_d$ 越小) 越严重</p>
+<p>现在的做法是保留参数默认值对应论文, 但 <code>max_error</code> 没显式指定时把实际预算取成 $M \Delta_d$, 即 $M \cdot 2\sigma_d$ 再乘 1.5, 让预算跟误差模型量级对上. 想跑论文原始那套过紧规则, 显式传 <code>feasibility_factor=1.5</code> 就行</p>
+<h2 id="实验">实验</h2>
+<h3 id="E1-误差概率随目标个数的变化-★★★★">E1 误差概率随目标个数的变化 ★★★★</h3>
+<p>$M = 4$, $B = 100$ MHz, 每个点 300 个几何</p>
+<table>
+<thead>
+<tr>
+<th>$K$</th>
+<th>P(&gt;1.5 m)</th>
+<th>P(&gt;2 m)</th>
+<th>P(&gt;2.5 m)</th>
+<th>RMSE (m)</th>
+<th>RMSE 剔除 (m)</th>
+<th>中位误差 (m)</th>
+<th>灾难性</th>
+<th>不可行</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>0.0350</td>
+<td>0.0217</td>
+<td>0.0167</td>
+<td>27.94</td>
+<td>0.714</td>
+<td>0.507</td>
+<td>6/600</td>
+<td>2/300</td>
+</tr>
+<tr>
+<td>3</td>
+<td>0.0367</td>
+<td>0.0222</td>
+<td>0.0133</td>
+<td>19.73</td>
+<td>0.711</td>
+<td>0.475</td>
+<td>5/900</td>
+<td>1/300</td>
+</tr>
+<tr>
+<td>4</td>
+<td>0.0275</td>
+<td>0.0142</td>
+<td>0.0092</td>
+<td>5.38</td>
+<td>0.669</td>
+<td>0.473</td>
+<td>5/1200</td>
+<td>0/300</td>
+</tr>
+<tr>
+<td>5</td>
+<td>0.0460</td>
+<td>0.0313</td>
+<td>0.0280</td>
+<td>39.23</td>
+<td>0.736</td>
+<td>0.498</td>
+<td>24/1500</td>
+<td>4/300</td>
+</tr>
+<tr>
+<td>6</td>
+<td>0.0467</td>
+<td>0.0333</td>
+<td>0.0267</td>
+<td>40.15</td>
+<td>0.795</td>
+<td>0.482</td>
+<td>30/1800</td>
+<td>4/300</td>
+</tr>
+<tr>
+<td>7</td>
+<td>0.0467</td>
+<td>0.0310</td>
+<td>0.0252</td>
+<td>27.84</td>
+<td>0.908</td>
+<td>0.484</td>
+<td>29/2100</td>
+<td>2/300</td>
+</tr>
+</tbody>
+</table>
+<p>$K$ 从 2 涨到 7, 关联组合空间大了上万倍, 错误概率只从 3.50% 爬到 4.67%, 全程没超过 5%</p>
+<p>剔除后的 RMSE 从 0.714 涨到 0.908, 看着像是恶化了 27.2%. 但中位误差几乎没动(0.473 到 0.507, 极差 7%). 两个数对照一下, 恶化来自尾部变厚, 整体精度没降. $K$ 越大错误关联的候选越多, 少数样本被推到更远的地方去了</p>
+<p>灾难性率也没随 $K$ 单调恶化, $K=2$ 时 1.00%, $K=4$ 最低 0.42%, $K=5$ 和 $K=6$ 涨到 1.60% 和 1.67%, $K=7$ 又回落 1.38%. 这个指标反映的是尾部事件的抽样波动, 不是「$K$ 大必然出错」</p>
+<h3 id="E2-误差概率随带宽的变化-★★★★★">E2 误差概率随带宽的变化 ★★★★★</h3>
+<p>$M = 4$, $K = 3$, 每点 300 个几何, 900 个目标样本. 论文的核心结论在这一条上</p>
+<table>
+<thead>
+<tr>
+<th>$B$ (MHz)</th>
+<th>$\Delta_d$ (m)</th>
+<th>P(&gt;1.5 m)</th>
+<th>P(&gt;2 m)</th>
+<th>P(&gt;2.5 m)</th>
+<th>RMSE (m)</th>
+<th>RMSE 剔除 (m)</th>
+<th>中位误差 (m)</th>
+<th>P95 (m)</th>
+<th>灾难性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td>7.495</td>
+<td><strong>0.9411</strong></td>
+<td>0.9022</td>
+<td>0.8400</td>
+<td>42.79</td>
+<td>15.77</td>
+<td>5.036</td>
+<td>36.50</td>
+<td>16/900</td>
+</tr>
+<tr>
+<td>20</td>
+<td>3.747</td>
+<td>0.7489</td>
+<td>0.6078</td>
+<td>0.4789</td>
+<td>40.85</td>
+<td>4.53</td>
+<td>2.419</td>
+<td>9.65</td>
+<td>16/900</td>
+</tr>
+<tr>
+<td>50</td>
+<td>1.499</td>
+<td>0.1833</td>
+<td>0.1022</td>
+<td>0.0711</td>
+<td>48.53</td>
+<td>1.69</td>
+<td>0.947</td>
+<td>3.37</td>
+<td>24/900</td>
+</tr>
+<tr>
+<td>100</td>
+<td>0.749</td>
+<td>0.0356</td>
+<td>0.0244</td>
+<td>0.0178</td>
+<td>29.32</td>
+<td>0.87</td>
+<td>0.496</td>
+<td>1.23</td>
+<td>9/900</td>
+</tr>
+<tr>
+<td>200</td>
+<td>0.375</td>
+<td>0.0100</td>
+<td>0.0089</td>
+<td>0.0089</td>
+<td>19.60</td>
+<td>0.44</td>
+<td>0.278</td>
+<td>0.62</td>
+<td>4/900</td>
+</tr>
+<tr>
+<td>400</td>
+<td>0.187</td>
+<td>0.0033</td>
+<td>0.0022</td>
+<td>0.0022</td>
+<td>3.78</td>
+<td>0.24</td>
+<td>0.174</td>
+<td>0.35</td>
+<td>1/900</td>
+</tr>
+</tbody>
+</table>
+<p>错误概率从 94.11% 降到 0.33%, 跨六档带宽下降 282 倍</p>
+<p>剔除后的 RMSE 从 15.77 米降到 0.24 米, 降幅 66 倍, 而且是跟着 $\Delta_d$ 一起走的. 从 20 MHz 往上, 每一档的剔除后 RMSE 都压在 $\Delta_d$ 的 1.1 到 1.3 倍之间</p>
+<blockquote>
+<p>精度天花板由量化下限定死, 算法写得再花也压不到 $\Delta_d$ 以下</p>
+</blockquote>
+<p>单调性用程序验过: 错误概率的逐档差分全为非正, 剔除后 RMSE 的逐档差分全为负</p>
+<p>中位误差从 5.036 降到 0.174, 降幅 28.9 倍. 这个倍数比带宽的 40 倍小, 因为 10 MHz 那边误差是量化主导($\Delta_d$ 有 7.5 米), 到了 400 MHz 已经进误关联尾部主导的区间, 均值和中位数的差距反而拉大</p>
+<p>灾难性计数 16 → 16 → 24 → 9 → 4 → 1, 带宽一提, $\Delta_d$ 变小, 错误关联产生的残差越来越难跟正确关联竞争</p>
+<h3 id="E3-鬼影目标存在概率-★★★★">E3 鬼影目标存在概率 ★★★★</h3>
+<p>完美测距条件, 用真实距离的量化结果, 不加噪声</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>$K=2$</th>
+<th>$K=3$</th>
+<th>$K=4$</th>
+<th>$K=5$</th>
+<th>$K=6$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$M=3$</td>
+<td>0/300</td>
+<td>0/300</td>
+<td>0/300</td>
+<td>0/300</td>
+<td>0/300</td>
+</tr>
+<tr>
+<td>$M=4$</td>
+<td>0/300</td>
+<td>0/300</td>
+<td>0/300</td>
+<td>0/300</td>
+<td>0/300</td>
+</tr>
+<tr>
+<td>$M=6$</td>
+<td>0/300</td>
+<td>0/300</td>
+<td>0/300</td>
+<td>0/300</td>
+<td>0/300</td>
+</tr>
+</tbody>
+</table>
+<p>4500 个几何样本一个鬼影都没有. 按 rule of three, 单组 95% 置信上界是 $3/300 = 0.01$</p>
+<h3 id="E4-阶段一信号级恢复精度-★★★★">E4 阶段一信号级恢复精度 ★★★★</h3>
+<p>带宽 20 到 400 MHz, $K$ 取 2 4 6, 各 100 个几何. 指标是距离单元精确命中率</p>
+<table>
+<thead>
+<tr>
+<th>$B$ (MHz)</th>
+<th>$K=2$</th>
+<th>$K=4$</th>
+<th>$K=6$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>20</td>
+<td>1.000</td>
+<td>1.000</td>
+<td>0.980</td>
+</tr>
+<tr>
+<td>50</td>
+<td>1.000</td>
+<td>1.000</td>
+<td>1.000</td>
+</tr>
+<tr>
+<td>100</td>
+<td>1.000</td>
+<td>1.000</td>
+<td>1.000</td>
+</tr>
+<tr>
+<td>200</td>
+<td>1.000</td>
+<td>1.000</td>
+<td>1.000</td>
+</tr>
+<tr>
+<td>400</td>
+<td>1.000</td>
+<td>1.000</td>
+<td>1.000</td>
+</tr>
+</tbody>
+</table>
+<p>15 档平均 <strong>99.87%</strong> (1498/1500)</p>
+<p>唯一的失分在 20 MHz 加 $K=6$ 那格, 100 个几何漏了 2 个. 那档 $\Delta_d = 3.75$ 米, 带宽最窄加上六个目标的距离单元最挤, 恒虚警率检测漏检了, 该点的距离 RMSE 直接到 44.50 米, 漏一个抽头就把距离整个推偏一个单元以上</p>
+<p>这里有个容易画错的地方: 距离误差只有两档, 命中是 0, 未命中是几十米, 中间没有平滑过渡. 所以 fig4 的右图画的是各带宽下命中与漏检的几何占比, 不是距离 RMSE 随带宽的连续曲线. 硬画成曲线会让人以为误差在平滑恶化</p>
+<h3 id="E5-消融-★★★★★">E5 消融 ★★★★★</h3>
+<p>$B = 100$ MHz, $K = 4$, 每组 100 个几何. 人为违反正交频假设, 再改路径损耗指数</p>
+<table>
+<thead>
+<tr>
+<th>跨站路径入带</th>
+<th>路径损耗指数</th>
+<th>精确恢复率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>否(论文假设)</td>
+<td>1</td>
+<td><strong>1.00</strong></td>
+</tr>
+<tr>
+<td>否</td>
+<td>2</td>
+<td>0.76</td>
+</tr>
+<tr>
+<td>是</td>
+<td>1</td>
+<td><strong>0.00</strong></td>
+</tr>
+<tr>
+<td>是</td>
+<td>2</td>
+<td>0.00</td>
+</tr>
+</tbody>
+</table>
+<p>跨站反射一进来, 阶段一直接归零. 机理是双站路径的等效距离 $(d_u + d_m)/2$ 落在与自路径不同的距离单元上, 等于凭空多出 $M-1$ 倍的抽头. 「每个基站恰好 $K$ 条路径」这个阶段二赖以成立的结构被破坏</p>
+<blockquote>
+<p>论文关于相邻基站用不同频率的那个假设, 对整套框架是必要条件, 不是可有可无的前提</p>
+</blockquote>
+<p>路径损耗指数那个更有意思. 自由空间的 $\alpha = 2$ 看着更&quot;物理&quot;, 但同一个基站里近目标的反射强度会比远目标高约 100 倍, 远目标必然掉到任何合理阈值下面, 这反而违反了论文自己「$K$ 条路径可分辨」的假设</p>
+<p>所以默认取 $\alpha = 1$, 单站动态范围约 10 到 20 倍, 精确恢复率 1.00. $\alpha = 2$ 放进消融, 恢复率 0.76</p>
+<p>论文没给基站与目标之间的反射系数模型, 只要求「$K$ 条路径可分辨」. 这两个数都不是从论文里抄的, 是按那条可分辨性假设反推的</p>
+<h2 id="验证">验证</h2>
+<p>单元级自检, 算法级交叉验证, 统计级正负控制, 三层各管一段</p>
+<h3 id="单元级自检">单元级自检</h3>
+<p>冒烟测试</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>检查内容</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>波形参数自洽, 距离刻度与论文值比对</td>
+<td>100 MHz 得 0.74948 米, 论文 0.75, 相对误差 0.07%</td>
+</tr>
+<tr>
+<td>2</td>
+<td>无噪单径下最小二乘是否精确</td>
+<td>相对误差 1.069e−15</td>
+</tr>
+<tr>
+<td>2b</td>
+<td>快速估计与显式伪逆是否一致</td>
+<td>三种规模最大差均为 0.000e+00</td>
+</tr>
+<tr>
+<td>3</td>
+<td>抽头序号与距离的往返换算</td>
+<td>四个测试点误差均小于 $\Delta_d$</td>
+</tr>
+<tr>
+<td>3b</td>
+<td>超出无模糊距离被拒绝</td>
+<td>正确抛出异常</td>
+</tr>
+<tr>
+<td>4</td>
+<td>单基站端到端恢复真实距离</td>
+<td>20/20 个有效几何精确恢复</td>
+</tr>
+<tr>
+<td>5</td>
+<td>线性三边定位还原已知点</td>
+<td>真值 [30, 40], 估计 [30, 40], 最大残差 1.421e−14</td>
+</tr>
+<tr>
+<td>6</td>
+<td>完美测距下最大似然关联</td>
+<td>15 个几何中 12 个定位误差小于 1 米</td>
+</tr>
+<tr>
+<td>7</td>
+<td>一致性检验拒绝扰动几何</td>
+<td>原始判为一致, 扰动后判为不一致</td>
+</tr>
+<tr>
+<td>8</td>
+<td>量化测距下关联的稳健性</td>
+<td>25 个几何中 23 个定位误差小于 1.5 米</td>
+</tr>
+</tbody>
+</table>
+<p>第 6 项 12/15. 完美测距下鬼影也可能存在, 论文的结论是鬼影罕见而并非不可能, 判据定成不少于 80% 通过</p>
+<h3 id="枚举剪枝的验证">枚举剪枝的验证</h3>
+<p>快速路径把第一个基站的顺序钉死, 理论候选数应该恰好是暴力的 $1/K!$. 实测</p>
+<table>
+<thead>
+<tr>
+<th>$K$</th>
+<th>暴力候选</th>
+<th>快速候选</th>
+<th>倍数</th>
+<th>目标值差</th>
+<th>最大点偏差</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3</td>
+<td>6</td>
+<td>1</td>
+<td>6.0</td>
+<td>0.00e+00</td>
+<td>0.000e+00</td>
+</tr>
+<tr>
+<td>4</td>
+<td>24</td>
+<td>1</td>
+<td>24.0</td>
+<td>0.00e+00</td>
+<td>0.000e+00</td>
+</tr>
+<tr>
+<td>5</td>
+<td>120</td>
+<td>1</td>
+<td>120.0</td>
+<td>0.00e+00</td>
+<td>0.000e+00</td>
+</tr>
+<tr>
+<td>5</td>
+<td>1200</td>
+<td>10</td>
+<td>120.0</td>
+<td>0.00e+00</td>
+<td>0.000e+00</td>
+</tr>
+</tbody>
+</table>
+<p>目标值差恒为 0, 最大点偏差恒为 0, 快速路径找到的解跟暴力穷举完全相同</p>
+<p>还有一例是两边都判不可行</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">K=5 第2例：两者均不可行（暴力 2.91 秒，快速 0.035 秒）</span><br></pre></td></tr></table></figure>
+<p>两边都没解的情况也记一致</p>
+<h3 id="鬼影检测的验证与正控制">鬼影检测的验证与正控制</h3>
+<p>$M$ 从 3 到 6, $K$ 从 2 到 4 的网格上, 快速检测器跟暴力置换枚举的判定完全一致, 每组 8 个样本</p>
+<p>暴力法耗时随规模爆得很快. 最早网格里带过 $M=4$, $K=4$ 那格, 8 个样本跑了 278.6 秒, 平均一个样本 35 秒; 快速法同一批 0.34 秒. 后来把这格从常规网格里拿掉了, 留着只适合单独跑</p>
+<p>网格现在是 $(M,K)$ 取 (3,2) (3,3) (3,4) (4,2) (4,3), 多基站和多目标两个维度都覆盖到了, 又不会让一次验证变成半小时</p>
+<p>E3 报的是 0/4500, 所以还得证明这个检测器不是死的. 两个正控制, 一个负控制</p>
+<p><strong>正控制一</strong>, 四基站摆成正方形 (0,0) (200,0) (0,200) (200,200), 两个目标放在 (60,70) 和 (140,130). 两目标关于方形中心镜像对称, 交换关联后同样能交汇在 (70,60), 那个点不是任何真实目标. 暴力和快速都正确报出</p>
+<p><strong>正控制二</strong>, 三个基站摆在半径 150 米的圆周上, 两个目标关于原点对称放在 (40,25) 和 (−40,−25). 交换后同样闭合, 交点落在真实目标位置上. 两种方法都判定存在鬼影</p>
+<p><strong>负控制</strong>, 30 个随机非对称几何, 两种方法 30/30 一致, 都没误报</p>
+<blockquote>
+<p>两个正控制都报出鬼影, 负控制 30 个几何没误报过</p>
+</blockquote>
+<p>批量脚本按从快到慢的顺序跑, 四项全过</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">verify_ghost_positive.py   通过      0      4.3 秒</span><br><span class="line">verify_ghost.py            通过      0     19.8 秒</span><br><span class="line">verify_enum_strict.py      通过      0     12.1 秒</span><br><span class="line">verify_enum.py             通过      0     16.5 秒</span><br><span class="line"></span><br><span class="line">4 个全过</span><br></pre></td></tr></table></figure>
+<p>耗时每次跑差别不小, <code>verify_ghost.py</code> 有一次跑了 88.9 秒, 是机器负载的关系, 判定结果没变</p>
+<h2 id="一键复现">一键复现</h2>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">python <span class="literal">-m</span> venv .venv</span><br><span class="line">.\.venv\Scripts\python.exe <span class="literal">-m</span> pip install <span class="literal">-r</span> requirements.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 环境自检, 不产生文件</span></span><br><span class="line">.\.venv\Scripts\python.exe scripts\smoke_test.py</span><br><span class="line">.\.venv\Scripts\python.exe scripts\smoke_test_phase2.py</span><br><span class="line"></span><br><span class="line"><span class="comment"># 跑全部实验</span></span><br><span class="line">.\.venv\Scripts\python.exe scripts\run_experiments.py <span class="literal">--exp</span> all <span class="literal">--trials</span> <span class="number">300</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 出图</span></span><br><span class="line">.\.venv\Scripts\python.exe scripts\make_figures.py</span><br><span class="line"></span><br><span class="line"><span class="comment"># 四项交叉验证</span></span><br><span class="line">.\.venv\Scripts\python.exe scripts\run_verify_all.py</span><br></pre></td></tr></table></figure>
+<p>跑实验那一档实测 513.8 秒, README 里写的「约 9 至 15 分钟」是留了余量的说法</p>
+<p>两次从空的 <code>results/data/</code> 重跑, 五个 CSV 逐字节一致, 只有 <code>manifest.json</code> 里的耗时字段不同</p>
+<h2 id="误差来源">误差来源</h2>
+<p>按对最终定位精度的贡献排序</p>
+<table>
+<thead>
+<tr>
+<th>来源</th>
+<th>量级</th>
+<th>性质</th>
+<th>主要证据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>量化误差</td>
+<td>与 $\Delta_d$ 成正比</td>
+<td>不可消除, 只能压缩</td>
+<td>图 7, E2</td>
+</tr>
+<tr>
+<td>关联错误</td>
+<td>1%–3% 的样本, 误差数十米</td>
+<td>可部分缓解</td>
+<td>E1 E2 灾难性计数</td>
+</tr>
+<tr>
+<td>不可行几何</td>
+<td>0–2% 的几何</td>
+<td>属几何本质</td>
+<td>E1 的 <code>infeasible</code> 字段</td>
+</tr>
+<tr>
+<td>阶段一漏检</td>
+<td>0.13%</td>
+<td>需自适应阈值</td>
+<td>E4 的 20 MHz 加 $K=6$</td>
+</tr>
+<tr>
+<td>假设违反</td>
+<td>使全部指标失效</td>
+<td>属前提条件</td>
+<td>E5</td>
+</tr>
+</tbody>
+</table>
+<p>第一种是主项且消不掉. 100 MHz 下 $\Delta_d = 0.7495$ 米, 实测剔除后 RMSE 0.87 米, 中位误差 0.50 米, 量级对得上. 图 7 把 RMSE 画在 $\Delta_d$ 的 1:1 参考线上, 两条线几乎平行</p>
+<p>第二种是尾部主项, 少数目标被扔到区域另一端, 误差 20 到 300 米. 成因在算法结构: 最大似然的目标函数是残差之和, 两个不同关联的残差接近时会选错, $\Delta_d$ 大时特别容易. 缓解方向是加跨帧的时间一致性约束, 这属于论文之外的扩展</p>
+<p>第三种是算法明确报告「找不到合法解」的几何. E1 和 E2 里各出现 0 到 6 例(每 300 个几何). 脚本把它单独计进 <code>infeasible</code> 字段, 既不混进误差统计也不额外赋值. E1 里 $K=5$ 和 $K=6$ 各 4/300, $K=2$ 有 2/300, $K=4$ 是 0/300, 没随 $K$ 单调恶化, 说明主要是几何布局本身的问题, 不是穷举漏解</p>
+<h2 id="与论文结论的对照">与论文结论的对照</h2>
+<table>
+<thead>
+<tr>
+<th>论文结论</th>
+<th>本复现结果</th>
+<th>判定</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>定位精度随带宽提升</td>
+<td>RMSE 剔除 15.77 → 0.24 米, 错误概率 94.11% → 0.33%, 单调</td>
+<td>吻合</td>
+</tr>
+<tr>
+<td>量化界 $\Delta_d = c_0/(4B)$, 100 MHz 为 0.75 米, 400 MHz 为 0.1875 米</td>
+<td>得 0.7495 和 0.1874, 相差 0.07%</td>
+<td>吻合</td>
+</tr>
+<tr>
+<td>鬼影目标存在概率可忽略</td>
+<td>0/4500, 95% 上界 0.01, 有正控制</td>
+<td>吻合</td>
+</tr>
+<tr>
+<td>数据关联非根本性限制</td>
+<td>$K \le 7$ 时错误概率恒低于 5%</td>
+<td>吻合</td>
+</tr>
+</tbody>
+</table>
+<p>对照止于<strong>趋势与量级</strong>. 参考的是 arXiv v1, IEEE JSAC 正式刊出的版本可能有数值修订, arXiv 版本身也没给 $M=4$, $K$ 取 2 到 7 的完整错误概率表, 逐格比对做不了</p>
+<h2 id="局限">局限</h2>
+<p>噪声方差固定 1e-18(信号级 1e-14), 对应极高的 SNR, 没做信噪比扫描. 真实系统里低信噪比才是主要矛盾, 这次的结论不能直接外推过去</p>
+<p>阶段一没有 A/B 对照. 官方就 6 个 MATLAB 文件, 没有信号级阶段一, 自己写的那部分过了单元测试和交叉验证, 但缺少跟原作者实现的对比</p>
+<p>信道模型只有直达反射路径(消融里加了跨站路径), 墙面的多径, 目标之间的遮挡, 目标运动带来的多普勒频移都没碰</p>
+<h2 id="结果文件">结果文件</h2>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">results/data/e1_error_prob_vs_K.csv        E1 逐点指标, 18 列</span><br><span class="line">results/data/e2_error_prob_vs_B.csv        E2 逐点指标, 18 列</span><br><span class="line">results/data/e3_ghost_prob_vs_K.csv        E3 各网格点的几何数与鬼影数</span><br><span class="line">results/data/e4_phase1_range_error.csv     E4 各带宽与目标数的恢复率, 距离误差</span><br><span class="line">results/data/e5_ablations.csv              E5 四组消融配置的恢复率</span><br><span class="line">results/data/manifest.json                 种子, 版本, 逐点结果, 总耗时</span><br><span class="line"></span><br><span class="line">results/figures/fig1..fig7*.png/.pdf       7 张图, PNG 300 dpi 与 PDF 各一份</span><br><span class="line">logs/verify_all_&lt;时间戳&gt;.log                每项验证的开始结束时间与返回码</span><br></pre></td></tr></table></figure>
+<p><code>manifest.json</code> 里每个网格点都带 <code>delta_d_m</code> 和 <code>catastrophic_gate_m</code>, 报告里引用的数字不用去读图, 全能在 CSV 里查到</p>
+<h2 id="引用">引用</h2>
+<p>Q. Shi, L. Liu, S. Zhang, S. Cui, “Device-Free Sensing in OFDM Cellular Network,” <em>IEEE Journal on Selected Areas in Communications</em>, vol. 40, no. 6, pp. 1838–1853, Jun. 2022, doi: 10.1109/JSAC.2022.3155543</p>
+<p>预印本 arXiv:2108.09177</p>
+<p>官方代码: <a target="_blank" rel="noopener" href="https://github.com/PolyuWirelessCommunicationLab/Data-Association-in-Network-Device-Free-Sensing">PolyuWirelessCommunicationLab/Data-Association-in-Network-Device-Free-Sensing</a></p>
+<p>本复现代码: <a target="_blank" rel="noopener" href="https://github.com/kanwuqing/isac-dfs-repro">kanwuqing/isac-dfs-repro</a></p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/avatar.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/avatar.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">Kanwuqing</div><div class="post-copyright__author_desc">To Be Legend</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://kanwuqing.github.io/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0%E2%80%94%E2%80%94OFDM%E8%9C%82%E7%AA%9D%E7%BD%91%E7%BB%9C%E6%97%A0%E8%AE%BE%E5%A4%87%E6%84%9F%E7%9F%A5/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://kanwuqing.github.io/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0%E2%80%94%E2%80%94OFDM%E8%9C%82%E7%AA%9D%E7%BD%91%E7%BB%9C%E6%97%A0%E8%AE%BE%E5%A4%87%E6%84%9F%E7%9F%A5/')">OFDM 蜂窝网络无设备感知复现日志</span></a></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://kanwuqing.github.io" target="_blank">阚无倾的小窝</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/Python/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>Python<span class="tagsPageCount">13</span></a><a class="post-meta__box__tags" href="/tags/%E6%8A%80%E6%9C%AF/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>技术<span class="tagsPageCount">11</span></a><a class="post-meta__box__tags" href="/tags/%E5%A4%8D%E7%8E%B0/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>复现<span class="tagsPageCount">1</span></a><a class="post-meta__box__tags" href="/tags/OFDM/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>OFDM<span class="tagsPageCount">1</span></a><a class="post-meta__box__tags" href="/tags/ISAC/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>ISAC<span class="tagsPageCount">1</span></a><a class="post-meta__box__tags" href="/tags/%E9%80%9A%E6%84%9F%E4%B8%80%E4%BD%93%E5%8C%96/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>通感一体化<span class="tagsPageCount">1</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="/img/default_bg.jpg" data-sites="wechat,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/%E6%B3%A2%E5%BD%A2%E7%94%9F%E6%88%90%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-FIR%E6%95%B0%E5%AD%97%E6%BB%A4%E6%B3%A2/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">波形发生识别系统开发日志 —— FIR 数字滤波</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/LinuxAppImage%E5%AE%89%E8%A3%85%E5%8D%B8%E8%BD%BD%E5%B7%A5%E5%85%B7%E5%8C%85/" title="PythonImport"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2026-05-23</div><div class="title">PythonImport</div></div></a></div><div><a href="/Manim%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%88%9D%E6%AD%A5%E5%85%A5%E9%97%A8%E5%87%A0%E4%BD%95%E5%9B%BE%E5%BD%A2/" title="Manim学习笔记-初步入门几何图形"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-06-02</div><div class="title">Manim学习笔记-初步入门几何图形</div></div></a></div><div><a href="/PythonImport/" title="PythonImport"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-03-22</div><div class="title">PythonImport</div></div></a></div><div><a href="/SyncToAsync/" title="SyncToAsync"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-03-22</div><div class="title">SyncToAsync</div></div></a></div><div><a href="/%E7%94%9F%E8%AF%8D%E6%9C%AC%E7%94%9F%E6%88%90%E5%99%A8/" title="生词本生成器开发日志"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-03-22</div><div class="title">生词本生成器开发日志</div></div></a></div><div><a href="/AI%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84/" title="AI学习笔记 - 学习路径"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-03-31</div><div class="title">AI学习笔记 - 学习路径</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info__sayhi" id="author-info__sayhi" onclick="anzhiyu.changeSayHelloText()"></div><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-status"><img class="g-status" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/emoji.png" alt="status"/></div></div><div class="author-info__description"><div style="font-size:16px;line-height:1.38;margin:0.6rem 0;text-align:justify;color:rgba(0, 0, 0, 0.8);">这里是我在探索记录与实践复盘的数字角落，主要存放开发中的踩坑记录、解决方案、项目日志和学习笔记。</div> <div style="font-size:16px;line-height:1.38;margin:0.6rem 0;text-align:justify;color:rgba(0, 0, 0, 0.8);>相信这些源于实战的思考与总结，能为你我照亮些许前行的路。欢迎交流与指正。</div></div><div class="author-info__bottom-group"><a class="author-info__bottom-group-left" href="/about"><h1 class="author-info__name">Kanwuqing</h1><div class="author-info__desc">To Be Legend</div></a><div class="card-info-social-icons is-center"><a class="social-icon faa-parent animated-hover" href="https://github.com/kanwuqing" target="_blank" title="Github"><i class="anzhiyufont anzhiyu-icon-github"></i></a></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E8%AE%BE%E5%AE%9A"><span class="toc-number">1.</span> <span class="toc-text">系统设定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%98%E6%96%B9%E4%BB%A3%E7%A0%81%E7%9A%84%E7%BC%BA%E5%8F%A3"><span class="toc-number">2.</span> <span class="toc-text">官方代码的缺口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-number">3.</span> <span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E4%B8%80-%E4%BF%A1%E5%8F%B7%E7%BA%A7%E6%B5%8B%E8%B7%9D"><span class="toc-number">4.</span> <span class="toc-text">阶段一: 信号级测距</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98"><span class="toc-number">4.1.</span> <span class="toc-text">最小二乘</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%BD%E5%A4%B4%E6%A3%80%E6%B5%8B%E5%92%8C%E8%B7%9D%E7%A6%BB%E6%8D%A2%E7%AE%97"><span class="toc-number">4.2.</span> <span class="toc-text">抽头检测和距离换算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%BD%E5%A4%B4%E6%95%B0%E6%8C%89%E5%B8%A6%E5%AE%BD%E8%87%AA%E9%80%82%E5%BA%94-%E2%98%85%E2%98%85%E2%98%85%E2%98%85%E2%98%85"><span class="toc-number">4.3.</span> <span class="toc-text">抽头数按带宽自适应 ★★★★★</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%B6%E6%AE%B5%E4%BA%8C-%E6%95%B0%E6%8D%AE%E5%85%B3%E8%81%94%E4%B8%8E%E5%AE%9A%E4%BD%8D"><span class="toc-number">5.</span> <span class="toc-text">阶段二: 数据关联与定位</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%8D%E7%BD%AE%E7%B2%BE%E4%BF%AE"><span class="toc-number">5.1.</span> <span class="toc-text">位置精修</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AC%BC%E5%BD%B1%E6%A3%80%E6%B5%8B"><span class="toc-number">5.2.</span> <span class="toc-text">鬼影检测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E5%85%B3%E8%81%94"><span class="toc-number">5.3.</span> <span class="toc-text">最大似然关联</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AE%8B%E5%B7%AE%E9%A2%84%E7%AE%97-%E2%98%85%E2%98%85%E2%98%85%E2%98%85"><span class="toc-number">5.4.</span> <span class="toc-text">残差预算 ★★★★</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C"><span class="toc-number">6.</span> <span class="toc-text">实验</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#E1-%E8%AF%AF%E5%B7%AE%E6%A6%82%E7%8E%87%E9%9A%8F%E7%9B%AE%E6%A0%87%E4%B8%AA%E6%95%B0%E7%9A%84%E5%8F%98%E5%8C%96-%E2%98%85%E2%98%85%E2%98%85%E2%98%85"><span class="toc-number">6.1.</span> <span class="toc-text">E1 误差概率随目标个数的变化 ★★★★</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#E2-%E8%AF%AF%E5%B7%AE%E6%A6%82%E7%8E%87%E9%9A%8F%E5%B8%A6%E5%AE%BD%E7%9A%84%E5%8F%98%E5%8C%96-%E2%98%85%E2%98%85%E2%98%85%E2%98%85%E2%98%85"><span class="toc-number">6.2.</span> <span class="toc-text">E2 误差概率随带宽的变化 ★★★★★</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#E3-%E9%AC%BC%E5%BD%B1%E7%9B%AE%E6%A0%87%E5%AD%98%E5%9C%A8%E6%A6%82%E7%8E%87-%E2%98%85%E2%98%85%E2%98%85%E2%98%85"><span class="toc-number">6.3.</span> <span class="toc-text">E3 鬼影目标存在概率 ★★★★</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#E4-%E9%98%B6%E6%AE%B5%E4%B8%80%E4%BF%A1%E5%8F%B7%E7%BA%A7%E6%81%A2%E5%A4%8D%E7%B2%BE%E5%BA%A6-%E2%98%85%E2%98%85%E2%98%85%E2%98%85"><span class="toc-number">6.4.</span> <span class="toc-text">E4 阶段一信号级恢复精度 ★★★★</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#E5-%E6%B6%88%E8%9E%8D-%E2%98%85%E2%98%85%E2%98%85%E2%98%85%E2%98%85"><span class="toc-number">6.5.</span> <span class="toc-text">E5 消融 ★★★★★</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81"><span class="toc-number">7.</span> <span class="toc-text">验证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E5%85%83%E7%BA%A7%E8%87%AA%E6%A3%80"><span class="toc-number">7.1.</span> <span class="toc-text">单元级自检</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%9A%E4%B8%BE%E5%89%AA%E6%9E%9D%E7%9A%84%E9%AA%8C%E8%AF%81"><span class="toc-number">7.2.</span> <span class="toc-text">枚举剪枝的验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AC%BC%E5%BD%B1%E6%A3%80%E6%B5%8B%E7%9A%84%E9%AA%8C%E8%AF%81%E4%B8%8E%E6%AD%A3%E6%8E%A7%E5%88%B6"><span class="toc-number">7.3.</span> <span class="toc-text">鬼影检测的验证与正控制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E9%94%AE%E5%A4%8D%E7%8E%B0"><span class="toc-number">8.</span> <span class="toc-text">一键复现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%AF%E5%B7%AE%E6%9D%A5%E6%BA%90"><span class="toc-number">9.</span> <span class="toc-text">误差来源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8E%E8%AE%BA%E6%96%87%E7%BB%93%E8%AE%BA%E7%9A%84%E5%AF%B9%E7%85%A7"><span class="toc-number">10.</span> <span class="toc-text">与论文结论的对照</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B1%80%E9%99%90"><span class="toc-number">11.</span> <span class="toc-text">局限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%9C%E6%96%87%E4%BB%B6"><span class="toc-number">12.</span> <span class="toc-text">结果文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E7%94%A8"><span class="toc-number">13.</span> <span class="toc-text">引用</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0%E2%80%94%E2%80%94OFDM%E8%9C%82%E7%AA%9D%E7%BD%91%E7%BB%9C%E6%97%A0%E8%AE%BE%E5%A4%87%E6%84%9F%E7%9F%A5/" title="OFDM 蜂窝网络无设备感知复现日志"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OFDM 蜂窝网络无设备感知复现日志"/></a><div class="content"><a class="title" href="/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0%E2%80%94%E2%80%94OFDM%E8%9C%82%E7%AA%9D%E7%BD%91%E7%BB%9C%E6%97%A0%E8%AE%BE%E5%A4%87%E6%84%9F%E7%9F%A5/" title="OFDM 蜂窝网络无设备感知复现日志">OFDM 蜂窝网络无设备感知复现日志</a><time datetime="2026-11-13T13:40:00.000Z" title="发表于 2026-11-13 21:40:00">2026-11-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/%E6%B3%A2%E5%BD%A2%E7%94%9F%E6%88%90%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-FIR%E6%95%B0%E5%AD%97%E6%BB%A4%E6%B3%A2/" title="波形发生识别系统开发日志 —— FIR 数字滤波"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="波形发生识别系统开发日志 —— FIR 数字滤波"/></a><div class="content"><a class="title" href="/%E6%B3%A2%E5%BD%A2%E7%94%9F%E6%88%90%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-FIR%E6%95%B0%E5%AD%97%E6%BB%A4%E6%B3%A2/" title="波形发生识别系统开发日志 —— FIR 数字滤波">波形发生识别系统开发日志 —— FIR 数字滤波</a><time datetime="2026-10-26T06:00:00.000Z" title="发表于 2026-10-26 14:00:00">2026-10-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E6%8C%87%E9%92%88/" title="C语言学习笔记——指针"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C语言学习笔记——指针"/></a><div class="content"><a class="title" href="/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E6%8C%87%E9%92%88/" title="C语言学习笔记——指针">C语言学习笔记——指针</a><time datetime="2026-10-19T02:12:00.000Z" title="发表于 2026-10-19 10:12:00">2026-10-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E5%87%BD%E6%95%B0/" title="C语言学习笔记——函数"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C语言学习笔记——函数"/></a><div class="content"><a class="title" href="/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E5%87%BD%E6%95%B0/" title="C语言学习笔记——函数">C语言学习笔记——函数</a><time datetime="2026-10-18T02:15:00.000Z" title="发表于 2026-10-18 10:15:00">2026-10-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E7%A8%8B%E5%BA%8F%E8%B7%91%E4%B8%8D%E5%AF%B9%E6%80%8E%E4%B9%88%E5%8A%9E/" title="C语言学习笔记——程序跑不对怎么办"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C语言学习笔记——程序跑不对怎么办"/></a><div class="content"><a class="title" href="/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E7%A8%8B%E5%BA%8F%E8%B7%91%E4%B8%8D%E5%AF%B9%E6%80%8E%E4%B9%88%E5%8A%9E/" title="C语言学习笔记——程序跑不对怎么办">C语言学习笔记——程序跑不对怎么办</a><time datetime="2026-10-17T08:10:00.000Z" title="发表于 2026-10-17 16:10:00">2026-10-17</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2026 By <a class="footer-bar-link" href="/" title="Kanwuqing" target="_blank">Kanwuqing</a></div></div><div id="footer-type-tips"></div><div class="js-pjax"><script>function subtitleType () {
+  fetch('https://v1.hitokoto.cn')
+    .then(response => response.json())
+    .then(data => {
+      if (true) {
+        const from = '出自 ' + data.from
+        const sub = ["生活明朗&#44; 万物可爱&#44; 人间值得&#44; 未来可期."]
+        sub.unshift(data.hitokoto, from)
+        window.typed = new Typed('#footer-type-tips', {
+          strings: sub,
+          startDelay: 300,
+          typeSpeed: 150,
+          loop: true,
+          backSpeed: 50,
+        })
+      } else {
+        document.getElementById('footer-type-tips').innerHTML = data.hitokoto
+      }
+    })
+}
+
+if (true) {
+  if (typeof Typed === 'function') {
+    subtitleType()
+  } else {
+    getScript('https://cdn.cbd.int/typed.js@2.1.0/dist/typed.umd.js').then(subtitleType)
+  }
+} else {
+  subtitleType()
+}
+</script></div></div><div class="footer-bar-right"><a class="footer-bar-link" href="/"></a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">59</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">35</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">5</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/kanwuqing.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" href="/html/maze.html" title="迷宫小游戏"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/kanwuqing.ico" alt="迷宫小游戏"/><span class="back-menu-item-text">迷宫小游戏</span></a><a class="back-menu-item" href="/html/latex-table.html" title="LaTeX速查表"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/kanwuqing.ico" alt="LaTeX速查表"/><span class="back-menu-item-text">LaTeX速查表</span></a></div></div></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 归档</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于我</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/career/"><i class="anzhiyufont anzhiyu-icon-images faa-tada" style="font-size: 0.9em;"></i><span> 我的经历</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/AI/" style="font-size: 0.88rem;">AI<sup>12</sup></a><a href="/tags/Bot/" style="font-size: 0.88rem;">Bot<sup>7</sup></a><a href="/tags/C/" style="font-size: 0.88rem;">C++<sup>7</sup></a><a href="/tags/Canvas/" style="font-size: 0.88rem;">Canvas<sup>1</sup></a><a href="/tags/C%E8%AF%AD%E8%A8%80/" style="font-size: 0.88rem;">C语言<sup>12</sup></a><a href="/tags/F401/" style="font-size: 0.88rem;">F401<sup>2</sup></a><a href="/tags/G431/" style="font-size: 0.88rem;">G431<sup>1</sup></a><a href="/tags/HTML/" style="font-size: 0.88rem;">HTML<sup>1</sup></a><a href="/tags/ISAC/" style="font-size: 0.88rem;">ISAC<sup>1</sup></a><a href="/tags/Javascript/" style="font-size: 0.88rem;">Javascript<sup>1</sup></a><a href="/tags/LegendBot/" style="font-size: 0.88rem;">LegendBot<sup>7</sup></a><a href="/tags/Manim/" style="font-size: 0.88rem;">Manim<sup>1</sup></a><a href="/tags/OFDM/" style="font-size: 0.88rem;">OFDM<sup>1</sup></a><a href="/tags/OI/" style="font-size: 0.88rem;">OI<sup>5</sup></a><a href="/tags/Python/" style="font-size: 0.88rem;">Python<sup>13</sup></a><a href="/tags/STM32/" style="font-size: 0.88rem;">STM32<sup>4</sup></a><a href="/tags/Wechat/" style="font-size: 0.88rem;">Wechat<sup>7</sup></a><a href="/tags/docs/" style="font-size: 0.88rem;">docs<sup>1</sup></a><a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" style="font-size: 0.88rem;">人工智能<sup>12</sup></a><a href="/tags/%E4%BF%A1%E5%A5%A5/" style="font-size: 0.88rem;">信奥<sup>8</sup></a><a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" style="font-size: 0.88rem;">单片机<sup>1</sup></a><a href="/tags/%E5%A4%8D%E7%8E%B0/" style="font-size: 0.88rem;">复现<sup>1</sup></a><a href="/tags/%E6%8A%80%E6%9C%AF/" style="font-size: 0.88rem;">技术<sup>11</sup></a><a href="/tags/%E6%8C%87%E9%92%88/" style="font-size: 0.88rem;">指针<sup>1</sup></a><a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 0.88rem;">教程<sup>4</sup></a><a href="/tags/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/" style="font-size: 0.88rem;">数字信号处理<sup>1</sup></a><a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 0.88rem;">数学<sup>21</sup></a><a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/" style="font-size: 0.88rem;">概率论<sup>1</sup></a><a href="/tags/%E6%B3%A2%E5%BD%A2%E5%8F%91%E7%94%9F%E8%AF%86%E5%88%AB%E7%B3%BB%E7%BB%9F/" style="font-size: 0.88rem;">波形发生识别系统<sup>3</sup></a><a href="/tags/%E7%AC%94%E8%AE%B0/" style="font-size: 0.88rem;">笔记<sup>43</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 0.88rem;">算法<sup>9</sup></a><a href="/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" style="font-size: 0.88rem;">线性代数<sup>11</sup></a><a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/" style="font-size: 0.88rem;">计算机<sup>4</sup></a><a href="/tags/%E9%80%9A%E6%84%9F%E4%B8%80%E4%BD%93%E5%8C%96/" style="font-size: 0.88rem;">通感一体化<sup>1</sup></a><a href="/tags/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/" style="font-size: 0.88rem;">高等数学<sup>5</sup></a></div></div><hr/></div></div><div id="keyboard-tips"><div class="keyboardTitle">博客快捷键</div><div class="keybordList"><div class="keybordItem"><div class="keyGroup"><div class="key">shift K</div></div><div class="keyContent"><div class="content">关闭快捷键功能</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift A</div></div><div class="keyContent"><div class="content">打开/关闭中控台</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift M</div></div><div class="keyContent"><div class="content">播放/暂停音乐</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift D</div></div><div class="keyContent"><div class="content">深色/浅色显示模式</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift S</div></div><div class="keyContent"><div class="content">站内搜索</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift R</div></div><div class="keyContent"><div class="content">随机访问</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift H</div></div><div class="keyContent"><div class="content">返回首页</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift F</div></div><div class="keyContent"><div class="content">友链鱼塘</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift L</div></div><div class="keyContent"><div class="content">友链页面</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift P</div></div><div class="keyContent"><div class="content">关于本站</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift I</div></div><div class="keyContent"><div class="content">原版/本站右键菜单</div></div></div></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8904880904" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="is-center" id="loading-database"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-pulse-icon"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@6.1.6/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script async src="/anzhiyu/random.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.cbd.int/mathjax@4.0.0/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><input type="hidden" name="page-type" id="page-type" value="post"></div><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://cdn.cbd.int/qrcodejs@1.0.0/qrcode.min.js"></script><script src="/js/anzhiyu/right_click_menu.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
