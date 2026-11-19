@@ -1,0 +1,792 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>高等数学（上）期中模拟卷——极限·导数·中值定理 | 阚无倾的小窝</title><meta name="keywords" content="笔记,数学,高等数学"><meta name="author" content="Kanwuqing"><meta name="copyright" content="Kanwuqing"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="高等数学（上）期中模拟卷——极限·导数·中值定理"><meta name="application-name" content="高等数学（上）期中模拟卷——极限·导数·中值定理"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="高等数学（上）期中模拟卷——极限·导数·中值定理"><meta property="og:url" content="https://kanwuqing.github.io/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%EF%BC%88%E4%B8%8A%EF%BC%89%E6%9C%9F%E4%B8%AD%E6%A8%A1%E6%8B%9F%E5%8D%B7%E2%80%94%E2%80%94%E6%9E%81%E9%99%90%E5%AF%BC%E6%95%B0%E4%B8%8E%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86/index.html"><meta property="og:site_name" content="阚无倾的小窝"><meta property="og:description" content="覆盖到洛必达为止的全部考点, 51 道题, 每题后面的解析都折叠起来了, 先做完再点开.  题目的侧重点分布在: 间断点分类、连续与可导的讨论、无穷小的阶、高阶导数（公式法与泰勒两条路）、函数与数列极限、参数方程与隐函数求导、泰勒公式的计算与估计、中值定理证明, 最后加一组概念辨析专治&amp;quot;"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://kanwuqing.github.io/img/default_bg.jpg"><meta property="article:author" content="Kanwuqing"><meta property="article:tag" content="Python,Coding"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://kanwuqing.github.io/img/default_bg.jpg"><meta name="description" content="覆盖到洛必达为止的全部考点, 51 道题, 每题后面的解析都折叠起来了, 先做完再点开.  题目的侧重点分布在: 间断点分类、连续与可导的讨论、无穷小的阶、高阶导数（公式法与泰勒两条路）、函数与数列极限、参数方程与隐函数求导、泰勒公式的计算与估计、中值定理证明, 最后加一组概念辨析专治&amp;quot;"><link rel="shortcut icon" href="/img/kanwuqing.ico"><link rel="canonical" href="https://kanwuqing.github.io/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%EF%BC%88%E4%B8%8A%EF%BC%89%E6%9C%9F%E4%B8%AD%E6%A8%A1%E6%8B%9F%E5%8D%B7%E2%80%94%E2%80%94%E6%9E%81%E9%99%90%E5%AF%BC%E6%95%B0%E4%B8%8E%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@6.1.6/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/swiper/swiper.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: undefined,
+  postHeadAiDescription: undefined,
+  diytitle: undefined,
+  LA51: undefined,
+  greetingBox: {"enable":true,"default":"晚上好👋","list":[{"greeting":"晚安😴","startTime":0,"endTime":5},{"greeting":"早上好鸭👋, 祝你一天好心情！","startTime":6,"endTime":9},{"greeting":"上午好👋, 状态很好，鼓励一下～","startTime":10,"endTime":10},{"greeting":"11点多啦, 在坚持一下就吃饭啦～","startTime":11,"endTime":11},{"greeting":"午安👋","startTime":12,"endTime":14},{"greeting":"🌈充实的一天辛苦啦！","startTime":14,"endTime":18},{"greeting":"19点喽, 奖励一顿丰盛的大餐吧🍔。","startTime":19,"endTime":19},{"greeting":"晚上好👋, 在属于自己的时间好好放松😌~","startTime":20,"endTime":24}]},
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "custom",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: {"skills":["🤖️ 数码科技爱好者","🔍 分享与热心帮助","🏠 智能家居小能手","🔨 设计开发一条龙","🤝 专修交互与设计","🏃 脚踏实地行动派","🧱 团队小组发动机","💢 壮汉人狠话不多"]},
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: Kanwuqing","link":"链接: ","source":"来源: 阚无倾的小窝","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.2.0/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.2.0/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: {"enable":true,"delay":100,"shiftDelay":200},
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '阚无倾的小窝',
+  title: '高等数学（上）期中模拟卷——极限·导数·中值定理',
+  postAI: '',
+  pageFillDescription: '0 卷面结构与用法, 一 间断点的判定与分类, 二 连续性与可导性, 三 无穷小的阶, 四 高阶导数, 五 极限的计算, 六 参数方程与隐函数求导, 七 泰勒公式, 八 中值定理的证明, 九 概念辨析, 十 一点使用建议覆盖到洛必达为止的全部考点道题每题后面的解析都折叠起来了先做完再点开题目的侧重点分布在间断点分类连续与可导的讨论无穷小的阶高阶导数公式法与泰勒两条路函数与数列极限参数方程与隐函数求导泰勒公式的计算与估计中值定理证明最后加一组概念辨析专治感觉上是对的卷面结构与用法板块内容题号建议用时难度一间断点的判定与分类二连续性与可导性三无穷小的阶四高阶导数五极限的计算函数数列六参数方程与隐函数求导七泰勒公式八中值定理证明九概念辨析判断整套约分钟一次做完相当于两场考试的强度真要模拟分钟的期中卷取一二三四五的前六题六深度部分留到复习二轮中值定理那一组建议单独抽一小时做因为它考的是构造而不是计算速度两条纪律第一凡是分段点卷面上必须写出左右极限或左右导数只写显然连续通常不给分第二见到型别条件反射就洛必达先看等价无穷小与泰勒能不能一步到位洛必达在根式相减幂指函数这几类结构上极易越洛越乱一间断点的判定与分类判断类型的三步找无定义点与分段点分别算左右极限再比较左右极限之间以及它们与函数值的关系左右都存在且相等但不等于函数值或无定义为可去左右都存在但不等为跳跃有一个不存在含无穷与振荡为第二类第题求的全部间断点并判断类型第题解析定义域排除了指数无意义与分母为零所以间断点只有这两个处令当时由得于是极限存在是可去间断点补定义后连续处两侧走向相反时分母左极限为时分母右极限为左右极限都存在但不相等是跳跃间断点跳跃度为答可去跳跃左右这题的坑在于两侧的符号只算一侧很容易误判成无穷间断指数里出现的结构两侧极限必然分开讨论第题求的全部间断点并判断类型第题解析定义域排除了在定义域内先把之外的部分约掉三个点的行为一下就清楚了左极限右极限跳动是跳跃间断点两侧极限都是是可去间断点在附近故左极限右极限是第二类无穷间断点答跳跃可去无穷化简前要先确认约掉因子的点正是待讨论的点这里约掉之后变成了可去点若论约分合法性只需在的邻域内讨论即可第题求的全部间断点并判断类型第题解析分子分母零点为全体整数故间断点集是对令用分子分母极限可去分子分母极限可去分子分母极限可去此时分母趋于零而分子不趋于零函数值在两侧分别为是第二类无穷间断点答可去值分别为为无穷间断点二连续性与可导性分段点上的固定流程连续用左右极限等于函数值可导用导数定义或左右导数千万不能把两侧表达式分别求导再代点第题设求使在连续在此条件下讨论在是否可导第题解析连续左极限有理化右极限用得三者相等可导取左侧把表达式改写成分母更好求导的形式于是右侧由得所以连续但不可导原点处是尖点答此时连续不可导右侧导数存在是因为平方项系数恰好抵消这类分段题里常常来自函数展开中项系数与常数项定义值的匹配做题时把展开写出来比硬套定义更稳第题求的不可导点第题解析绝对值部分可疑点只有记先给出一个可复用的判据若在可导且则在必不可导左右导数分别为与若则括号内是有界因子乘积仍为可导的项导数为由判据可导且不可导具体地不可导具体地答不可导点为与别漏掉它是因子为零的情形恰好被吸收掉一个绝对值变成可导这类题最常见的失分就是不加区分地把三个点都判成不可导第题设求的表达式并讨论其连续性与可导性第题解析极限只由的走向决定按的符号分三段分子分母同除直接代入得即连续在处连续两段内部都是初等函数故在上连续可导在处用定义左右导数不等不存在其余点可导且答表达式如上处处连续仅在不可导第题设讨论在处的连续性与可导性并判断在处是否连续第题解析连续由夹逼得连续可导导函数连续性时第一项第二项在内无限次振荡极限不存在故不存在而答在处连续且可导但在处不连续振荡型第二类间断由此可以记住三件事可导不必导函数连续导函数若有间断只能是第二类达布定理而本例中的间断恰好是振荡型三无穷小的阶比较阶数只做一件事把每个无穷小展开到首个非零项就是阶同阶再比第题当时比较的阶并由低到高排列第题解析由取一阶由取六阶由阶比较即答阶数依次由低到高为半整数阶很常见与同阶但注意它与不同阶拿去和比是常见的偷换第题求使时第题解析用取在精度下于是答若坚持用洛必达需要连求两阶导并做两次极限运算而展开只用到一条公式这就是求系数用泰勒的意义第题求与使时第题解析先提公因子避免两个展开式对齐到高阶其中三者相乘得答用展开复核一致四高阶导数两条主线公式法莱布尼茨有理分式裂项三角降幂与泰勒系数法后者在原点处几乎总是更快第题设求与第题解析先裂项用得代检验直接求导在处为而公式给一致答第题设求第题解析莱布尼茨公式取因只剩三项代入检验两次求导得与公式一致答上式第题设求第题解析奇次幂三角用和差化积降幂由得再用检验正确答上式配套结论见到三角函数的整数次幂先降幂之后每阶导数都只是乘加相位第题设求第题解析直接对反复求导会越来越繁改读泰勒系数若则先展开导数在收敛区间内逐项积分所以奇次项系数为偶次项系数为答即为什么可以逐项积分幂级数在收敛区间内部闭区间上一致收敛而是内点逐项积分合法第题设求第题解析由得对应即系数为于是答第题设求第题解析莱布尼茨第三项来自检验与直接求导一致也一致答上式五极限的计算函数极限的四类难点根式相减要分子有理化幂指函数要取对数无穷减无穷要通分里若分母是阶分子必须展到阶阶数不匹配就会得到或的错误答案数列极限另加两条求和型优先夹逼或定积分定义递推型先证单调有界再取极限第题求第题解析先定阶分母三阶分子必须展到三阶分子有理化分母那个和式而由第题故分子于是原式答若直接洛必达分子求导后是两个根式与的乘积分母求导出一路洛下去基本没有生还可能有理化的作用是把两个根式之差压成这一单个已知结构第题求第题解析通分分母分子展到四阶由故分子分母原式答另一条更快的路是倒数展开相减即得凡是出现与某函数倒数相减用展开往往一步到位第题求第题解析幂指函数一律写成指数形式再把指数展开到一阶设则所以原式答通病是把底数直接当成再算那样分子恒为底数趋于而指数趋于时必须把底数偏离的那一阶与指数的倒数对应起来这正是取对数展开在做的事第题求第题解析型取对数记原极限为用把底数写成的形式由与故答这题用洛必达也能做但要处理的商法则分子导数里出现化简反而更绕用是本题的降维点第题求第题解析令由得故极限为答一般结论值得记住它与是同一枚硬币的两面第题求第题解析型取对数并令由得于是故对数极限为原极限为答三阶项系数是这类题的暗号凡是形式答案都在的与附近因为的系数是的是第题求第题解析项求和各项都趋于不能逐项取极限把分母统一到最大与最小求和用两端极限都是由夹逼得答这题不能直接套定积分定义通项是提不出标准的分母里与分子同阶提出后会留下的变形形式对不上夹逼是这里唯一干净的路第题求第题解析分母统一两端分别化简为与极限都是夹逼得答对比第题两题都是项分母带与但题各项同阶于总数题各项同阶于总数判断量级时先看单项是还是阶第题求第题解析型取对数记原极限为由得又故答与第题同源都是正弦或正切除以自变量再取次幂分离出的都是或这类三阶系数第题求第题解析无穷减无穷通分分母分子故极限为答若把分母的换成再算得到的是同一个因为但严格写法应当通分后用等价无穷小替换分母不能中途把直接当只替换一半第题设证明收敛并求第题解析收敛由知单调递减又归纳可得若则且单调有界必收敛设极限为对递推式取极限得故求对递推式取倒数即累加得因为所以对任意取使时则两边除以并令得即答单调递减趋于且这题的钥匙是取倒数递推式里出现这种一次项减二次项的结构取倒数后立刻变成二阶小量被吸收进凡是型极限都可以这样统一处理第题求第题解析凑定积分定义严格化也可用夹逼对有更直接的是用之类的端点估计两端都收敛到答定积分定义的标准形式是见到就先把提出来剩下的就是六参数方程与隐函数求导参数方程的二阶导不是而是隐函数求导之后若还要二阶导把一阶关系式整体再求导一次通常比解出再套商法则省事第题设求与并求处的值第题解析一阶二阶时答在处分别为与强调一遍二阶导一阶导对求导再除以不是把除以用后者算出来是只是这题凑巧与正确答案在处相同换别的点就错了第题设摆线求与第题解析一阶二阶把与代入答摆线是处处凹向下的曲线与直觉一致拱起另外处无意义那些点正是摆线的尖点切线竖直第题方程确定求第题解析先定初值时故一阶注意是的函数代得二阶对再求导代答注意二阶时不要漏项求导得两项求导得两项一共四项漏项是这类题最典型的错误第题设由确定求第题解析先把右边写成再两边对求导左端的系数与相乘恰为于是左右同分母答几何意义左端是极角右端是曲线是的对数螺线对数螺线的性质是切线与向径夹角恒为用验一下斜率与向径方向的夹角确实恒定结论自洽第题设由确定求曲线在点处的切线方程与第题解析一阶代得切线为即二阶对再求导代答切线是椭圆二次型正定在处切线与向径垂直斜率为与计算一致椭圆是凸的故也合理七泰勒公式带佩亚诺余项的泰勒用于求极限与定系数带拉格朗日余项的泰勒用于估计误差证明不等式两者混用是常见扣分点证明不等式时写相当于什么都没证第题将在处展开成幂级数并指出收敛半径第题解析用第题的裂项结果在内相减注意顺序是系数与第题的完全对应互相印证收敛半径两个展开分别在与内成立取交集得这也正是最近的奇点到展开中心的距离答第题已知时求并进一步求第题解析展开到三阶于是要它是一次项与三次项系数都必须为零此时分子首个非零项在五阶再由得分子故极限为答极限若用洛必达求第二部分需要连求五次每次都要处理或的系数叠加出错概率极高泰勒在这里是降维打击第题将在处展开到项并用它计算第题解析在广义二项式中取系数可用递推逐项检验例如正确取代入前四项而只差余项量级与观测到的偏差同阶剩下的来自手算舍入答展开式如上用前四项算得与真值相差约这个误差来自被截掉的项量级以及手算的舍入二者同量级注意时手算时保留位已经超出计算器显示的有效数字实际考试到这步就能停第题写出的三阶麦克劳林公式带拉格朗日余项并用它证明时第题解析公式介于与之间证明当时于是余项移项即得严格不等式对余项仍为正不等式对一切成立答见上顺带给出数值估计而误差与余项吻合第题设求并写出关于的二阶展开第题解析取对数故再设由其中的系数来自答极限为数值核对时与直接计算的差在量级这类关于展开的题目里一阶系数就是见第题二阶系数则必须把两项都算到二阶八中值定理的证明证明题的三个动作把结论整理成找辅助函数需要两个中值时在区间内插入分点分点通常由函数值决定需要导函数取某值时若题目没给连续就用达布定理导函数具有介值性第题设在上连续在内可导且存在使证明存在使第题解析在闭区间上连续由最值定理取到最小值因为故而两端点值都是所以最小值只能在内部取到设于是内点且为极小值点由费马引理取在上用拉格朗日中值定理答见上这题把两个最常用的取材点一次性考了一个是闭区间最值内部极值点导数为零一个是割线斜率等于某点导数注意这问不能用罗尔定理直接得到因为题目没给第题设在上连续在内可导且证明存在不同的使第题解析结论是两段斜率的倒数和为常数说明要在区间内插一个分点让两段割线的斜率倒数之和恰好消去选分点连续由介值定理存在使两次拉格朗日于是且两点不同答见上题眼是把取成中点函数值这样两段割线斜率恰好是与取倒数后变成与相加消去凡是证的题都是按函数值等分区间再分段用拉格朗日这一招第题设在上二阶可导且连续证明存在使第题解析左边是二阶差分的形状标准做法是把中点当展开中心向两侧各展开一次记带拉格朗日余项展开两式相加一阶项抵消由连续在上用介值定理存在使于是答见上若题设只给二阶可导而不给连续把最后一步的介值定理换成达布定理即可因为作为的导数仍具有介值性结论不变另外这题也可以用三次插值型辅助函数罗尔定理连用两次来证但泰勒法更短第题设在上连续在内可导证明存在使第题解析把要证的式子整理成反推辅助函数则且在连续可导满足罗尔定理条件故存在使即答见上这类还原原函数的技巧是中值证明的第一基本功把结论写成就构造这里的原函数是同理若结论是辅助函数就是第题设在上连续在内可导证明存在互不相同的使第题解析由介值定理取两个分点使在三段上分别用拉格朗日中值定理取倒数相加且三点互不相同答见上一般结论证就把按函数值分成段每段用一次拉格朗日第题是的情形第题设在上可导且证明在上一致连续并举例说明一致连续推不出有界第题解析证明若则为常数结论显然设取对任意满足由拉格朗日中值定理存在使故在上一致连续反例在上一致连续对任意取即可但导数无界答见上一致连续的常用判据导数有界李普希茨是充分条件不是必要条件另一个常用判据是在连续且存在例如但虽有界连续却不一致连续因为它在无穷远处振荡越来越快导数无界第题证明当时第题解析右侧令在上用拉格朗日中值定理由得左侧用函数单调性更直接令则且故在上严格增从而即两侧合起来即得结论答见上这两条不等式的意义被夹在与之间正好是它的泰勒展开截断到一阶与二阶的两种估计用拉格朗日余项也能直接给出由得与上面结论一致而且顺手得到更强的界九概念辨析判断对错并说明理由这组题专治感觉上是对的每条错误命题都配了具体反例判断若存在则在的某去心邻域内有界判断解析正确设极限为取存在使时即故在去心邻域内有界注意去心二字不可省在处可以无定义也可以取任意大的值例如极限存在且在去心邻域有界但在含的邻域内无界判断若在处连续则在的某邻域内连续判断解析错误连续性只是逐点性质不传递到邻域反例在处连续但对任意有理点其附近的无理点处函数值为与相差不为零故不连续无理点附近的有理点使函数值趋于也不连续所以只在一点连续任意邻域内都有无穷多个不连续点判断若在处可导则在的某邻域内连续判断解析错误可导只推出该点连续反例在处故存在但对有理点处函数值趋于无理点处趋于二者不等极限不存在更谈不上连续所以只在处连续可导其余点处处不连续判断若存在则在处连续判断解析正确该极限就是由得这正是可导必连续的标准证明关键是有界量乘无穷小仍为无穷小判断若在处不可导则曲线在点处没有切线判断解析错误不可导只说明切线可能不存在也可能存在竖直切线反例在导数不存在但曲线在原点有竖直切线另一类反例是在处左右导数分别为与形成尖点确实没有切线所以正确表述是不可导时切线可能不存在也可能是竖直的判断若在内可导且则在内严格单调递增反之若严格单调递增则判断解析前半正确后半错误前半任取由拉格朗日中值定理故严格增后半的反例在上严格增但不满足处处正确的反向命题应写成若在内可导且严格增则更进一步若且在的任何子区间上不恒为零则仍严格增这是判定严格单调时最实用的形式十一点使用建议这套卷子里最值得反复做的几道是第题它们分别代表了有理化后定阶倒数展开幂指函数三阶项递推数列取倒数泰勒定系数二阶差分用泰勒多点中值插分这七个模板剩下那些看着眼熟的题换的都是外壳自测时建议按板块掐时间错题只记卡在哪一步是不会找等价无穷小还是忘了乘还是辅助函数构造不出来三类问题的补法完全不同',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-11-19 13:05:00',
+  postMainColor: '#ffff00',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/note.css"><meta name="generator" content="Hexo 8.1.1"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><div class="back-home-button"><i class="anzhiyufont anzhiyu-icon-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/kanwuqing.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" href="/html/maze.html" title="迷宫小游戏"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/kanwuqing.ico" alt="迷宫小游戏"/><span class="back-menu-item-text">迷宫小游戏</span></a><a class="back-menu-item" href="/html/latex-table.html" title="LaTeX速查表"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/kanwuqing.ico" alt="LaTeX速查表"/><span class="back-menu-item-text">LaTeX速查表</span></a></div></div></div></div><a id="site-name" href="/" accesskey="h"><div class="title">阚无倾的小窝</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a><div id="he-plugin-simple"></div><script>var WIDGET = {
+  "CONFIG": {
+    "modules": "0124",
+    "background": "2",
+    "tmpColor": "FFFFFF",
+    "tmpSize": "16",
+    "cityColor": "FFFFFF",
+    "citySize": "16",
+    "aqiColor": "E8D87B",
+    "aqiSize": "16",
+    "weatherIconSize": "24",
+    "alertIconSize": "18",
+    "padding": "10px 10px 10px 10px",
+    "shadow": "0",
+    "language": "auto",
+    "borderRadius": "20",
+    "fixed": "true",
+    "vertical": "top",
+    "horizontal": "left",
+    "left": "20",
+    "top": "7.1",
+    "key": "df245676fb434a0691ead1c63341cd94"
+  }
+}
+</script><link rel="stylesheet" href="https://widget.qweather.net/simple/static/css/he-simple.css?v=1.4.0"/><script src="https://widget.qweather.net/simple/static/js/he-simple.js?v=1.4.0"></script></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 归档</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于我</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/career/"><i class="anzhiyufont anzhiyu-icon-images faa-tada" style="font-size: 0.9em;"></i><span> 我的经历</span></a></li></ul></div></div></div><div id="nav-right"><div class="nav-button only-home" id="travellings_button" title="随机前往一个开往项目网站"><a class="site-page" onclick="anzhiyu.totraveling()" title="随机前往一个开往项目网站" href="javascript:void(0);" rel="external nofollow" data-pjax-state="external"><i class="anzhiyufont anzhiyu-icon-train"></i></a></div><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/AI/" style="font-size: 1.05rem;">AI<sup>12</sup></a><a href="/tags/Bot/" style="font-size: 1.05rem;">Bot<sup>7</sup></a><a href="/tags/C/" style="font-size: 1.05rem;">C++<sup>7</sup></a><a href="/tags/Canvas/" style="font-size: 1.05rem;">Canvas<sup>1</sup></a><a href="/tags/C%E8%AF%AD%E8%A8%80/" style="font-size: 1.05rem;">C语言<sup>13</sup></a><a href="/tags/F401/" style="font-size: 1.05rem;">F401<sup>2</sup></a><a href="/tags/G431/" style="font-size: 1.05rem;">G431<sup>1</sup></a><a href="/tags/HTML/" style="font-size: 1.05rem;">HTML<sup>1</sup></a><a href="/tags/ISAC/" style="font-size: 1.05rem;">ISAC<sup>1</sup></a><a href="/tags/Javascript/" style="font-size: 1.05rem;">Javascript<sup>1</sup></a><a href="/tags/LegendBot/" style="font-size: 1.05rem;">LegendBot<sup>7</sup></a><a href="/tags/Manim/" style="font-size: 1.05rem;">Manim<sup>1</sup></a><a href="/tags/OFDM/" style="font-size: 1.05rem;">OFDM<sup>1</sup></a><a href="/tags/OI/" style="font-size: 1.05rem;">OI<sup>5</sup></a><a href="/tags/Python/" style="font-size: 1.05rem;">Python<sup>13</sup></a><a href="/tags/STM32/" style="font-size: 1.05rem;">STM32<sup>4</sup></a><a href="/tags/Wechat/" style="font-size: 1.05rem;">Wechat<sup>7</sup></a><a href="/tags/docs/" style="font-size: 1.05rem;">docs<sup>1</sup></a><a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" style="font-size: 1.05rem;">人工智能<sup>12</sup></a><a href="/tags/%E4%BF%A1%E5%A5%A5/" style="font-size: 1.05rem;">信奥<sup>8</sup></a><a href="/tags/%E5%85%B1%E7%94%A8%E4%BD%93/" style="font-size: 1.05rem;">共用体<sup>1</sup></a><a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" style="font-size: 1.05rem;">单片机<sup>1</sup></a><a href="/tags/%E5%A4%8D%E7%8E%B0/" style="font-size: 1.05rem;">复现<sup>1</sup></a><a href="/tags/%E6%8A%80%E6%9C%AF/" style="font-size: 1.05rem;">技术<sup>11</sup></a><a href="/tags/%E6%8C%87%E9%92%88/" style="font-size: 1.05rem;">指针<sup>1</sup></a><a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 1.05rem;">教程<sup>4</sup></a><a href="/tags/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/" style="font-size: 1.05rem;">数字信号处理<sup>1</sup></a><a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 1.05rem;">数学<sup>22</sup></a><a href="/tags/%E6%9E%9A%E4%B8%BE/" style="font-size: 1.05rem;">枚举<sup>1</sup></a><a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/" style="font-size: 1.05rem;">概率论<sup>1</sup></a><a href="/tags/%E6%B3%A2%E5%BD%A2%E5%8F%91%E7%94%9F%E8%AF%86%E5%88%AB%E7%B3%BB%E7%BB%9F/" style="font-size: 1.05rem;">波形发生识别系统<sup>3</sup></a><a href="/tags/%E7%AC%94%E8%AE%B0/" style="font-size: 1.05rem;">笔记<sup>45</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.05rem;">算法<sup>9</sup></a><a href="/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" style="font-size: 1.05rem;">线性代数<sup>11</sup></a><a href="/tags/%E7%BB%93%E6%9E%84%E4%BD%93/" style="font-size: 1.05rem;">结构体<sup>1</sup></a><a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/" style="font-size: 1.05rem;">计算机<sup>5</sup></a><a href="/tags/%E9%80%9A%E6%84%9F%E4%B8%80%E4%BD%93%E5%8C%96/" style="font-size: 1.05rem;">通感一体化<sup>1</sup></a><a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 1.05rem;">链表<sup>1</sup></a><a href="/tags/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/" style="font-size: 1.05rem;">高等数学<sup>6</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/11/"><span class="card-archive-list-date">十一月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/10/"><span class="card-archive-list-date">十月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">15</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/09/"><span class="card-archive-list-date">九月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/07/"><span class="card-archive-list-date">七月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/06/"><span class="card-archive-list-date">六月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">12</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/05/"><span class="card-archive-list-date">五月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/04/"><span class="card-archive-list-date">四月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/03/"><span class="card-archive-list-date">三月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">4</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div><div class="console-btn-item" id="consoleKeyboard" onclick="anzhiyu.keyboardToggle()" title="快捷键开关"><a class="keyboard-switch"><i class="anzhiyufont anzhiyu-icon-keyboard"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AC%94%E8%AE%B0/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>笔记</span></a><a class="article-meta__tags" href="/tags/%E6%95%B0%E5%AD%A6/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>数学</span></a><a class="article-meta__tags" href="/tags/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>高等数学</span></a></span></div></div><h1 class="post-title" itemprop="name headline">高等数学（上）期中模拟卷——极限·导数·中值定理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2026-11-19T05:10:00.000Z" title="发表于 2026-11-19 13:10:00">2026-11-19</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2026-11-19T05:05:00.268Z" title="更新于 2026-11-19 13:05:00">2026-11-19</time></span></div><div class="meta-secondline"><span class="post-meta-separator"></span><span class="post-meta-wordcount"><i class="anzhiyufont anzhiyu-icon-file-word post-meta-icon" title="文章字数"></i><span class="post-meta-label" title="文章字数">字数总计:</span><span class="word-count" title="文章字数">11.6k</span><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-clock post-meta-icon" title="阅读时长"></i><span class="post-meta-label" title="阅读时长">阅读时长:</span><span>52分钟</span></span><span class="post-meta-separator"></span><span class="post-meta-pv-cv" id="" data-flag-title="高等数学（上）期中模拟卷——极限·导数·中值定理"><i class="anzhiyufont anzhiyu-icon-fw-eye post-meta-icon"></i><span class="post-meta-label" title="阅读量">阅读量:</span><span id="busuanzi_value_page_pv"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i></span></span><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为中国"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>中国</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="/img/default_bg.jpg"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://kanwuqing.github.io/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%EF%BC%88%E4%B8%8A%EF%BC%89%E6%9C%9F%E4%B8%AD%E6%A8%A1%E6%8B%9F%E5%8D%B7%E2%80%94%E2%80%94%E6%9E%81%E9%99%90%E5%AF%BC%E6%95%B0%E4%B8%8E%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86/"><header><a href="/tags/%E7%AC%94%E8%AE%B0/" tabindex="-1" itemprop="url">笔记</a><a href="/tags/%E6%95%B0%E5%AD%A6/" tabindex="-1" itemprop="url">数学</a><a href="/tags/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/" tabindex="-1" itemprop="url">高等数学</a><h1 id="CrawlerTitle" itemprop="name headline">高等数学（上）期中模拟卷——极限·导数·中值定理</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">Kanwuqing</span><time itemprop="dateCreated datePublished" datetime="2026-11-19T05:10:00.000Z" title="发表于 2026-11-19 13:10:00">2026-11-19</time><time itemprop="dateCreated datePublished" datetime="2026-11-19T05:05:00.268Z" title="更新于 2026-11-19 13:05:00">2026-11-19</time></header><blockquote>
+<p>覆盖到洛必达为止的全部考点, 51 道题, 每题后面的解析都折叠起来了, 先做完再点开.</p>
+</blockquote>
+<p>题目的侧重点分布在: 间断点分类、连续与可导的讨论、无穷小的阶、高阶导数（公式法与泰勒两条路）、函数与数列极限、参数方程与隐函数求导、泰勒公式的计算与估计、中值定理证明, 最后加一组概念辨析专治&quot;感觉上是对的&quot;.</p>
+<h2 id="0-卷面结构与用法">0 卷面结构与用法</h2>
+<table>
+<thead>
+<tr>
+<th>板块</th>
+<th>内容</th>
+<th>题号</th>
+<th>建议用时</th>
+<th>难度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一</td>
+<td>间断点的判定与分类</td>
+<td>1–3</td>
+<td>12 min</td>
+<td>★★☆</td>
+</tr>
+<tr>
+<td>二</td>
+<td>连续性与可导性</td>
+<td>4–7</td>
+<td>16 min</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>三</td>
+<td>无穷小的阶</td>
+<td>8–10</td>
+<td>8 min</td>
+<td>★★☆</td>
+</tr>
+<tr>
+<td>四</td>
+<td>高阶导数</td>
+<td>11–16</td>
+<td>16 min</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>五</td>
+<td>极限的计算（函数 + 数列）</td>
+<td>17–28</td>
+<td>24 min</td>
+<td>★★★★</td>
+</tr>
+<tr>
+<td>六</td>
+<td>参数方程与隐函数求导</td>
+<td>29–33</td>
+<td>12 min</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>七</td>
+<td>泰勒公式</td>
+<td>34–38</td>
+<td>14 min</td>
+<td>★★★★</td>
+</tr>
+<tr>
+<td>八</td>
+<td>中值定理证明</td>
+<td>39–45</td>
+<td>28 min</td>
+<td>★★★★★</td>
+</tr>
+<tr>
+<td>九</td>
+<td>概念辨析</td>
+<td>判断 1–6</td>
+<td>8 min</td>
+<td>★★☆</td>
+</tr>
+</tbody>
+</table>
+<p>整套约 140 分钟, 一次做完相当于两场考试的强度. 真要模拟 90 分钟的期中卷, 取一、二、三、四、五的前六题、六, 深度部分留到复习二轮; 中值定理那一组建议单独抽一小时做, 因为它考的是构造而不是计算速度.</p>
+<div class="note info flat"><p>两条纪律. 第一, 凡是分段点, 卷面上必须写出左右极限或左右导数, 只写&quot;显然连续&quot;通常不给分. 第二, 见到 $\frac{0}{0}$ 型别条件反射就洛必达, 先看等价无穷小与泰勒能不能一步到位; 洛必达在根式相减、幂指函数、$\infty\ln 0$ 这几类结构上极易越洛越乱.</p>
+</div>
+<h2 id="一-间断点的判定与分类">一 间断点的判定与分类</h2>
+<p>判断类型的三步: 找无定义点与分段点, 分别算左右极限, 再比较左右极限之间、以及它们与函数值的关系. 左右都存在且相等（但不等于函数值或无定义）为可去; 左右都存在但不等为跳跃; 有一个不存在（含无穷与振荡）为第二类.</p>
+<p><strong>第 1 题</strong>（★★☆）　求 $f(x)=\dfrac{x}{1-e^{\frac{x}{x-1}}}$ 的全部间断点, 并判断类型.</p>
+<details class="folding-tag" ><summary> 第 1 题解析 </summary>
+              <div class='content'>
+              <p>定义域排除了 $x=1$（指数无意义）与 $x=0$（分母为零）, 所以间断点只有这两个.</p><p><strong>$x=0$ 处</strong>: 令 $u=\dfrac{x}{x-1}$, 当 $x\to0$ 时 $u\to0$, 由 $e^u-1\sim u$ 得<br>$$<br>1-e^{\frac{x}{x-1}}\sim-\frac{x}{x-1}\sim x ,<br>$$<br>于是<br>$$<br>\lim_{x\to0}f(x)=\lim_{x\to0}\frac{x}{x}=1 .<br>$$<br>极限存在, 是可去间断点, 补定义 $f(0)=1$ 后连续.</p><p><strong>$x=1$ 处</strong>: $u=\dfrac{x}{x-1}$ 两侧走向相反.</p><ul><li>$x\to1^-$ 时 $u\to-\infty$, $e^u\to0$, 分母 $\to1$, 左极限为 $1$;</li><li>$x\to1^+$ 时 $u\to+\infty$, $e^u\to+\infty$, 分母 $\to-\infty$, 右极限为 $0$.</li></ul><p>左右极限都存在但不相等, 是跳跃间断点, 跳跃度为 $1$.</p><p>答: $x=0$ 可去, $x=1$ 跳跃（左 $1$、右 $0$）.</p><blockquote><p>这题的坑在于 $x=1$ 两侧的符号: 只算一侧很容易误判成无穷间断. 指数里出现 $\frac{1}{x-x_0}$ 的结构, 两侧极限必然分开讨论.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 2 题</strong>（★★☆）　求 $f(x)=\dfrac{x^2-x}{|x|\left(x^2-1\right)}$ 的全部间断点, 并判断类型.</p>
+<details class="folding-tag" ><summary> 第 2 题解析 </summary>
+              <div class='content'>
+              <p>定义域排除了 $0,\pm1$. 在定义域内先把 $|x|$ 之外的部分约掉:<br>$$<br>f(x)=\frac{x(x-1)}{|x|(x-1)(x+1)}=\frac{x}{|x|}\cdot\frac{1}{x+1}=\frac{\operatorname{sgn}x}{x+1}.<br>$$<br>三个点的行为一下就清楚了.</p><ul><li>$x=0$: 左极限 $\frac{-1}{1}=-1$, 右极限 $\frac{1}{1}=1$, 跳动 $2$, 是跳跃间断点.</li><li>$x=1$: 两侧 $\operatorname{sgn}x=1$, 极限都是 $\frac{1}{2}$, 是可去间断点.</li><li>$x=-1$: 在 $-1$ 附近 $\operatorname{sgn}x=-1$, 故 $f=\frac{-1}{x+1}$. 左极限 $+\infty$, 右极限 $-\infty$, 是第二类（无穷）间断点.</li></ul><p>答: $x=0$ 跳跃, $x=1$ 可去, $x=-1$ 无穷.</p><blockquote><p>化简前要先确认约掉因子的点正是待讨论的点, 这里 $(x-1)$ 约掉之后 $x=1$ 变成了可去点, 若论&quot;约分合法性&quot;, 只需在 $x\neq1$ 的邻域内讨论即可.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 3 题</strong>（★★★）　求 $f(x)=\dfrac{x^3-x}{\sin\pi x}$ 的全部间断点, 并判断类型.</p>
+<details class="folding-tag" ><summary> 第 3 题解析 </summary>
+              <div class='content'>
+              <p>分子 $x^3-x=x(x-1)(x+1)$, 分母零点为全体整数, 故间断点集是 $\mathbb{Z}$.</p><p>对 $k\in\mathbb{Z}$ 令 $t=x-k$, 用 $\sin\pi x=\sin\left(\pi k+\pi t\right)=(-1)^k\sin\pi t\sim(-1)^k\pi t$.</p><p><strong>$k=0$</strong>: 分子 $\sim(-1)t=-t$, 分母 $\sim\pi t$, 极限 $-\dfrac{1}{\pi}$, 可去.</p><p><strong>$k=1$</strong>: 分子 $\approx 1\cdot t\cdot 2=2t$, 分母 $\sim(-1)\pi t=-\pi t$, 极限 $-\dfrac{2}{\pi}$, 可去.</p><p><strong>$k=-1$</strong>: 分子 $\approx(-1)(-2)t=2t$, 分母 $\sim(-1)^{-1}\cdot\pi t=-\pi t$, 极限 $-\dfrac{2}{\pi}$, 可去.</p><p><strong>$|k|\ge2$</strong>: 此时 $k^3-k=k(k-1)(k+1)\neq0$, 分母趋于零而分子不趋于零, 函数值在两侧分别为 $\pm\infty$, 是第二类（无穷）间断点.</p><p>答: $x=0,\pm1$ 可去（值分别为 $-\frac1\pi,-\frac2\pi,-\frac2\pi$）; $x=k,\ |k|\ge2$ 为无穷间断点.</p>
+              </div>
+            </details>
+<h2 id="二-连续性与可导性">二 连续性与可导性</h2>
+<p>分段点上的固定流程: 连续用左右极限等于函数值; 可导用导数定义或左右导数, 千万不能把两侧表达式分别求导再代点.</p>
+<p><strong>第 4 题</strong>（★★★）　设<br>
+$$<br>
+f(x)=\begin{cases}\dfrac{\sqrt{1+ax}-1}{x}, &amp; x&lt;0,\[1mm] b, &amp; x=0,\[1mm] \dfrac{1-\cos x}{x^2}, &amp; x&gt;0,\end{cases}<br>
+$$<br>
+求 $a,b$ 使 $f$ 在 $x=0$ 连续; 在此条件下讨论 $f$ 在 $x=0$ 是否可导.</p>
+<details class="folding-tag" ><summary> 第 4 题解析 </summary>
+              <div class='content'>
+              <p><strong>连续</strong>. 左极限有理化:<br>$$<br>\lim_{x\to0^-}\frac{\sqrt{1+ax}-1}{x}=\lim_{x\to0^-}\frac{ax}{x\left(\sqrt{1+ax}+1\right)}=\frac{a}{2}.<br>$$<br>右极限用 $1-\cos x\sim\frac{x^2}{2}$ 得 $\frac12$. 三者相等:<br>$$<br>\frac{a}{2}=\frac12=b\quad\Longrightarrow\quad a=1,\ b=\frac12 .<br>$$</p><p><strong>可导</strong>. 取 $a=1$. 左侧把表达式改写成分母更好求导的形式:<br>$$<br>\sqrt{1+x}-1=\frac{x}{\sqrt{1+x}+1}\quad\Longrightarrow\quad f(x)=\frac{1}{\sqrt{1+x}+1}\quad(x&lt;0).<br>$$<br>于是<br>$$<br>f’<em>-(0)=\left[-\frac{1}{\left(\sqrt{1+x}+1\right)^2}\cdot\frac{1}{2\sqrt{1+x}}\right]</em>{x=0}=-\frac18 .<br>$$<br>右侧由 $\dfrac{1-\cos x}{x^2}=\dfrac12-\dfrac{x^2}{24}+O\left(x^4\right)$ 得<br>$$<br>f’<em>+(0)=\lim</em>{x\to0^+}\frac{\frac{1-\cos x}{x^2}-\frac12}{x}=\lim_{x\to0^+}\frac{-\frac{x^2}{24}+O\left(x^4\right)}{x}=0 .<br>$$<br>$f’<em>-(0)=-\frac18\neq0=f’</em>+(0)$, 所以连续但不可导, 原点处是尖点.</p><p>答: $a=1,\ b=\frac12$; 此时连续、不可导.</p><blockquote><p>右侧导数存在是因为&quot;平方项系数恰好抵消&quot;, 这类分段题里 $f’_+(0)=0$ 常常来自函数展开中 $x^2$ 项系数与常数项定义值的匹配, 做题时把展开写出来比硬套定义更稳.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 5 题</strong>（★★★）　求 $f(x)=\left(x^2-x-2\right)\left|x^3-x\right|$ 的不可导点.</p>
+<details class="folding-tag" ><summary> 第 5 题解析 </summary>
+              <div class='content'>
+              <p>绝对值部分 $|x^3-x|=|x|\cdot|x-1|\cdot|x+1|$, 可疑点只有 $0,\pm1$. 记 $g(x)=x^2-x-2=(x-2)(x+1)$.</p><p>先给出一个可复用的判据: 若 $g$ 在 $x_0$ 可导且 $g(x_0)\neq0$, 则 $g(x)|x-x_0|$ 在 $x_0$ 必不可导（左右导数分别为 $-g(x_0)$ 与 $g(x_0)$）; 若 $g(x_0)=0$, 则 $g(x)|x-x_0|=g(x)\cdot\frac{|x-x_0|}{x-x_0}\cdot(x-x_0)$, 括号内是有界因子, 乘积仍为可导的 $o(x-x_0)$ 项, 导数为 $0$.</p><ul><li>$x=-1$: $g(-1)=0$, 由判据可导, 且 $f’(-1)=0$.</li><li>$x=0$: $g(0)=-2\neq0$, 不可导. 具体地 $f’<em>-(0)=2,\ f’</em>+(0)=-2$.</li><li>$x=1$: $g(1)=-2\neq0$, 不可导. 具体地 $f’<em>-(1)=4,\ f’</em>+(1)=-4$.</li></ul><p>答: 不可导点为 $x=0$ 与 $x=1$.</p><blockquote><p>别漏掉 $x=-1$: 它是&quot;因子为零&quot;的情形, 恰好被 $(x+1)$ 吸收掉一个绝对值, 变成可导. 这类题最常见的失分就是不加区分地把三个点都判成不可导.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 6 题</strong>（★★★）　设 $f(x)=\lim\limits_{n\to\infty}\dfrac{x+x^2e^{nx}}{1+e^{nx}}$, 求 $f(x)$ 的表达式, 并讨论其连续性与可导性.</p>
+<details class="folding-tag" ><summary> 第 6 题解析 </summary>
+              <div class='content'>
+              <p>极限只由 $e^{nx}$ 的走向决定, 按 $x$ 的符号分三段.</p><ul><li>$x&lt;0$: $e^{nx}\to0$, $f(x)=x$;</li><li>$x&gt;0$: 分子分母同除 $e^{nx}$, $f(x)=\dfrac{xe^{-nx}+x^2}{e^{-nx}+1}\to x^2$;</li><li>$x=0$: 直接代入得 $f(0)=0$.</li></ul><p>即<br>$$<br>f(x)=\begin{cases}x,&amp;x\le0,\ x^2,&amp;x&gt;0.\end{cases}<br>$$</p><p><strong>连续</strong>: $\lim\limits_{x\to0^-}f=0=\lim\limits_{x\to0^+}f=f(0)$, 在 $0$ 处连续; 两段内部都是初等函数, 故 $f$ 在 $\mathbb{R}$ 上连续.</p><p><strong>可导</strong>: 在 $0$ 处用定义,<br>$$<br>f’<em>-(0)=\lim</em>{x\to0^-}\frac{x-0}{x}=1,\qquad f’<em>+(0)=\lim</em>{x\to0^+}\frac{x^2-0}{x}=0 .<br>$$<br>左右导数不等, $f’(0)$ 不存在; 其余点可导, 且 $f’(x)=1\ (x&lt;0),\ 2x\ (x&gt;0)$.</p><p>答: 表达式如上; 处处连续, 仅在 $x=0$ 不可导.</p>
+              </div>
+            </details>
+<p><strong>第 7 题</strong>（★★★）　设 $f(x)=x^2\sin\dfrac1x\ (x\neq0)$, $f(0)=0$. 讨论 $f$ 在 $0$ 处的连续性与可导性, 并判断 $f’$ 在 $0$ 处是否连续.</p>
+<details class="folding-tag" ><summary> 第 7 题解析 </summary>
+              <div class='content'>
+              <p><strong>连续</strong>: $\left|x^2\sin\frac1x\right|\le x^2\to0=f(0)$, 由夹逼得连续.</p><p><strong>可导</strong>:<br>$$<br>f’(0)=\lim_{x\to0}\frac{x^2\sin\frac1x-0}{x}=\lim_{x\to0}x\sin\frac1x=0 .<br>$$</p><p><strong>导函数连续性</strong>: $x\neq0$ 时<br>$$<br>f’(x)=2x\sin\frac1x-\cos\frac1x .<br>$$<br>第一项 $\to0$, 第二项在 $[-1,1]$ 内无限次振荡, 极限不存在, 故 $\lim\limits_{x\to0}f’(x)$ 不存在, 而 $f’(0)=0$.</p><p>答: 在 $0$ 处连续且可导, 但 $f’$ 在 $0$ 处不连续（振荡型第二类间断）.</p><blockquote><p>由此可以记住三件事: 可导不必导函数连续; 导函数若有间断只能是第二类（达布定理）; 而本例中 $f’$ 的间断恰好是振荡型.</p></blockquote>
+              </div>
+            </details>
+<h2 id="三-无穷小的阶">三 无穷小的阶</h2>
+<p>比较阶数只做一件事: 把每个无穷小展开到首个非零项 $c,x^p$, $p$ 就是阶, 同阶再比 $c$.</p>
+<p><strong>第 8 题</strong>（★★☆）　当 $x\to0^+$ 时, 比较 $\alpha=1-\cos\sqrt{x}$, $\beta=e^{x^3}-1-x^3$, $\gamma=\sqrt{x}\ln(1+x)$ 的阶, 并由低到高排列.</p>
+<details class="folding-tag" ><summary> 第 8 题解析 </summary>
+              <div class='content'>
+              <p><strong>$\alpha$</strong>: 由 $1-\cos u\sim\frac{u^2}{2}$ 取 $u=\sqrt{x}$,<br>$$<br>\alpha\sim\frac{x}{2},<br>$$<br>一阶.</p><p><strong>$\beta$</strong>: 由 $e^u=1+u+\frac{u^2}{2}+o\left(u^2\right)$ 取 $u=x^3$,<br>$$<br>\beta\sim\frac{x^6}{2},<br>$$<br>六阶.</p><p><strong>$\gamma$</strong>: 由 $\ln(1+x)\sim x$,<br>$$<br>\gamma\sim x^{\frac32},<br>$$<br>$\frac32$ 阶.</p><p>比较 $1&lt;\frac32&lt;6$, 即 $\beta\ll\gamma\ll\alpha$.</p><p>答: 阶数依次 $1,\ 6,\ \frac32$; 由低到高为 $\alpha,\ \gamma,\ \beta$.</p><blockquote><p>半整数阶很常见: $\sqrt{x}\ln(1+x)$ 与 $x^{3/2}$ 同阶, 但注意它与 $x^3$ 不同阶, 拿 $\gamma^2$ 去和 $x^3$ 比是常见的偷换.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 9 题</strong>（★★☆）　求 $a,b$, 使 $x\to0$ 时<br>
+$$<br>
+\sqrt{1+x+x^2}=1+ax+bx^2+o\left(x^2\right).<br>
+$$</p>
+<details class="folding-tag" ><summary> 第 9 题解析 </summary>
+              <div class='content'>
+              <p>用 $\sqrt{1+u}=1+\frac{u}{2}-\frac{u^2}{8}+o\left(u^2\right)$, 取 $u=x+x^2$. 在 $o\left(x^2\right)$ 精度下 $u^2=x^2+o\left(x^2\right)$, 于是<br>$$<br>\sqrt{1+x+x^2}=1+\frac{x+x^2}{2}-\frac{x^2}{8}+o\left(x^2\right)=1+\frac{x}{2}+\frac{3}{8}x^2+o\left(x^2\right).<br>$$</p><p>答: $a=\frac12,\ b=\frac38$.</p><blockquote><p>若坚持用洛必达, 需要连求两阶导并做两次极限运算, 而展开只用到一条公式; 这就是&quot;求系数用泰勒&quot;的意义.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 10 题</strong>（★★★）　求 $n$ 与 $c$, 使 $x\to0$ 时 $\tan x-\sin x\sim c,x^n$.</p>
+<details class="folding-tag" ><summary> 第 10 题解析 </summary>
+              <div class='content'>
+              <p>先提公因子, 避免两个展开式对齐到高阶:<br>$$<br>\tan x-\sin x=\sin x\left(\frac{1}{\cos x}-1\right)=\sin x\cdot\frac{1-\cos x}{\cos x}.<br>$$<br>其中 $\sin x\sim x$, $1-\cos x\sim\frac{x^2}{2}$, $\cos x\to1$, 三者相乘得<br>$$<br>\tan x-\sin x\sim x\cdot\frac{x^2}{2}\cdot1=\frac{x^3}{2}.<br>$$</p><p>答: $n=3,\ c=\frac12$.</p><blockquote><p>用展开复核: $\tan x-\sin x=\left(x+\frac{x^3}{3}+\cdots\right)-\left(x-\frac{x^3}{6}+\cdots\right)=\frac{x^3}{2}+\cdots$, 一致.</p></blockquote>
+              </div>
+            </details>
+<h2 id="四-高阶导数">四 高阶导数</h2>
+<p>两条主线: 公式法（莱布尼茨、有理分式裂项、三角降幂、$\left(\frac{1}{x+a}\right)^{(n)}$）与泰勒系数法（$f^{(n)}(0)=n!,[x^n]f$）. 后者在原点处几乎总是更快.</p>
+<p><strong>第 11 题</strong>（★★★）　设 $y=\dfrac{1}{x^2-3x+2}$, 求 $y^{(n)}$ 与 $y^{(n)}(0)$.</p>
+<details class="folding-tag" ><summary> 第 11 题解析 </summary>
+              <div class='content'>
+              <p>先裂项:<br>$$<br>\frac{1}{(x-1)(x-2)}=\frac{1}{x-2}-\frac{1}{x-1}.<br>$$<br>用 $\left(\dfrac{1}{x+a}\right)^{(n)}=\dfrac{(-1)^nn!}{(x+a)^{n+1}}$ 得<br>$$<br>y^{(n)}=(-1)^nn!\left[\frac{1}{(x-2)^{n+1}}-\frac{1}{(x-1)^{n+1}}\right].<br>$$<br>代 $x=0$:<br>$$<br>y^{(n)}(0)=(-1)^nn!\left[\frac{1}{(-2)^{n+1}}-\frac{1}{(-1)^{n+1}}\right]=n!\left(1-\frac{1}{2^{n+1}}\right).<br>$$</p><p>检验 $n=1$: 直接求导 $y’=\dfrac{-(2x-3)}{(x^2-3x+2)^2}$, 在 $0$ 处为 $\dfrac34$, 而公式给 $1!\left(1-\frac14\right)=\frac34$, 一致.</p><p>答: $y^{(n)}=(-1)^nn!\left[\dfrac{1}{(x-2)^{n+1}}-\dfrac{1}{(x-1)^{n+1}}\right]$, $y^{(n)}(0)=n!\left(1-2^{-(n+1)}\right)$.</p>
+              </div>
+            </details>
+<p><strong>第 12 题</strong>（★★★）　设 $y=x^2e^{2x}$, 求 $y^{(n)}$.</p>
+<details class="folding-tag" ><summary> 第 12 题解析 </summary>
+              <div class='content'>
+              <p>莱布尼茨公式取 $u=x^2,\ v=e^{2x}$. 因 $u’‘’=0$, 只剩三项:<br>$$<br>y^{(n)}=x^2\left(e^{2x}\right)^{(n)}+n\cdot2x\left(e^{2x}\right)^{(n-1)}+\frac{n(n-1)}{2}\cdot2\left(e^{2x}\right)^{(n-2)}.<br>$$<br>代入 $\left(e^{2x}\right)^{(k)}=2^ke^{2x}$:<br>$$<br>y^{(n)}=2^ne^{2x}\left(x^2+nx+\frac{n(n-1)}{4}\right).<br>$$</p><p>检验 $n=2$: 两次求导得 $e^{2x}\left(4x^2+8x+2\right)=4e^{2x}\left(x^2+2x+\frac12\right)$, 与公式一致.</p><p>答: 上式.</p>
+              </div>
+            </details>
+<p><strong>第 13 题</strong>（★★★）　设 $y=\sin^3x$, 求 $y^{(n)}$.</p>
+<details class="folding-tag" ><summary> 第 13 题解析 </summary>
+              <div class='content'>
+              <p>奇次幂三角用和差化积降幂. 由 $\sin3x=3\sin x-4\sin^3x$ 得<br>$$<br>\sin^3x=\frac{3\sin x-\sin3x}{4}.<br>$$<br>再用 $\left(\sin ax\right)^{(n)}=a^n\sin\left(ax+\frac{n\pi}{2}\right)$:<br>$$<br>y^{(n)}=\frac34\sin\left(x+\frac{n\pi}{2}\right)-\frac{3^n}{4}\sin\left(3x+\frac{n\pi}{2}\right).<br>$$</p><p>检验 $n=0$: $\frac34\sin x-\frac14\sin3x=\sin^3x$, 正确.</p><p>答: 上式.</p><blockquote><p>配套结论: $\cos^3x=\frac{3\cos x+\cos3x}{4}$, $\sin^2x=\frac{1-\cos2x}{2}$, $\sin^4x=\frac{3-4\cos2x+\cos4x}{8}$. 见到三角函数的整数次幂先降幂, 之后每阶导数都只是&quot;乘 $a^n$ 加相位&quot;.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 14 题</strong>（★★★★）　设 $f(x)=\arctan x$, 求 $f^{(n)}(0)$.</p>
+<details class="folding-tag" ><summary> 第 14 题解析 </summary>
+              <div class='content'>
+              <p>直接对 $\arctan x$ 反复求导会越来越繁, 改读泰勒系数: 若 $f(x)=\sum a_nx^n$, 则 $f^{(n)}(0)=n!,a_n$.</p><p>先展开导数:<br>$$<br>f’(x)=\frac{1}{1+x^2}=\sum_{k=0}^{\infty}(-1)^kx^{2k},\qquad |x|&lt;1 .<br>$$<br>在收敛区间内逐项积分（$f(0)=0$）:<br>$$<br>f(x)=x-\frac{x^3}{3}+\frac{x^5}{5}-\cdots=\sum_{k=0}^{\infty}\frac{(-1)^k}{2k+1}x^{2k+1}.<br>$$<br>所以奇次项系数为 $\dfrac{(-1)^k}{2k+1}$, 偶次项系数为 $0$.</p><p>答:<br>$$<br>f^{(2k)}(0)=0,\qquad f^{(2k+1)}(0)=(-1)^k(2k)!,\quad k=0,1,2,\cdots<br>$$<br>即 $f’(0)=1,\ f’‘(0)=0,\ f’‘’(0)=-2,\ f^{(5)}(0)=24$.</p><blockquote><p>为什么可以逐项积分: 幂级数在收敛区间内部闭区间上一致收敛, 而 $x=0$ 是内点, 逐项积分合法.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 15 题</strong>（★★★）　设 $f(x)=x^3\ln(1+x)$, 求 $f^{(10)}(0)$.</p>
+<details class="folding-tag" ><summary> 第 15 题解析 </summary>
+              <div class='content'>
+              <p>由<br>$$<br>\ln(1+x)=\sum_{k=1}^{\infty}\frac{(-1)^{k-1}}{k}x^k<br>$$<br>得<br>$$<br>f(x)=\sum_{k=1}^{\infty}\frac{(-1)^{k-1}}{k}x^{k+3}.<br>$$<br>$x^{10}$ 对应 $k+3=10$, 即 $k=7$, 系数为 $\dfrac{(-1)^6}{7}=\dfrac17$. 于是<br>$$<br>f^{(10)}(0)=10!\cdot\frac17=\frac{3628800}{7}=518400 .<br>$$</p><p>答: $518400$.</p>
+              </div>
+            </details>
+<p><strong>第 16 题</strong>（★★★★）　设 $y=x^2\sin x$, 求 $y^{(n)}$.</p>
+<details class="folding-tag" ><summary> 第 16 题解析 </summary>
+              <div class='content'>
+              <p>莱布尼茨, $u=x^2,\ v=\sin x$:<br>$$<br>y^{(n)}=x^2\sin\left(x+\frac{n\pi}{2}\right)+2nx\sin\left(x+\frac{(n-1)\pi}{2}\right)+n(n-1)\sin\left(x+\frac{(n-2)\pi}{2}\right).<br>$$<br>第三项来自 $\frac{n(n-1)}{2}u’'v^{(n-2)}=\frac{n(n-1)}{2}\cdot2\sin\left(x+\frac{(n-2)\pi}{2}\right)$.</p><p>检验 $n=1$: $x^2\cos x+2x\sin x$, 与直接求导一致; $n=2$: $-x^2\sin x+4x\cos x+2\sin x$, 也一致.</p><p>答: 上式.</p>
+              </div>
+            </details>
+<h2 id="五-极限的计算">五 极限的计算</h2>
+<p>函数极限的四类难点: 根式相减要分子有理化, 幂指函数要取对数, &quot;无穷减无穷&quot;要通分, $\frac{0}{0}$ 里若分母是 $k$ 阶, 分子必须展到 $k$ 阶——阶数不匹配就会得到 $0$ 或 $\infty$ 的错误答案. 数列极限另加两条: 求和型优先夹逼或定积分定义, 递推型先证单调有界再取极限.</p>
+<p><strong>第 17 题</strong>（★★★★）　求 $\lim\limits_{x\to0}\dfrac{\sqrt{1+\tan x}-\sqrt{1+\sin x}}{x\ln(1+x)-x^2}$.</p>
+<details class="folding-tag" ><summary> 第 17 题解析 </summary>
+              <div class='content'>
+              <p>先定阶. 分母<br>$$<br>x\ln(1+x)-x^2=x\left[\ln(1+x)-x\right]=x\left(-\frac{x^2}{2}+o\left(x^2\right)\right)\sim-\frac{x^3}{2},<br>$$<br>三阶. 分子必须展到三阶.</p><p>分子有理化:<br>$$<br>\sqrt{1+\tan x}-\sqrt{1+\sin x}=\frac{\tan x-\sin x}{\sqrt{1+\tan x}+\sqrt{1+\sin x}}.<br>$$<br>分母那个和式 $\to2$, 而由第 10 题 $\tan x-\sin x\sim\dfrac{x^3}{2}$, 故分子 $\sim\dfrac{x^3}{4}$.</p><p>于是<br>$$<br>\text{原式}=\lim_{x\to0}\frac{x^3/4}{-x^3/2}=-\frac12 .<br>$$</p><p>答: $-\dfrac12$.</p><blockquote><p>若直接洛必达, 分子求导后是两个根式与 $\sec^2x$、$\cos x$ 的乘积, 分母求导出 $\ln(1+x)+\frac{x}{1+x}-2x$, 一路洛下去基本没有生还可能. 有理化的作用是把&quot;两个根式之差&quot;压成&quot;$\tan x-\sin x$&quot;这一单个已知结构.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 18 题</strong>（★★★★）　求 $\lim\limits_{x\to0}\left(\dfrac{1}{x^2}-\dfrac{1}{\sin^2x}\right)$.</p>
+<details class="folding-tag" ><summary> 第 18 题解析 </summary>
+              <div class='content'>
+              <p>通分:<br>$$<br>\frac{1}{x^2}-\frac{1}{\sin^2x}=\frac{\sin^2x-x^2}{x^2\sin^2x}.<br>$$<br>分母 $\sim x^4$, 分子展到四阶. 由 $\sin x=x-\frac{x^3}{6}+o\left(x^3\right)$,<br>$$<br>\sin^2x=x^2-\frac{x^4}{3}+o\left(x^4\right),<br>$$<br>故分子 $=-\frac{x^4}{3}+o\left(x^4\right)$, 分母 $=x^4+o\left(x^4\right)$,<br>$$<br>\text{原式}=-\frac13 .<br>$$</p><p>答: $-\dfrac13$.</p><blockquote><p>另一条更快的路是&quot;倒数展开&quot;: $\dfrac{1}{\sin^2x}=\dfrac{1}{x^2\left(1-\frac{x^2}{6}+\cdots\right)^2}=\dfrac{1}{x^2}\left(1+\frac{x^2}{3}+\cdots\right)=\dfrac{1}{x^2}+\dfrac13+\cdots$, 相减即得. 凡是出现 $\frac{1}{x^2}$ 与某函数倒数相减, 用 $(1+u)^{-2}=1-2u+3u^2-\cdots$ 展开往往一步到位.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 19 题</strong>（★★★★）　求 $\lim\limits_{x\to0}\dfrac{(1+x)^{\frac1x}-e}{x}$.</p>
+<details class="folding-tag" ><summary> 第 19 题解析 </summary>
+              <div class='content'>
+              <p>幂指函数一律写成指数形式, 再把指数展开到一阶:<br>$$<br>(1+x)^{\frac1x}=\exp\left(\frac{\ln(1+x)}{x}\right),\qquad \frac{\ln(1+x)}{x}=1-\frac{x}{2}+o(x).<br>$$<br>设 $u=-\frac{x}{2}+o(x)$, 则<br>$$<br>e^{1+u}=e\cdot e^{u}=e\left(1-\frac{x}{2}+o(x)\right),<br>$$<br>所以<br>$$<br>(1+x)^{\frac1x}-e=-\frac{e}{2}x+o(x),\qquad \text{原式}=-\frac{e}{2}.<br>$$</p><p>答: $-\dfrac{e}{2}$.</p><blockquote><p>通病是把底数直接当成 $e$ 再算, 那样分子恒为 $0$. 底数趋于 $e$ 而指数趋于 $\infty$ 时, 必须把&quot;底数偏离 $e$ 的那一阶&quot;与&quot;指数的倒数&quot;对应起来, 这正是取对数展开在做的事.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 20 题</strong>（★★★★）　求 $\lim\limits_{x\to+\infty}\left(\dfrac{2}{\pi}\arctan x\right)^x$.</p>
+<details class="folding-tag" ><summary> 第 20 题解析 </summary>
+              <div class='content'>
+              <p>$1^\infty$ 型, 取对数. 记原极限为 $L$,<br>$$<br>\ln L=\lim_{x\to+\infty}x\ln\left(\frac{2}{\pi}\arctan x\right).<br>$$<br>用 $\arctan x=\dfrac{\pi}{2}-\arctan\dfrac1x$ 把底数写成 $1+u$ 的形式:<br>$$<br>\frac{2}{\pi}\arctan x=1-\frac{2}{\pi}\arctan\frac1x .<br>$$<br>由 $\arctan t\sim t\ (t\to0)$ 与 $\ln(1+u)\sim u$,<br>$$<br>x\ln\left(1-\frac{2}{\pi x}+o\left(\frac1x\right)\right)\sim x\cdot\left(-\frac{2}{\pi x}\right)=-\frac{2}{\pi}.<br>$$<br>故 $\ln L=-\dfrac{2}{\pi}$,<br>$$<br>L=e^{-\frac{2}{\pi}}.<br>$$</p><p>答: $e^{-\frac{2}{\pi}}$.</p><blockquote><p>这题用洛必达也能做, 但要处理 $\dfrac{\ln\frac2\pi+\ln\arctan x}{1/x}$ 的商法则, 分子导数里出现 $\dfrac{1}{1+x^2}\cdot\dfrac{1}{\arctan x}$, 化简反而更绕. 用 $\arctan\frac1x\sim\frac1x$ 是本题的&quot;降维点&quot;.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 21 题</strong>（★★☆）　求 $\lim\limits_{n\to\infty}n\left(\sqrt[n]{2}-1\right)$.</p>
+<details class="folding-tag" ><summary> 第 21 题解析 </summary>
+              <div class='content'>
+              <p>令 $t=\dfrac1n\to0^+$:<br>$$<br>n\left(\sqrt[n]{2}-1\right)=\frac{2^t-1}{t}.<br>$$<br>由 $2^t=e^{t\ln2}=1+t\ln2+o(t)$ 得 $2^t-1\sim t\ln2$, 故极限为 $\ln2$.</p><p>答: $\ln2$.</p><blockquote><p>一般结论 $n\left(\sqrt[n]{a}-1\right)\to\ln a$ 值得记住, 它与 $\left(1+\frac1n\right)^n\to e$ 是同一枚硬币的两面.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 22 题</strong>（★★★★）　求 $\lim\limits_{n\to\infty}\left(n\tan\dfrac1n\right)^{n^2}$.</p>
+<details class="folding-tag" ><summary> 第 22 题解析 </summary>
+              <div class='content'>
+              <p>$1^\infty$ 型, 取对数并令 $t=\dfrac1n\to0^+$:<br>$$<br>n^2\ln\left(n\tan\frac1n\right)=\frac{\ln\left(\frac{\tan t}{t}\right)}{t^2}.<br>$$<br>由 $\tan t=t+\dfrac{t^3}{3}+o\left(t^3\right)$ 得 $\dfrac{\tan t}{t}=1+\dfrac{t^2}{3}+o\left(t^2\right)$, 于是<br>$$<br>\ln\left(1+\frac{t^2}{3}+o\left(t^2\right)\right)\sim\frac{t^2}{3}.<br>$$<br>故对数极限为 $\dfrac13$, 原极限为 $e^{1/3}$.</p><p>答: $e^{\frac13}$.</p><blockquote><p>三阶项系数 $\frac13$ 是这类题的&quot;暗号&quot;: 凡是 $(n\tan\frac1n)^{n^2}$、$(n\sin\frac1n)^{n^2}$ 形式, 答案都在 $e$ 的 $\frac13$ 与 $-\frac16$ 附近, 因为 $\tan t$ 的 $t^3$ 系数是 $\frac13$, $\sin t$ 的是 $-\frac16$.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 23 题</strong>（★★★）　求 $\lim\limits_{n\to\infty}\left(\dfrac{1}{n^2+n+1}+\dfrac{2}{n^2+n+2}+\cdots+\dfrac{n}{n^2+n+n}\right)$.</p>
+<details class="folding-tag" ><summary> 第 23 题解析 </summary>
+              <div class='content'>
+              <p>$n$ 项求和, 各项都趋于 $0$, 不能逐项取极限. 把分母统一到最大与最小:<br>$$<br>\frac{k}{n^2+2n}\le\frac{k}{n^2+n+k}\le\frac{k}{n^2+n+1},\qquad k=1,2,\cdots,n .<br>$$<br>求和用 $\sum\limits_{k=1}^nk=\dfrac{n(n+1)}{2}$:<br>$$<br>\frac{n(n+1)}{2\left(n^2+2n\right)}\le S_n\le\frac{n(n+1)}{2\left(n^2+n+1\right)}.<br>$$<br>两端极限都是 $\dfrac12$, 由夹逼得 $S_n\to\dfrac12$.</p><p>答: $\dfrac12$.</p><blockquote><p>这题不能直接套定积分定义: 通项是 $\dfrac{k}{n^2+n+k}$, 提不出标准的 $\frac1n f\left(\frac kn\right)$（分母里 $k$ 与分子同阶, 提出 $\frac1n$ 后会留下 $\frac{k/n}{1+\cdots}$ 的变形, 形式对不上）. 夹逼是这里唯一干净的路.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 24 题</strong>（★★★）　求 $\lim\limits_{n\to\infty}\left(\dfrac{1}{\sqrt{n^2+1}}+\dfrac{1}{\sqrt{n^2+2}}+\cdots+\dfrac{1}{\sqrt{n^2+n}}\right)$.</p>
+<details class="folding-tag" ><summary> 第 24 题解析 </summary>
+              <div class='content'>
+              <p>分母统一:<br>$$<br>\frac{n}{\sqrt{n^2+n}}\le S_n\le\frac{n}{\sqrt{n^2+1}} .<br>$$<br>两端分别化简为 $\dfrac{1}{\sqrt{1+\frac1n}}$ 与 $\dfrac{1}{\sqrt{1+\frac1{n^2}}}$, 极限都是 $1$. 夹逼得 $S_n\to1$.</p><p>答: $1$.</p><blockquote><p>对比第 23 题: 两题都是&quot;$n$ 项、分母带 $n$ 与 $k$&quot;, 但 23 题各项同阶于 $\frac{k}{n^2}$, 总数 $\to\frac12$; 24 题各项同阶于 $\frac1n$, 总数 $\to1$. 判断量级时先看单项是 $\frac{1}{n}$ 还是 $\frac{1}{n^2}$ 阶.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 25 题</strong>（★★★★）　求 $\lim\limits_{x\to0}\left(\dfrac{\sin x}{x}\right)^{\frac{1}{1-\cos x}}$.</p>
+<details class="folding-tag" ><summary> 第 25 题解析 </summary>
+              <div class='content'>
+              <p>$1^\infty$ 型. 取对数, 记原极限为 $L$:<br>$$<br>\ln L=\lim_{x\to0}\frac{\ln\frac{\sin x}{x}}{1-\cos x}.<br>$$<br>由 $\dfrac{\sin x}{x}=1-\dfrac{x^2}{6}+o\left(x^2\right)$ 得 $\ln\dfrac{\sin x}{x}\sim-\dfrac{x^2}{6}$, 又 $1-\cos x\sim\dfrac{x^2}{2}$, 故<br>$$<br>\ln L=\lim_{x\to0}\frac{-x^2/6}{x^2/2}=-\frac13,\qquad L=e^{-\frac13}.<br>$$</p><p>答: $e^{-\frac13}$.</p><blockquote><p>与第 22 题同源: 都是&quot;正弦或正切除以自变量、再取 $n$ 次幂&quot;, 分离出的都是 $-\frac16$ 或 $\frac13$ 这类三阶系数.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 26 题</strong>（★★★）　求 $\lim\limits_{x\to0}\left(\dfrac{1}{x}-\dfrac{1}{e^x-1}\right)$.</p>
+<details class="folding-tag" ><summary> 第 26 题解析 </summary>
+              <div class='content'>
+              <p>无穷减无穷, 通分:<br>$$<br>\frac{1}{x}-\frac{1}{e^x-1}=\frac{e^x-1-x}{x\left(e^x-1\right)}.<br>$$<br>分母 $\sim x^2$, 分子 $e^x-1-x=\dfrac{x^2}{2}+o\left(x^2\right)$, 故极限为 $\dfrac12$.</p><p>答: $\dfrac12$.</p><blockquote><p>若把分母的 $e^x-1$ 换成 $x$ 再算, 得到的是同一个 $\frac12$（因为 $e^x-1\sim x$）, 但严格写法应当通分后用等价无穷小替换分母, 不能中途把 $e^x-1$ 直接当 $x$ 只替换一半.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 27 题</strong>（★★★★★）　设 $a_1=\dfrac12$, $a_{n+1}=a_n-a_n^2\ (n\ge1)$. 证明 ${a_n}$ 收敛并求 $\lim\limits_{n\to\infty}na_n$.</p>
+<details class="folding-tag" ><summary> 第 27 题解析 </summary>
+              <div class='content'>
+              <p><strong>收敛</strong>. 由 $a_{n+1}-a_n=-a_n^2&lt;0$ 知 ${a_n}$ 单调递减. 又归纳可得 $0&lt;a_n\le\frac12$: 若 $0&lt;a_n\le\frac12$, 则 $a_{n+1}=a_n\left(1-a_n\right)\ge a_n\cdot\frac12&gt;0$, 且 $a_{n+1}&lt;a_n\le\frac12$. 单调有界必收敛, 设极限为 $a$, 对递推式取极限得 $a=a-a^2$, 故 $a=0$.</p><p><strong>求 $na_n$</strong>. 对递推式取倒数:<br>$$<br>\frac{1}{a_{n+1}}=\frac{1}{a_n\left(1-a_n\right)}=\frac{1}{a_n}+\frac{1}{1-a_n},<br>$$<br>即<br>$$<br>\frac{1}{a_{n+1}}-\frac{1}{a_n}=\frac{1}{1-a_n}.<br>$$<br>累加得<br>$$<br>\frac{1}{a_{n+1}}=\frac{1}{a_1}+\sum_{k=1}^{n}\frac{1}{1-a_k}=2+\sum_{k=1}^{n}\frac{1}{1-a_k}.<br>$$<br>因为 $a_k\to0$, 所以 $\dfrac{1}{1-a_k}\to1$. 对任意 $\varepsilon&gt;0$, 取 $K$ 使 $k&gt;K$ 时 $\left|\dfrac{1}{1-a_k}-1\right|&lt;\varepsilon$, 则<br>$$<br>(1-\varepsilon)(n-K)\le\sum_{k=K+1}^{n}\frac{1}{1-a_k}\le(1+\varepsilon)(n-K),<br>$$<br>两边除以 $n$ 并令 $n\to\infty$ 得 $\dfrac{1}{na_{n+1}}\to1$, 即 $na_n\to1$.</p><p>答: ${a_n}$ 单调递减趋于 $0$, 且 $\lim\limits_{n\to\infty}na_n=1$.</p><blockquote><p>这题的&quot;钥匙&quot;是取倒数: 递推式里出现 $a_n-a_n^2$ 这种&quot;一次项减二次项&quot;的结构, 取倒数后立刻变成 $\frac{1}{a_n}+\frac{1}{1-a_n}$, 二阶小量被吸收进 $\frac{1}{1-a_n}$. 凡是 $a_{n+1}=a_n-ca_n^2$ 型, 极限 $\lim na_n=\frac1c$ 都可以这样统一处理.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 28 题</strong>（★★★）　求 $\lim\limits_{n\to\infty}\left(\dfrac{1}{n+1}+\dfrac{1}{n+2}+\cdots+\dfrac{1}{n+n}\right)$.</p>
+<details class="folding-tag" ><summary> 第 28 题解析 </summary>
+              <div class='content'>
+              <p>凑定积分定义:<br>$$<br>\sum_{k=1}^{n}\frac{1}{n+k}=\frac1n\sum_{k=1}^{n}\frac{1}{1+\frac kn}\longrightarrow\int_0^1\frac{dx}{1+x}=\ln2 .<br>$$<br>严格化也可用夹逼: 对 $k=1,\cdots,n$ 有 $\dfrac{1}{n+k}\ge\int_{n+k-1}^{n+k}\dfrac{dx}{x}\ge\dfrac{1}{n+k}$? 更直接的是用 $\dfrac1{n+k}\le\dfrac1{n}\cdot\dfrac{1}{1+\frac{k-1}{n}}$ 之类的端点估计, 两端都收敛到 $\ln2$.</p><p>答: $\ln2$.</p><blockquote><p>定积分定义的标准形式是 $\frac1n\sum f\left(\frac kn\right)\to\int_0^1f$, 见到&quot;$\frac{1}{n+k}$&quot;就先把 $\frac1n$ 提出来, 剩下的 $\frac{1}{1+k/n}$ 就是 $f\left(\frac kn\right)$.</p></blockquote>
+              </div>
+            </details>
+<h2 id="六-参数方程与隐函数求导">六 参数方程与隐函数求导</h2>
+<p>参数方程的二阶导不是 $\dfrac{y’‘<em>{tt}}{x’'</em>{tt}}$, 而是 $\dfrac{d}{dt}\left(\dfrac{y’_t}{x’_t}\right)\Big/x’_t$. 隐函数求导之后若还要二阶导, 把一阶关系式整体再求导一次通常比解出 $y’$ 再套商法则省事.</p>
+<p><strong>第 29 题</strong>（★★★）　设 $\begin{cases}x=\ln\left(1+t^2\right),\ y=t-\arctan t,\end{cases}$ 求 $\dfrac{dy}{dx}$ 与 $\dfrac{d^2y}{dx^2}$, 并求 $t=1$ 处的值.</p>
+<details class="folding-tag" ><summary> 第 29 题解析 </summary>
+              <div class='content'>
+              <p>$$<br>x’_t=\frac{2t}{1+t^2},\qquad y’_t=1-\frac{1}{1+t^2}=\frac{t^2}{1+t^2}.<br>$$<br>一阶:<br>$$<br>\frac{dy}{dx}=\frac{y’_t}{x’_t}=\frac{t^2}{1+t^2}\cdot\frac{1+t^2}{2t}=\frac t2\qquad(t\neq0).<br>$$<br>二阶:<br>$$<br>\frac{d^2y}{dx^2}=\frac{\left(\frac t2\right)‘_t}{x’_t}=\frac{\frac12}{\frac{2t}{1+t^2}}=\frac{1+t^2}{4t}.<br>$$</p><p>$t=1$ 时: $\dfrac{dy}{dx}=\dfrac12$, $\dfrac{d^2y}{dx^2}=\dfrac12$.</p><p>答: $\dfrac{dy}{dx}=\dfrac t2$, $\dfrac{d^2y}{dx^2}=\dfrac{1+t^2}{4t}$; 在 $t=1$ 处分别为 $\dfrac12$ 与 $\dfrac12$.</p><blockquote><p>强调一遍: 二阶导 = 一阶导对 $t$ 求导再除以 $x’<em>t$, 不是把 $y’'</em>{tt}$ 除以 $x’'_{tt}$. 用后者算出来是 $\dfrac{1/(1+t^2)^2}{2/(1+t^2)^2}=\dfrac12$, 只是这题凑巧与正确答案在 $t=1$ 处相同, 换别的点就错了.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 30 题</strong>（★★★★）　设摆线 $\begin{cases}x=a(t-\sin t),\ y=a(1-\cos t),\end{cases}\ a&gt;0$. 求 $\dfrac{dy}{dx}$ 与 $\dfrac{d^2y}{dx^2}$.</p>
+<details class="folding-tag" ><summary> 第 30 题解析 </summary>
+              <div class='content'>
+              <p>$$<br>x’_t=a(1-\cos t),\qquad y’_t=a\sin t .<br>$$<br>一阶:<br>$$<br>\frac{dy}{dx}=\frac{a\sin t}{a(1-\cos t)}=\frac{2\sin\frac t2\cos\frac t2}{2\sin^2\frac t2}=\cot\frac t2\qquad(t\neq2k\pi).<br>$$<br>二阶:<br>$$<br>\frac{d^2y}{dx^2}=\frac{\left(\cot\frac t2\right)‘_t}{x’_t}=\frac{-\frac12\csc^2\frac t2}{a(1-\cos t)}.<br>$$<br>把 $1-\cos t=2\sin^2\dfrac t2$ 与 $\csc^2\frac t2=\dfrac{1}{\sin^2\frac t2}$ 代入:<br>$$<br>\frac{d^2y}{dx^2}=\frac{-1}{2a\cdot2\sin^2\frac t2\cdot\sin^2\frac t2}=\frac{-1}{4a\sin^4\frac t2}=\frac{-1}{a\left(1-\cos t\right)^2}.<br>$$</p><p>答: $\dfrac{dy}{dx}=\cot\dfrac t2$, $\dfrac{d^2y}{dx^2}=-\dfrac{1}{a\left(1-\cos t\right)^2}=-\dfrac{1}{4a\sin^4\frac t2}$.</p><blockquote><p>摆线是&quot;处处凹向下&quot;的曲线（$y’'&lt;0$）, 与直觉一致: 拱起. 另外 $t=2k\pi$ 处 $\cot\frac t2$ 无意义, 那些点正是摆线的尖点, 切线竖直.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 31 题</strong>（★★★★）　方程 $e^y+xy=e$ 确定 $y=y(x)$, 求 $y’'(0)$.</p>
+<details class="folding-tag" ><summary> 第 31 题解析 </summary>
+              <div class='content'>
+              <p>先定初值: $x=0$ 时 $e^y=e$, 故 $y(0)=1$.</p><p>一阶（注意 $y$ 是 $x$ 的函数）:<br>$$<br>e^yy’+y+xy’=0\quad\Longrightarrow\quad y’=-\frac{y}{e^y+x}.<br>$$<br>代 $x=0,y=1$ 得 $y’(0)=-\dfrac1e$.</p><p>二阶: 对 $e^yy’+y+xy’=0$ 再求导,<br>$$<br>e^y\left(y’\right)^2+e^yy’‘+y’+y’+xy’‘=0<br>\quad\Longrightarrow\quad<br>y’‘=-\frac{e^y\left(y’\right)^2+2y’}{e^y+x}.<br>$$<br>代 $x=0,\ y=1,\ y’=-\dfrac1e$:<br>$$<br>y’'(0)=-\frac{e\cdot\frac{1}{e^2}-\frac{2}{e}}{e}=\frac{1}{e^2}.<br>$$</p><p>答: $y’'(0)=\dfrac{1}{e^2}$.</p><blockquote><p>注意二阶时不要漏项: $e^yy’$ 求导得 $e^y\left(y’\right)^2+e^yy’‘$ 两项, $xy’$ 求导得 $y’+xy’'$ 两项, 一共四项. 漏项是这类题最典型的错误.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 32 题</strong>（★★★★）　设 $y=y(x)$ 由 $\arctan\dfrac yx=\ln\sqrt{x^2+y^2}$ 确定, 求 $y’$.</p>
+<details class="folding-tag" ><summary> 第 32 题解析 </summary>
+              <div class='content'>
+              <p>先把右边写成 $\frac12\ln\left(x^2+y^2\right)$, 再两边对 $x$ 求导:<br>$$<br>\frac{1}{1+\frac{y^2}{x^2}}\cdot\frac{y’x-y}{x^2}=\frac{x+yy’}{x^2+y^2}.<br>$$<br>左端的系数 $\dfrac{1}{1+y^2/x^2}=\dfrac{x^2}{x^2+y^2}$, 与 $\dfrac{1}{x^2}$ 相乘恰为 $\dfrac{1}{x^2+y^2}$, 于是左右同分母:<br>$$<br>y’x-y=x+yy’\quad\Longrightarrow\quad y’(x-y)=x+y\quad\Longrightarrow\quad y’=\frac{x+y}{x-y}.<br>$$</p><p>答: $y’=\dfrac{x+y}{x-y}\ (x\neq y)$.</p><blockquote><p>几何意义: 左端是极角 $\theta$, 右端是 $\ln r$, 曲线是 $r=e^\theta$ 的对数螺线. 对数螺线的性质是&quot;切线与向径夹角恒为 $\frac\pi4$&quot;, 用 $y’=\dfrac{x+y}{x-y}$ 验一下: 斜率 $-1$ 与向径方向 $(x,y)$ 的夹角确实恒定, 结论自洽.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 33 题</strong>（★★★）　设 $y=y(x)$ 由 $x^2+xy+y^2=3$ 确定, 求曲线在点 $(1,1)$ 处的切线方程与 $y’'(1)$.</p>
+<details class="folding-tag" ><summary> 第 33 题解析 </summary>
+              <div class='content'>
+              <p>一阶:<br>$$<br>2x+y+xy’+2yy’=0\quad\Longrightarrow\quad y’=-\frac{2x+y}{x+2y}.<br>$$<br>代 $(1,1)$ 得 $y’(1)=-1$, 切线为 $y-1=-(x-1)$, 即<br>$$<br>x+y=2 .<br>$$</p><p>二阶: 对 $2x+y+xy’+2yy’=0$ 再求导,<br>$$<br>2+2y’+xy’‘+2\left(y’\right)^2+2yy’‘=0<br>\quad\Longrightarrow\quad<br>y’‘=-\frac{2+2y’+2\left(y’\right)^2}{x+2y}.<br>$$<br>代 $x=1,y=1,y’=-1$:<br>$$<br>y’'(1)=-\frac{2-2+2}{3}=-\frac23 .<br>$$</p><p>答: 切线 $x+y=2$; $y’'(1)=-\dfrac23$.</p><blockquote><p>$x^2+xy+y^2=3$ 是椭圆（二次型 $\begin{pmatrix}1&amp;\frac12\ \frac12&amp;1\end{pmatrix}$ 正定）, 在 $(1,1)$ 处切线与向径 $(1,1)$ 垂直, 斜率为 $-1$, 与计算一致. 椭圆是凸的, 故 $y’'&lt;0$ 也合理.</p></blockquote>
+              </div>
+            </details>
+<h2 id="七-泰勒公式">七 泰勒公式</h2>
+<p>带佩亚诺余项的泰勒用于求极限与定系数; 带拉格朗日余项的泰勒用于估计误差、证明不等式. 两者混用是常见扣分点: 证明不等式时写 $o\left(x^n\right)$ 相当于什么都没证.</p>
+<p><strong>第 34 题</strong>（★★★★）　将 $f(x)=\dfrac{1}{x^2-3x+2}$ 在 $x=0$ 处展开成幂级数, 并指出收敛半径.</p>
+<details class="folding-tag" ><summary> 第 34 题解析 </summary>
+              <div class='content'>
+              <p>用第 11 题的裂项结果:<br>$$<br>f(x)=\frac{1}{x-2}-\frac{1}{x-1}.<br>$$<br>在 $|x|&lt;1$ 内,<br>$$<br>\frac{1}{x-1}=-\sum_{n=0}^{\infty}x^n,\qquad<br>\frac{1}{x-2}=-\frac12\cdot\frac{1}{1-\frac x2}=-\sum_{n=0}^{\infty}\frac{x^n}{2^{n+1}} .<br>$$<br>相减（注意顺序是 $\frac{1}{x-2}-\frac{1}{x-1}$）:<br>$$<br>f(x)=\sum_{n=0}^{\infty}\left(1-\frac{1}{2^{n+1}}\right)x^n .<br>$$<br>系数与第 11 题的 $y^{(n)}(0)=n!\left(1-2^{-(n+1)}\right)$ 完全对应, 互相印证.</p><p>收敛半径: 两个展开分别在 $|x|&lt;2$ 与 $|x|&lt;1$ 内成立, 取交集得 $R=1$——这也正是最近的奇点 $x=1$ 到展开中心的距离.</p><p>答: $f(x)=\sum\limits_{n=0}^{\infty}\left(1-\dfrac{1}{2^{n+1}}\right)x^n$, $|x|&lt;1$.</p>
+              </div>
+            </details>
+<p><strong>第 35 题</strong>（★★★★）　已知 $x\to0$ 时 $\sin3x+ax+bx^3=o\left(x^3\right)$, 求 $a,b$; 并进一步求 $\lim\limits_{x\to0}\dfrac{\sin3x+ax+bx^3}{x^5}$.</p>
+<details class="folding-tag" ><summary> 第 35 题解析 </summary>
+              <div class='content'>
+              <p>展开到三阶:<br>$$<br>\sin3x=3x-\frac{(3x)^3}{6}+o\left(x^3\right)=3x-\frac92x^3+o\left(x^3\right).<br>$$<br>于是<br>$$<br>\sin3x+ax+bx^3=(3+a)x+\left(b-\frac92\right)x^3+o\left(x^3\right).<br>$$<br>要它是 $o\left(x^3\right)$, 一次项与三次项系数都必须为零:<br>$$<br>a=-3,\qquad b=\frac92 .<br>$$</p><p>此时分子首个非零项在五阶. 再由<br>$$<br>\sin3x=3x-\frac92x^3+\frac{(3x)^5}{120}+o\left(x^5\right)<br>=3x-\frac92x^3+\frac{81}{40}x^5+o\left(x^5\right),<br>$$<br>得分子 $=\dfrac{81}{40}x^5+o\left(x^5\right)$, 故极限为 $\dfrac{81}{40}$.</p><p>答: $a=-3,\ b=\dfrac92$; 极限 $\dfrac{81}{40}$.</p><blockquote><p>若用洛必达求第二部分, 需要连求五次, 每次都要处理 $3^k\cos$ 或 $3^k\sin$ 的系数叠加, 出错概率极高. 泰勒在这里是降维打击.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 36 题</strong>（★★★★）　将 $\sqrt{1+x}$ 在 $0$ 处展开到 $x^6$ 项, 并用它计算 $\sqrt{1.02}$.</p>
+<details class="folding-tag" ><summary> 第 36 题解析 </summary>
+              <div class='content'>
+              <p>在广义二项式 $(1+x)^\alpha=1+\sum\limits_{k\ge1}\dfrac{\alpha(\alpha-1)\cdots(\alpha-k+1)}{k!}x^k$ 中取 $\alpha=\frac12$:<br>$$<br>\sqrt{1+x}=1+\frac{x}{2}-\frac{x^2}{8}+\frac{x^3}{16}-\frac{5x^4}{128}+\frac{7x^5}{256}-\frac{21x^6}{1024}+o\left(x^6\right).<br>$$<br>系数可用递推 $c_k=c_{k-1}\cdot\dfrac{\frac12-(k-1)}{k}$, $c_0=1$ 逐项检验, 例如 $c_6=c_5\cdot\dfrac{\frac12-5}{6}=\dfrac{7}{256}\cdot\dfrac{-4.5}{6}=-\dfrac{21}{1024}$, 正确.</p><p>取 $x=0.02$ 代入前四项:<br>$$<br>1+0.01-0.00005+0.0000005=1.0099505,<br>$$<br>而 $\sqrt{1.02}=1.0099504938\cdots$, 只差 $6\times10^{-9}$. 余项量级 $\dfrac{7}{256}\cdot0.02^5\approx4\times10^{-10}$, 与观测到的偏差同阶（剩下的来自手算舍入）.</p><p>答: 展开式如上; 用前四项算得 $1.0099505$, 与真值 $1.0099504938\cdots$ 相差约 $6\times10^{-9}$——这个误差来自被截掉的 $x^5$ 项（量级 $\frac{7}{256}\cdot0.02^5\approx4\times10^{-10}$）以及手算的舍入, 二者同量级.</p><blockquote><p>注意 $x=0.02$ 时 $x^2=4\times10^{-4}$, 手算时保留 $10^{-7}$ 位已经超出计算器显示的有效数字, 实际考试到这步就能停.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 37 题</strong>（★★★★）　写出 $e^x$ 的三阶麦克劳林公式（带拉格朗日余项）, 并用它证明 $x&gt;0$ 时 $e^x&gt;1+x+\dfrac{x^2}{2}+\dfrac{x^3}{6}$.</p>
+<details class="folding-tag" ><summary> 第 37 题解析 </summary>
+              <div class='content'>
+              <p><strong>公式</strong>:<br>$$<br>e^x=1+x+\frac{x^2}{2}+\frac{x^3}{6}+\frac{e^{\xi}}{4!}x^4,\qquad \xi\text{ 介于 }0\text{ 与 }x\text{ 之间}.<br>$$</p><p><strong>证明</strong>: 当 $x&gt;0$ 时 $\xi\in(0,x)$, 于是 $e^{\xi}&gt;1&gt;0$, 余项 $\dfrac{e^\xi}{24}x^4&gt;0$, 移项即得严格不等式. 对 $x&lt;0$, $\xi\in(x,0)$, $e^\xi&gt;0$, 余项仍为正, 不等式对一切 $x\neq0$ 成立.</p><p>答: 见上.</p><blockquote><p>顺带给出数值估计: $e^{0.1}\approx1+0.1+0.005+0.0001667=1.1051667$, 而 $e^{0.1}=1.1051709\cdots$, 误差 $4\times10^{-6}$, 与余项 $\dfrac{e^\xi}{24}\cdot10^{-4}\approx4.3\times10^{-6}$ 吻合.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 38 题</strong>（★★★★）　设 $f(x)=(1+x)^{\frac1x}\ (x&gt;0)$. 求 $\lim\limits_{x\to0^+}f(x)$, 并写出 $f(x)$ 关于 $e$ 的二阶展开.</p>
+<details class="folding-tag" ><summary> 第 38 题解析 </summary>
+              <div class='content'>
+              <p>取对数:<br>$$<br>\ln f(x)=\frac{\ln(1+x)}{x}=1-\frac x2+\frac{x^2}{3}+O\left(x^3\right).<br>$$<br>故 $\lim\limits_{x\to0^+}f(x)=e$.</p><p>再设 $u=-\dfrac x2+\dfrac{x^2}{3}+O\left(x^3\right)$, 由 $e^u=1+u+\dfrac{u^2}{2}+O\left(u^3\right)$,<br>$$<br>f(x)=e\left[1+\left(-\frac x2+\frac{x^2}{3}\right)+\frac12\cdot\frac{x^2}{4}+O\left(x^3\right)\right]<br>=e\left[1-\frac x2+\frac{11}{24}x^2+O\left(x^3\right)\right].<br>$$<br>其中 $x^2$ 的系数来自 $\frac13+\frac18=\frac{11}{24}$.</p><p>答: 极限为 $e$; $f(x)=e\left(1-\dfrac x2+\dfrac{11}{24}x^2+O\left(x^3\right)\right)$.</p><blockquote><p>数值核对: $x=10^{-3}$ 时, $e\left(1-5\times10^{-4}+\frac{11}{24}\times10^{-6}\right)$ 与直接计算 $1.001^{1000}$ 的差在 $10^{-9}$ 量级. 这类&quot;$f$ 关于 $e$ 展开&quot;的题目里, 一阶系数就是 $\lim\frac{f-e}{x}$（见第 19 题）, 二阶系数则必须把两项都算到二阶.</p></blockquote>
+              </div>
+            </details>
+<h2 id="八-中值定理的证明">八 中值定理的证明</h2>
+<p>证明题的三个动作: 把结论整理成&quot;$F’(\xi)=0$&quot;找辅助函数; 需要两个中值时在区间内插入分点（分点通常由函数值决定）; 需要导函数取某值时, 若题目没给 $f’$ 连续, 就用达布定理（导函数具有介值性）.</p>
+<p><strong>第 39 题</strong>（★★★★）　设 $f$ 在 $[0,1]$ 上连续, 在 $(0,1)$ 内可导, $f(0)=f(1)=0$, 且存在 $x_0\in(0,1)$ 使 $f(x_0)&lt;0$. 证明: 存在 $\xi,\eta\in(0,1)$ 使 $f’(\xi)&gt;0$, $f’(\eta)=0$.</p>
+<details class="folding-tag" ><summary> 第 39 题解析 </summary>
+              <div class='content'>
+              <p><strong>$f’(\eta)=0$</strong>. $f$ 在闭区间上连续, 由最值定理取到最小值 $m$. 因为 $f(x_0)&lt;0$, 故 $m\le f(x_0)&lt;0$, 而两端点值都是 $0$, 所以最小值只能在内部取到, 设于 $c\in(0,1)$. $c$ 是内点且为极小值点, 由费马引理 $f’©=0$, 取 $\eta=c$.</p><p><strong>$f’(\xi)&gt;0$</strong>. 在 $[x_0,1]$ 上用拉格朗日中值定理:<br>$$<br>f’(\xi)=\frac{f(1)-f(x_0)}{1-x_0}=\frac{-f(x_0)}{1-x_0}&gt;0,\qquad \xi\in(x_0,1).<br>$$</p><p>答: 见上.</p><blockquote><p>这题把两个最常用的取材点一次性考了: 一个是&quot;闭区间最值 + 内部极值点导数为零&quot;, 一个是&quot;割线斜率等于某点导数&quot;. 注意 $f’(\eta)=0$ 这问不能用罗尔定理直接得到, 因为题目没给 $f(x_0)=f(0)$.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 40 题</strong>（★★★★）　设 $f$ 在 $[0,1]$ 上连续, 在 $(0,1)$ 内可导, $f(0)=0$, $f(1)=1$, 且 $f’(x)\neq0$. 证明: 存在不同的 $\xi,\eta\in(0,1)$ 使<br>
+$$<br>
+\frac{1}{f’(\xi)}+\frac{1}{f’(\eta)}=2 .<br>
+$$</p>
+<details class="folding-tag" ><summary> 第 40 题解析 </summary>
+              <div class='content'>
+              <p>结论是&quot;两段斜率的倒数和为常数&quot;, 说明要在区间内插一个分点 $c$, 让两段割线的斜率倒数之和恰好消去 $c$.</p><p><strong>选分点</strong>: $f$ 连续, $f(0)=0&lt;\dfrac12&lt;1=f(1)$, 由介值定理存在 $c\in(0,1)$ 使 $f©=\dfrac12$.</p><p><strong>两次拉格朗日</strong>:<br>$$<br>f’(\xi)=\frac{f©-f(0)}{c-0}=\frac{1}{2c},\quad \xi\in(0,c);\qquad<br>f’(\eta)=\frac{f(1)-f©}{1-c}=\frac{1}{2(1-c)},\quad \eta\in(c,1).<br>$$<br>于是<br>$$<br>\frac{1}{f’(\xi)}+\frac{1}{f’(\eta)}=2c+2(1-c)=2 .<br>$$<br>且 $\xi&lt;c&lt;\eta$, 两点不同.</p><p>答: 见上.</p><blockquote><p>题眼是把 $\dfrac12$ 取成中点函数值, 这样两段割线斜率恰好是 $\dfrac{1}{2c}$ 与 $\dfrac{1}{2(1-c)}$, 取倒数后变成 $2c$ 与 $2(1-c)$, 相加消去 $c$. 凡是证 $\sum\dfrac{1}{f’(\xi_i)}=k$ 的题, 都是&quot;按函数值等分区间, 再分段用拉格朗日&quot;这一招.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 41 题</strong>（★★★★★）　设 $f$ 在 $[a,b]$ 上二阶可导且 $f’‘$ 连续. 证明: 存在 $\xi\in(a,b)$ 使<br>
+$$<br>
+f(b)-2f\left(\frac{a+b}{2}\right)+f(a)=\frac{(b-a)^2}{4}f’'(\xi).<br>
+$$</p>
+<details class="folding-tag" ><summary> 第 41 题解析 </summary>
+              <div class='content'>
+              <p>左边是二阶差分的形状, 标准做法是把中点当展开中心, 向两侧各展开一次.</p><p>记 $c=\dfrac{a+b}{2}$, $h=\dfrac{b-a}{2}$. 带拉格朗日余项展开:<br>$$<br>f(a)=f(c-h)=f©-hf’©+\frac{h^2}{2}f’‘(\xi_1),\qquad \xi_1\in(a,c),<br>$$<br>$$<br>f(b)=f(c+h)=f©+hf’©+\frac{h^2}{2}f’‘(\xi_2),\qquad \xi_2\in(c,b).<br>$$<br>两式相加, 一阶项抵消:<br>$$<br>f(a)+f(b)-2f©=\frac{h^2}{2}\left[f’‘(\xi_1)+f’‘(\xi_2)\right].<br>$$<br>由 $f’‘$ 连续, 在 $[\xi_1,\xi_2]$ 上用介值定理, 存在 $\xi$ 使 $f’‘(\xi)=\dfrac{f’‘(\xi_1)+f’‘(\xi_2)}{2}$, 于是<br>$$<br>f(a)+f(b)-2f©=\frac{h^2}{2}\cdot2f’‘(\xi)=h^2f’‘(\xi)=\frac{(b-a)^2}{4}f’'(\xi).<br>$$</p><p>答: 见上.</p><blockquote><p>若题设只给&quot;二阶可导&quot;而不给 $f’‘$ 连续, 把最后一步的介值定理换成达布定理即可, 因为 $f’‘$ 作为 $f’$ 的导数仍具有介值性, 结论不变. 另外这题也可以用&quot;三次插值型辅助函数 + 罗尔定理连用两次&quot;来证, 但泰勒法更短.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 42 题</strong>（★★★）　设 $f$ 在 $[0,1]$ 上连续, 在 $(0,1)$ 内可导, $f(0)=0$, $f(1)=1$. 证明: 存在 $\xi\in(0,1)$ 使 $f’(\xi)=2\xi$.</p>
+<details class="folding-tag" ><summary> 第 42 题解析 </summary>
+              <div class='content'>
+              <p>把要证的式子整理成 $f’(x)-2x=0$, 反推辅助函数<br>$$<br>F(x)=f(x)-x^2 .<br>$$<br>则 $F(0)=f(0)-0=0$, $F(1)=f(1)-1=0$, 且 $F$ 在 $[0,1]$ 连续、$(0,1)$ 可导, 满足罗尔定理条件, 故存在 $\xi\in(0,1)$ 使 $F’(\xi)=0$, 即<br>$$<br>f’(\xi)-2\xi=0\quad\Longrightarrow\quad f’(\xi)=2\xi .<br>$$</p><p>答: 见上.</p><blockquote><p>这类&quot;还原原函数&quot;的技巧是中值证明的第一基本功: 把结论写成 $f’(\xi)-g(\xi)=0$, 就构造 $F(x)=f(x)-\int g$, 这里 $g(x)=2x$ 的原函数是 $x^2$. 同理, 若结论是 $f’(\xi)+f(\xi)=0$, 辅助函数就是 $e^xf(x)$.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 43 题</strong>（★★★★★）　设 $f$ 在 $[0,1]$ 上连续, 在 $(0,1)$ 内可导, $f(0)=0$, $f(1)=1$, $f’(x)\neq0$. 证明: 存在互不相同的 $\xi_1,\xi_2,\xi_3\in(0,1)$ 使<br>
+$$<br>
+\frac{1}{f’(\xi_1)}+\frac{1}{f’(\xi_2)}+\frac{1}{f’(\xi_3)}=3 .<br>
+$$</p>
+<details class="folding-tag" ><summary> 第 43 题解析 </summary>
+              <div class='content'>
+              <p>由介值定理取两个分点 $c_1&lt;c_2$ 使<br>$$<br>f(c_1)=\frac13,\qquad f(c_2)=\frac23 .<br>$$<br>在三段 $[0,c_1]$、$[c_1,c_2]$、$[c_2,1]$ 上分别用拉格朗日中值定理:<br>$$<br>f’(\xi_1)=\frac{\frac13-0}{c_1}=\frac{1}{3c_1},\qquad<br>f’(\xi_2)=\frac{\frac23-\frac13}{c_2-c_1}=\frac{1}{3(c_2-c_1)},\qquad<br>f’(\xi_3)=\frac{1-\frac23}{1-c_2}=\frac{1}{3(1-c_2)}.<br>$$<br>取倒数相加:<br>$$<br>\frac{1}{f’(\xi_1)}+\frac{1}{f’(\xi_2)}+\frac{1}{f’(\xi_3)}<br>=3c_1+3(c_2-c_1)+3(1-c_2)=3 .<br>$$<br>且 $\xi_1&lt;c_1&lt;\xi_2&lt;c_2&lt;\xi_3$, 三点互不相同.</p><p>答: 见上.</p><blockquote><p>一般结论: 证 $\sum\limits_{i=1}^{n}\dfrac{1}{f’(\xi_i)}=n$, 就把 $[0,1]$ 按函数值 $\frac1n,\frac2n,\cdots$ 分成 $n$ 段, 每段用一次拉格朗日. 第 40 题是 $n=2$ 的情形.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 44 题</strong>（★★★★）　设 $f$ 在 $\mathbb{R}$ 上可导且 $\left|f’(x)\right|\le M$. 证明 $f$ 在 $\mathbb{R}$ 上一致连续; 并举例说明&quot;$f$ 一致连续&quot;推不出&quot;$f’$ 有界&quot;.</p>
+<details class="folding-tag" ><summary> 第 44 题解析 </summary>
+              <div class='content'>
+              <p><strong>证明</strong>. 若 $M=0$, 则 $f$ 为常数, 结论显然. 设 $M&gt;0$, 取 $\delta=\dfrac{\varepsilon}{M}$. 对任意 $x_1,x_2\in\mathbb{R}$ 满足 $\left|x_1-x_2\right|&lt;\delta$, 由拉格朗日中值定理存在 $\xi$ 使<br>$$<br>\left|f(x_1)-f(x_2)\right|=\left|f’(\xi)\right|\left|x_1-x_2\right|\le M\left|x_1-x_2\right|&lt;\varepsilon .<br>$$<br>故 $f$ 在 $\mathbb{R}$ 上一致连续.</p><p><strong>反例</strong>. $f(x)=\sqrt x$ 在 $[0,+\infty)$ 上一致连续: 对任意 $x,y\ge0$,<br>$$<br>\left|\sqrt x-\sqrt y\right|\le\sqrt{\left|x-y\right|},<br>$$<br>取 $\delta=\varepsilon^2$ 即可. 但 $f’(x)=\dfrac{1}{2\sqrt x}\to+\infty\ (x\to0^+)$, 导数无界.</p><p>答: 见上.</p><blockquote><p>一致连续的常用判据: 导数有界（李普希茨）是充分条件, 不是必要条件; 另一个常用判据是&quot;$f$ 在 $[a,+\infty)$ 连续且 $\lim_{x\to+\infty}f(x)$ 存在&quot;, 例如 $e^{-x}$. 但 $\sin\left(x^2\right)$ 虽有界连续却<strong>不</strong>一致连续, 因为它在无穷远处振荡越来越快（导数 $2x\cos x^2$ 无界）.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 45 题</strong>（★★★★）　证明: 当 $x&gt;0$ 时,<br>
+$$<br>
+x-\frac{x^2}{2}&lt;\ln(1+x)&lt;x .<br>
+$$</p>
+<details class="folding-tag" ><summary> 第 45 题解析 </summary>
+              <div class='content'>
+              <p><strong>右侧</strong>. 令 $f(t)=\ln(1+t)$, 在 $[0,x]$ 上用拉格朗日中值定理:<br>$$<br>\ln(1+x)-\ln1=\frac{1}{1+\xi}\cdot x,\qquad \xi\in(0,x).<br>$$<br>由 $\dfrac{1}{1+\xi}&lt;1$ 得 $\ln(1+x)&lt;x$.</p><p><strong>左侧</strong>. 用函数单调性更直接. 令<br>$$<br>g(x)=\ln(1+x)-x+\frac{x^2}{2},<br>$$<br>则 $g(0)=0$, 且<br>$$<br>g’(x)=\frac{1}{1+x}-1+x=\frac{x^2}{1+x}&gt;0\quad(x&gt;0).<br>$$<br>故 $g$ 在 $[0,+\infty)$ 上严格增, 从而 $g(x)&gt;g(0)=0\ (x&gt;0)$, 即 $\ln(1+x)&gt;x-\dfrac{x^2}{2}$.</p><p>两侧合起来即得结论.</p><p>答: 见上.</p><blockquote><p>这两条不等式的意义: $\ln(1+x)$ 被夹在 $x-\frac{x^2}{2}$ 与 $x$ 之间, 正好是它的泰勒展开截断到一阶与二阶的两种估计. 用拉格朗日余项也能直接给出 $\ln(1+x)=x-\dfrac{x^2}{2(1+\xi)^2}$, 由 $0&lt;\xi&lt;x$ 得 $\dfrac{x^2}{2(1+\xi)^2}&lt;\dfrac{x^2}{2}$, 与上面结论一致, 而且顺手得到更强的界.</p></blockquote>
+              </div>
+            </details>
+<h2 id="九-概念辨析">九 概念辨析</h2>
+<p>判断对错并说明理由. 这组题专治&quot;感觉上是对的&quot;——每条错误命题都配了具体反例.</p>
+<p><strong>判断 1</strong>（★★☆）　若 $\lim\limits_{x\to x_0}f(x)$ 存在, 则 $f$ 在 $x_0$ 的某去心邻域内有界.</p>
+<details class="folding-tag" ><summary> 判断 1 解析 </summary>
+              <div class='content'>
+              <p><strong>正确</strong>. 设极限为 $A$. 取 $\varepsilon=1$, 存在 $\delta&gt;0$, 使 $0&lt;\left|x-x_0\right|&lt;\delta$ 时 $\left|f(x)-A\right|&lt;1$, 即<br>$$<br>\left|f(x)\right|&lt;\left|A\right|+1 .<br>$$<br>故在去心邻域内有界.</p><p>注意&quot;去心&quot;二字不可省: $f$ 在 $x_0$ 处可以无定义, 也可以取任意大的值, 例如 $f(x)=\frac1x\ (x\neq0)$, $f(0)=10^9$, 极限存在且在去心邻域有界, 但在含 $x_0$ 的邻域内无界.</p>
+              </div>
+            </details>
+<p><strong>判断 2</strong>（★★☆）　若 $f$ 在 $x_0$ 处连续, 则 $f$ 在 $x_0$ 的某邻域内连续.</p>
+<details class="folding-tag" ><summary> 判断 2 解析 </summary>
+              <div class='content'>
+              <p><strong>错误</strong>. 连续性只是逐点性质, 不传递到邻域. 反例:<br>$$<br>f(x)=\begin{cases}x,&amp;x\in\mathbb{Q},\ 0,&amp;x\notin\mathbb{Q}.\end{cases}<br>$$<br>在 $x=0$ 处 $\left|f(x)\right|\le\left|x\right|\to0=f(0)$, 连续. 但对任意有理点 $x_1\neq0$, 其附近的无理点处函数值为 $0$, 与 $f(x_1)=x_1$ 相差不为零, 故不连续; 无理点 $x_1\neq0$ 附近的有理点使函数值趋于 $x_1\neq0=f(x_1)$, 也不连续. 所以 $f$ 只在 $x=0$ 一点连续, 任意邻域内都有无穷多个不连续点.</p>
+              </div>
+            </details>
+<p><strong>判断 3</strong>（★★☆）　若 $f$ 在 $x_0$ 处可导, 则 $f$ 在 $x_0$ 的某邻域内连续.</p>
+<details class="folding-tag" ><summary> 判断 3 解析 </summary>
+              <div class='content'>
+              <p><strong>错误</strong>. 可导只推出该点连续. 反例:<br>$$<br>f(x)=\begin{cases}x^2,&amp;x\in\mathbb{Q},\ 0,&amp;x\notin\mathbb{Q}.\end{cases}<br>$$<br>在 $x=0$ 处<br>$$<br>\left|\frac{f(x)-f(0)}{x}\right|\le\left|x\right|\to0,<br>$$<br>故 $f’(0)=0$ 存在. 但对 $x_1\neq0$, 有理点处函数值趋于 $x_1^2$, 无理点处趋于 $0$, 二者不等, 极限不存在, 更谈不上连续. 所以 $f$ 只在 $0$ 处连续可导, 其余点处处不连续.</p>
+              </div>
+            </details>
+<p><strong>判断 4</strong>（★★☆）　若 $\lim\limits_{x\to x_0}\dfrac{f(x)-f(x_0)}{x-x_0}$ 存在, 则 $f$ 在 $x_0$ 处连续.</p>
+<details class="folding-tag" ><summary> 判断 4 解析 </summary>
+              <div class='content'>
+              <p><strong>正确</strong>. 该极限就是 $f’(x_0)$. 由<br>$$<br>f(x)-f(x_0)=\frac{f(x)-f(x_0)}{x-x_0}\cdot\left(x-x_0\right)\longrightarrow f’(x_0)\cdot0=0<br>$$<br>得 $\lim\limits_{x\to x_0}f(x)=f(x_0)$. 这正是&quot;可导必连续&quot;的标准证明, 关键是有界量乘无穷小仍为无穷小.</p>
+              </div>
+            </details>
+<p><strong>判断 5</strong>（★★★）　若 $f$ 在 $x_0$ 处不可导, 则曲线 $y=f(x)$ 在点 $\left(x_0,f(x_0)\right)$ 处没有切线.</p>
+<details class="folding-tag" ><summary> 判断 5 解析 </summary>
+              <div class='content'>
+              <p><strong>错误</strong>. 不可导只说明切线可能不存在, 也可能存在竖直切线. 反例 $f(x)=\sqrt[3]{x}$ 在 $x=0$:<br>$$<br>\frac{f(x)-f(0)}{x-0}=x^{-\frac23}\to+\infty ,<br>$$<br>导数不存在, 但曲线在原点有竖直切线 $x=0$.</p><p>另一类反例是 $f(x)=|x|$, 在 $0$ 处左右导数分别为 $-1$ 与 $1$, 形成尖点, 确实没有切线. 所以正确表述是: 不可导时切线可能不存在, 也可能是竖直的.</p>
+              </div>
+            </details>
+<p><strong>判断 6</strong>（★★★）　若 $f$ 在 $(a,b)$ 内可导且 $f’(x)&gt;0$, 则 $f$ 在 $(a,b)$ 内严格单调递增; 反之, 若 $f$ 严格单调递增, 则 $f’(x)&gt;0$.</p>
+<details class="folding-tag" ><summary> 判断 6 解析 </summary>
+              <div class='content'>
+              <p><strong>前半正确, 后半错误</strong>.</p><p>前半: 任取 $a&lt;x_1&lt;x_2&lt;b$, 由拉格朗日中值定理<br>$$<br>f(x_2)-f(x_1)=f’(\xi)\left(x_2-x_1\right)&gt;0,<br>$$<br>故严格增.</p><p>后半的反例: $f(x)=x^3$ 在 $\mathbb{R}$ 上严格增, 但 $f’(0)=0$, 不满足&quot;处处 $&gt;0$&quot;.</p><p>正确的反向命题应写成: 若 $f$ 在 $(a,b)$ 内可导且严格增, 则 $f’(x)\ge0$. 更进一步, 若 $f’(x)\ge0$ 且 $f’$ 在 $(a,b)$ 的任何子区间上不恒为零, 则 $f$ 仍严格增——这是判定严格单调时最实用的形式.</p>
+              </div>
+            </details>
+<h2 id="十-一点使用建议">十 一点使用建议</h2>
+<p>这套卷子里, 最值得反复做的几道是第 17、18、22、27、35、41、43 题, 它们分别代表了&quot;有理化后定阶&quot;“倒数展开”“幂指函数三阶项”“递推数列取倒数”“泰勒定系数”“二阶差分用泰勒”&quot;多点中值插分&quot;这七个模板. 剩下那些看着眼熟的题, 换的都是外壳.</p>
+<p>自测时建议按板块掐时间, 错题只记&quot;卡在哪一步&quot;: 是不会找等价无穷小, 还是忘了乘 $y’$, 还是辅助函数构造不出来. 三类问题的补法完全不同.</p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/avatar.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/avatar.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">Kanwuqing</div><div class="post-copyright__author_desc">To Be Legend</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://kanwuqing.github.io/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%EF%BC%88%E4%B8%8A%EF%BC%89%E6%9C%9F%E4%B8%AD%E6%A8%A1%E6%8B%9F%E5%8D%B7%E2%80%94%E2%80%94%E6%9E%81%E9%99%90%E5%AF%BC%E6%95%B0%E4%B8%8E%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://kanwuqing.github.io/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%EF%BC%88%E4%B8%8A%EF%BC%89%E6%9C%9F%E4%B8%AD%E6%A8%A1%E6%8B%9F%E5%8D%B7%E2%80%94%E2%80%94%E6%9E%81%E9%99%90%E5%AF%BC%E6%95%B0%E4%B8%8E%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86/')">高等数学（上）期中模拟卷——极限·导数·中值定理</span></a></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://kanwuqing.github.io" target="_blank">阚无倾的小窝</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/%E7%AC%94%E8%AE%B0/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>笔记<span class="tagsPageCount">45</span></a><a class="post-meta__box__tags" href="/tags/%E6%95%B0%E5%AD%A6/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>数学<span class="tagsPageCount">22</span></a><a class="post-meta__box__tags" href="/tags/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>高等数学<span class="tagsPageCount">6</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="/img/default_bg.jpg" data-sites="wechat,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0%E2%80%94%E2%80%94OFDM%E8%9C%82%E7%AA%9D%E7%BD%91%E7%BB%9C%E6%97%A0%E8%AE%BE%E5%A4%87%E6%84%9F%E7%9F%A5/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">OFDM 蜂窝网络无设备感知复现日志</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E5%BE%AE%E7%A7%AF%E5%88%86%E5%9F%BA%E6%9C%AC%E5%AE%9A%E7%90%86/" title="高等数学学习笔记——微积分基本定理"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2026-06-29</div><div class="title">高等数学学习笔记——微积分基本定理</div></div></a></div><div><a href="/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E6%9E%81%E9%99%90/" title="高等数学学习笔记——极限!"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2026-06-28</div><div class="title">高等数学学习笔记——极限!</div></div></a></div><div><a href="/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E5%AF%BC%E6%95%B0-%E7%9E%AC%E6%97%B6%E4%B8%8E%E5%8F%98%E5%8C%96%E7%9A%84%E6%82%96%E8%AE%BA/" title="高等数学学习笔记——导数:瞬时与变化的悖论"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2026-06-14</div><div class="title">高等数学学习笔记——导数:瞬时与变化的悖论</div></div></a></div><div><a href="/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E6%B3%B0%E5%8B%92%E7%BA%A7%E6%95%B0/" title="高等数学学习笔记——泰勒级数"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2026-06-30</div><div class="title">高等数学学习笔记——泰勒级数</div></div></a></div><div><a href="/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/" title="高等数学学习笔记——高等数学基础"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2026-06-14</div><div class="title">高等数学学习笔记——高等数学基础</div></div></a></div><div><a href="/OI%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94-%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" title="OI学习笔记——[基础算法]二分查找"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2026-06-23</div><div class="title">OI学习笔记——[基础算法]二分查找</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info__sayhi" id="author-info__sayhi" onclick="anzhiyu.changeSayHelloText()"></div><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-status"><img class="g-status" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/emoji.png" alt="status"/></div></div><div class="author-info__description"><div style="font-size:16px;line-height:1.38;margin:0.6rem 0;text-align:justify;color:rgba(0, 0, 0, 0.8);">这里是我在探索记录与实践复盘的数字角落，主要存放开发中的踩坑记录、解决方案、项目日志和学习笔记。</div> <div style="font-size:16px;line-height:1.38;margin:0.6rem 0;text-align:justify;color:rgba(0, 0, 0, 0.8);>相信这些源于实战的思考与总结，能为你我照亮些许前行的路。欢迎交流与指正。</div></div><div class="author-info__bottom-group"><a class="author-info__bottom-group-left" href="/about"><h1 class="author-info__name">Kanwuqing</h1><div class="author-info__desc">To Be Legend</div></a><div class="card-info-social-icons is-center"><a class="social-icon faa-parent animated-hover" href="https://github.com/kanwuqing" target="_blank" title="Github"><i class="anzhiyufont anzhiyu-icon-github"></i></a></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0-%E5%8D%B7%E9%9D%A2%E7%BB%93%E6%9E%84%E4%B8%8E%E7%94%A8%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">0 卷面结构与用法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E9%97%B4%E6%96%AD%E7%82%B9%E7%9A%84%E5%88%A4%E5%AE%9A%E4%B8%8E%E5%88%86%E7%B1%BB"><span class="toc-number">2.</span> <span class="toc-text">一 间断点的判定与分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-%E8%BF%9E%E7%BB%AD%E6%80%A7%E4%B8%8E%E5%8F%AF%E5%AF%BC%E6%80%A7"><span class="toc-number">3.</span> <span class="toc-text">二 连续性与可导性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-%E6%97%A0%E7%A9%B7%E5%B0%8F%E7%9A%84%E9%98%B6"><span class="toc-number">4.</span> <span class="toc-text">三 无穷小的阶</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B-%E9%AB%98%E9%98%B6%E5%AF%BC%E6%95%B0"><span class="toc-number">5.</span> <span class="toc-text">四 高阶导数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94-%E6%9E%81%E9%99%90%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="toc-number">6.</span> <span class="toc-text">五 极限的计算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD-%E5%8F%82%E6%95%B0%E6%96%B9%E7%A8%8B%E4%B8%8E%E9%9A%90%E5%87%BD%E6%95%B0%E6%B1%82%E5%AF%BC"><span class="toc-number">7.</span> <span class="toc-text">六 参数方程与隐函数求导</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83-%E6%B3%B0%E5%8B%92%E5%85%AC%E5%BC%8F"><span class="toc-number">8.</span> <span class="toc-text">七 泰勒公式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB-%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86%E7%9A%84%E8%AF%81%E6%98%8E"><span class="toc-number">9.</span> <span class="toc-text">八 中值定理的证明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%9D-%E6%A6%82%E5%BF%B5%E8%BE%A8%E6%9E%90"><span class="toc-number">10.</span> <span class="toc-text">九 概念辨析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81-%E4%B8%80%E7%82%B9%E4%BD%BF%E7%94%A8%E5%BB%BA%E8%AE%AE"><span class="toc-number">11.</span> <span class="toc-text">十 一点使用建议</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%EF%BC%88%E4%B8%8A%EF%BC%89%E6%9C%9F%E4%B8%AD%E6%A8%A1%E6%8B%9F%E5%8D%B7%E2%80%94%E2%80%94%E6%9E%81%E9%99%90%E5%AF%BC%E6%95%B0%E4%B8%8E%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86/" title="高等数学（上）期中模拟卷——极限·导数·中值定理"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="高等数学（上）期中模拟卷——极限·导数·中值定理"/></a><div class="content"><a class="title" href="/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%EF%BC%88%E4%B8%8A%EF%BC%89%E6%9C%9F%E4%B8%AD%E6%A8%A1%E6%8B%9F%E5%8D%B7%E2%80%94%E2%80%94%E6%9E%81%E9%99%90%E5%AF%BC%E6%95%B0%E4%B8%8E%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86/" title="高等数学（上）期中模拟卷——极限·导数·中值定理">高等数学（上）期中模拟卷——极限·导数·中值定理</a><time datetime="2026-11-19T05:10:00.000Z" title="发表于 2026-11-19 13:10:00">2026-11-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0%E2%80%94%E2%80%94OFDM%E8%9C%82%E7%AA%9D%E7%BD%91%E7%BB%9C%E6%97%A0%E8%AE%BE%E5%A4%87%E6%84%9F%E7%9F%A5/" title="OFDM 蜂窝网络无设备感知复现日志"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OFDM 蜂窝网络无设备感知复现日志"/></a><div class="content"><a class="title" href="/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0%E2%80%94%E2%80%94OFDM%E8%9C%82%E7%AA%9D%E7%BD%91%E7%BB%9C%E6%97%A0%E8%AE%BE%E5%A4%87%E6%84%9F%E7%9F%A5/" title="OFDM 蜂窝网络无设备感知复现日志">OFDM 蜂窝网络无设备感知复现日志</a><time datetime="2026-11-13T13:40:00.000Z" title="发表于 2026-11-13 21:40:00">2026-11-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/%E6%B3%A2%E5%BD%A2%E7%94%9F%E6%88%90%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-FIR%E6%95%B0%E5%AD%97%E6%BB%A4%E6%B3%A2/" title="波形发生识别系统开发日志 —— FIR 数字滤波"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="波形发生识别系统开发日志 —— FIR 数字滤波"/></a><div class="content"><a class="title" href="/%E6%B3%A2%E5%BD%A2%E7%94%9F%E6%88%90%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-FIR%E6%95%B0%E5%AD%97%E6%BB%A4%E6%B3%A2/" title="波形发生识别系统开发日志 —— FIR 数字滤波">波形发生识别系统开发日志 —— FIR 数字滤波</a><time datetime="2026-10-26T06:00:00.000Z" title="发表于 2026-10-26 14:00:00">2026-10-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E7%BB%93%E6%9E%84%E4%BD%93%E4%B8%8E%E5%85%B1%E7%94%A8%E4%BD%93/" title="C语言学习笔记——结构体与共用体"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C语言学习笔记——结构体与共用体"/></a><div class="content"><a class="title" href="/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E7%BB%93%E6%9E%84%E4%BD%93%E4%B8%8E%E5%85%B1%E7%94%A8%E4%BD%93/" title="C语言学习笔记——结构体与共用体">C语言学习笔记——结构体与共用体</a><time datetime="2026-10-20T07:30:00.000Z" title="发表于 2026-10-20 15:30:00">2026-10-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E6%8C%87%E9%92%88/" title="C语言学习笔记——指针"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C语言学习笔记——指针"/></a><div class="content"><a class="title" href="/C%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E6%8C%87%E9%92%88/" title="C语言学习笔记——指针">C语言学习笔记——指针</a><time datetime="2026-10-19T02:12:00.000Z" title="发表于 2026-10-19 10:12:00">2026-10-19</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2026 By <a class="footer-bar-link" href="/" title="Kanwuqing" target="_blank">Kanwuqing</a></div></div><div id="footer-type-tips"></div><div class="js-pjax"><script>function subtitleType () {
+  fetch('https://v1.hitokoto.cn')
+    .then(response => response.json())
+    .then(data => {
+      if (true) {
+        const from = '出自 ' + data.from
+        const sub = ["生活明朗&#44; 万物可爱&#44; 人间值得&#44; 未来可期."]
+        sub.unshift(data.hitokoto, from)
+        window.typed = new Typed('#footer-type-tips', {
+          strings: sub,
+          startDelay: 300,
+          typeSpeed: 150,
+          loop: true,
+          backSpeed: 50,
+        })
+      } else {
+        document.getElementById('footer-type-tips').innerHTML = data.hitokoto
+      }
+    })
+}
+
+if (true) {
+  if (typeof Typed === 'function') {
+    subtitleType()
+  } else {
+    getScript('https://cdn.cbd.int/typed.js@2.1.0/dist/typed.umd.js').then(subtitleType)
+  }
+} else {
+  subtitleType()
+}
+</script></div></div><div class="footer-bar-right"><a class="footer-bar-link" href="/"></a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">61</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">39</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">5</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/kanwuqing.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" href="/html/maze.html" title="迷宫小游戏"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/kanwuqing.ico" alt="迷宫小游戏"/><span class="back-menu-item-text">迷宫小游戏</span></a><a class="back-menu-item" href="/html/latex-table.html" title="LaTeX速查表"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/kanwuqing.ico" alt="LaTeX速查表"/><span class="back-menu-item-text">LaTeX速查表</span></a></div></div></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 归档</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于我</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/career/"><i class="anzhiyufont anzhiyu-icon-images faa-tada" style="font-size: 0.9em;"></i><span> 我的经历</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/AI/" style="font-size: 0.88rem;">AI<sup>12</sup></a><a href="/tags/Bot/" style="font-size: 0.88rem;">Bot<sup>7</sup></a><a href="/tags/C/" style="font-size: 0.88rem;">C++<sup>7</sup></a><a href="/tags/Canvas/" style="font-size: 0.88rem;">Canvas<sup>1</sup></a><a href="/tags/C%E8%AF%AD%E8%A8%80/" style="font-size: 0.88rem;">C语言<sup>13</sup></a><a href="/tags/F401/" style="font-size: 0.88rem;">F401<sup>2</sup></a><a href="/tags/G431/" style="font-size: 0.88rem;">G431<sup>1</sup></a><a href="/tags/HTML/" style="font-size: 0.88rem;">HTML<sup>1</sup></a><a href="/tags/ISAC/" style="font-size: 0.88rem;">ISAC<sup>1</sup></a><a href="/tags/Javascript/" style="font-size: 0.88rem;">Javascript<sup>1</sup></a><a href="/tags/LegendBot/" style="font-size: 0.88rem;">LegendBot<sup>7</sup></a><a href="/tags/Manim/" style="font-size: 0.88rem;">Manim<sup>1</sup></a><a href="/tags/OFDM/" style="font-size: 0.88rem;">OFDM<sup>1</sup></a><a href="/tags/OI/" style="font-size: 0.88rem;">OI<sup>5</sup></a><a href="/tags/Python/" style="font-size: 0.88rem;">Python<sup>13</sup></a><a href="/tags/STM32/" style="font-size: 0.88rem;">STM32<sup>4</sup></a><a href="/tags/Wechat/" style="font-size: 0.88rem;">Wechat<sup>7</sup></a><a href="/tags/docs/" style="font-size: 0.88rem;">docs<sup>1</sup></a><a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" style="font-size: 0.88rem;">人工智能<sup>12</sup></a><a href="/tags/%E4%BF%A1%E5%A5%A5/" style="font-size: 0.88rem;">信奥<sup>8</sup></a><a href="/tags/%E5%85%B1%E7%94%A8%E4%BD%93/" style="font-size: 0.88rem;">共用体<sup>1</sup></a><a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" style="font-size: 0.88rem;">单片机<sup>1</sup></a><a href="/tags/%E5%A4%8D%E7%8E%B0/" style="font-size: 0.88rem;">复现<sup>1</sup></a><a href="/tags/%E6%8A%80%E6%9C%AF/" style="font-size: 0.88rem;">技术<sup>11</sup></a><a href="/tags/%E6%8C%87%E9%92%88/" style="font-size: 0.88rem;">指针<sup>1</sup></a><a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 0.88rem;">教程<sup>4</sup></a><a href="/tags/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/" style="font-size: 0.88rem;">数字信号处理<sup>1</sup></a><a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 0.88rem;">数学<sup>22</sup></a><a href="/tags/%E6%9E%9A%E4%B8%BE/" style="font-size: 0.88rem;">枚举<sup>1</sup></a><a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/" style="font-size: 0.88rem;">概率论<sup>1</sup></a><a href="/tags/%E6%B3%A2%E5%BD%A2%E5%8F%91%E7%94%9F%E8%AF%86%E5%88%AB%E7%B3%BB%E7%BB%9F/" style="font-size: 0.88rem;">波形发生识别系统<sup>3</sup></a><a href="/tags/%E7%AC%94%E8%AE%B0/" style="font-size: 0.88rem;">笔记<sup>45</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 0.88rem;">算法<sup>9</sup></a><a href="/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" style="font-size: 0.88rem;">线性代数<sup>11</sup></a><a href="/tags/%E7%BB%93%E6%9E%84%E4%BD%93/" style="font-size: 0.88rem;">结构体<sup>1</sup></a><a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/" style="font-size: 0.88rem;">计算机<sup>5</sup></a><a href="/tags/%E9%80%9A%E6%84%9F%E4%B8%80%E4%BD%93%E5%8C%96/" style="font-size: 0.88rem;">通感一体化<sup>1</sup></a><a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 0.88rem;">链表<sup>1</sup></a><a href="/tags/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/" style="font-size: 0.88rem;">高等数学<sup>6</sup></a></div></div><hr/></div></div><div id="keyboard-tips"><div class="keyboardTitle">博客快捷键</div><div class="keybordList"><div class="keybordItem"><div class="keyGroup"><div class="key">shift K</div></div><div class="keyContent"><div class="content">关闭快捷键功能</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift A</div></div><div class="keyContent"><div class="content">打开/关闭中控台</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift M</div></div><div class="keyContent"><div class="content">播放/暂停音乐</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift D</div></div><div class="keyContent"><div class="content">深色/浅色显示模式</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift S</div></div><div class="keyContent"><div class="content">站内搜索</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift R</div></div><div class="keyContent"><div class="content">随机访问</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift H</div></div><div class="keyContent"><div class="content">返回首页</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift F</div></div><div class="keyContent"><div class="content">友链鱼塘</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift L</div></div><div class="keyContent"><div class="content">友链页面</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift P</div></div><div class="keyContent"><div class="content">关于本站</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift I</div></div><div class="keyContent"><div class="content">原版/本站右键菜单</div></div></div></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8904880904" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="is-center" id="loading-database"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-pulse-icon"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@6.1.6/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script async src="/anzhiyu/random.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.cbd.int/mathjax@4.0.0/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><input type="hidden" name="page-type" id="page-type" value="post"></div><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://cdn.cbd.int/qrcodejs@1.0.0/qrcode.min.js"></script><script src="/js/anzhiyu/right_click_menu.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
