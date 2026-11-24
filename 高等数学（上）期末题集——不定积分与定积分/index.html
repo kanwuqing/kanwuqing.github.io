@@ -1,0 +1,1004 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>高等数学（上）期末题集——不定积分·定积分 | 阚无倾的小窝</title><meta name="keywords" content="笔记,数学,高等数学"><meta name="author" content="Kanwuqing"><meta name="copyright" content="Kanwuqing"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="高等数学（上）期末题集——不定积分·定积分"><meta name="application-name" content="高等数学（上）期末题集——不定积分·定积分"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="高等数学（上）期末题集——不定积分·定积分"><meta property="og:url" content="https://kanwuqing.github.io/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%EF%BC%88%E4%B8%8A%EF%BC%89%E6%9C%9F%E6%9C%AB%E9%A2%98%E9%9B%86%E2%80%94%E2%80%94%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86%E4%B8%8E%E5%AE%9A%E7%A7%AF%E5%88%86/index.html"><meta property="og:site_name" content="阚无倾的小窝"><meta property="og:description" content="不定积分 68 道, 定积分 39 道, 另加 8 条概念辨析. 每题后面挂折叠的解答, 典型题把想法从”看到什么”写到”为什么走这条路”, 其余只留关键一步和答案.  定积分那块只写不定积分里没有的: 黎曼和求极限、变限积分、对称性与区间再现、Wallis 递推、反常积分、估值不等"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://kanwuqing.github.io/img/default_bg.jpg"><meta property="article:author" content="Kanwuqing"><meta property="article:tag" content="Python,Coding"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://kanwuqing.github.io/img/default_bg.jpg"><meta name="description" content="不定积分 68 道, 定积分 39 道, 另加 8 条概念辨析. 每题后面挂折叠的解答, 典型题把想法从”看到什么”写到”为什么走这条路”, 其余只留关键一步和答案.  定积分那块只写不定积分里没有的: 黎曼和求极限、变限积分、对称性与区间再现、Wallis 递推、反常积分、估值不等"><link rel="shortcut icon" href="/img/kanwuqing.ico"><link rel="canonical" href="https://kanwuqing.github.io/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%EF%BC%88%E4%B8%8A%EF%BC%89%E6%9C%9F%E6%9C%AB%E9%A2%98%E9%9B%86%E2%80%94%E2%80%94%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86%E4%B8%8E%E5%AE%9A%E7%A7%AF%E5%88%86/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@6.1.6/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/swiper/swiper.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: undefined,
+  postHeadAiDescription: undefined,
+  diytitle: undefined,
+  LA51: undefined,
+  greetingBox: {"enable":true,"default":"晚上好👋","list":[{"greeting":"晚安😴","startTime":0,"endTime":5},{"greeting":"早上好鸭👋, 祝你一天好心情！","startTime":6,"endTime":9},{"greeting":"上午好👋, 状态很好，鼓励一下～","startTime":10,"endTime":10},{"greeting":"11点多啦, 在坚持一下就吃饭啦～","startTime":11,"endTime":11},{"greeting":"午安👋","startTime":12,"endTime":14},{"greeting":"🌈充实的一天辛苦啦！","startTime":14,"endTime":18},{"greeting":"19点喽, 奖励一顿丰盛的大餐吧🍔。","startTime":19,"endTime":19},{"greeting":"晚上好👋, 在属于自己的时间好好放松😌~","startTime":20,"endTime":24}]},
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "custom",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: {"skills":["🤖️ 数码科技爱好者","🔍 分享与热心帮助","🏠 智能家居小能手","🔨 设计开发一条龙","🤝 专修交互与设计","🏃 脚踏实地行动派","🧱 团队小组发动机","💢 壮汉人狠话不多"]},
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: Kanwuqing","link":"链接: ","source":"来源: 阚无倾的小窝","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.2.0/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.2.0/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: {"enable":true,"delay":100,"shiftDelay":200},
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '阚无倾的小窝',
+  title: '高等数学（上）期末题集——不定积分·定积分',
+  postAI: '',
+  pageFillDescription: '1.2 形态到通道的对照 ★★★★★, 1.3 三角函数积分的五条分支 ★★★★★, 三 换元法（第 9—20 题）★★★★, 四 分部积分（第 21—30 题）★★★★不定积分道定积分道另加条概念辨析每题后面挂折叠的解答典型题把想法从看到什么写到为什么走这条路其余只留关键一步和答案定积分那块只写不定积分里没有的黎曼和求极限变限积分对称性与区间再现递推反常积分估值不等式元素法应用以及必须靠定积分身份才能做的证明纯粹的原函数上下限那种题一律不重复收一拿到积分题先过六个检查位不定积分没有通用算法但搜索空间可以压得很小下面六个位置按顺序过一遍课本范围内的题基本在前三个位置就被拦下剩下的才需要动脑子凑技巧检查位一查表与线性拆分被积函数是幂指数正余弦反正弦的线性组合时直接拆成若干基本积分这一步唯一会丢分的地方是的绝对值以及与的指数处理混在一起检查位二凑微分能不能写成的形状判断方法不是盯着被积函数看而是先在心里给内层定个候选分母括号里指数上根号里的后面再看它的导数是不是恰好藏在分子或旁边的因子中凑微分与显式换元是同一件事的两种写法差别只在要不要把落在纸上检查位三按结构选主通道形状决定通道通道决定第一步动作具体见下面的对照表检查位四分部积分的方向出现幂指数幂三角幂反三角幂对数就考虑分部顺序按对数反三角幂三角指数从左往右取出现单独一个函数时把它当把当所谓无中生有分部后回到原积分就移项解方程分部后幂次只降一次而结构不变就写递推检查位五有理化的位置根式只有一处且是的一次式令等于根式根式是这种二次式先配方再三角代换或双曲代换二次式在分母的根号外面还带这类因子倒代换往往比三角代换省一半笔墨检查位六退路上面都走不通时依次试加一项减一项拆成两个已知积分配对一起算待定系数把分子配成分母与其导数的线性组合隐式代换把整个根式或整个分式设成一个新变量代换还可以先判断这题是不是根本积不出来见本节末尾那张清单基本积分表及其容易记错的几处三处高频记错的系数是而不是的对数里是而里是符号不对称因为的导数带负号也是与加号那支同形形态到通道的对照看到的形态首选动作备选常踩的坑幂指数正余弦的线性组合逐项查表无忘常数忘绝对值内层函数的导数藏在旁边凑微分显式令系数漏掉只有一个根式令分子有理化换完忘换含或三角代换双曲代换倒代换回代时三角形画错有理式且分子次数不低于分母先做多项式除法拆成整式加真分式直接硬拆部分分式分母全是一次因式含重根部分分式遮住法求系数拆项凑微分重根只写一次分母是不可约二次式的幂配方加递推分部配方系数错幂乘指数或幂乘三角分部幂当表格法连分两次分部符号错幂乘反三角或幂乘对数分部反三角或对数当先换元与选反这类分部两次移项复数指数移项时符号错分式待定系数配成分母与其导数凑直接万能代换越算越乱奇偶分派都偶就降幂令都偶时还硬凑微分抽或抽令奇次走错分支上下同除令万能代换忘掉处的间断二次三项式在根号里先配方代换不配方直接三角代换三角函数积分的五条分支三角函数的题最容易乱原因是三角不是一个类型而是五个类型叠在一起判断顺序是先看幂次再看是不是分式最后看有没有根号分支一型中至少一个奇数抽一个因子去配或剩下的用换成同一函数两个都是偶数用降幂次数越高降幂次数越多一边是负次幂分母上有或时改令把整式化成有理函数分支二型为偶数抽全部换成得多项式为奇数抽全部换成得多项式为奇数而为偶数如两条捷径都没有只能分部分两次后回到自身结果含分支三型设分子分母分母的导数解出于是拆成一个常数与一个分母分母后者是这一步比万能代换快十倍且不引入分支四型上下同除分子变成分母变成立刻是型结果是分母若是一次式万能代换是稳的只是要算完再回代分支五含的根式分别代根号立刻消失剩下的是分支一到四的题回代时画直角三角形比套公式可靠三条边标成由认角即可除此之外还有三个化归工具见到奇怪的三角结构先想它们积化和差型乘积辅助角用来把分母并成一项以及的拆项用法把常数项拆开制造的结构定积分比不定积分多出来的六个动作不定积分求的是函数族定积分求的是数多出来的动作全部围绕数这个身份定义直接求值见到就写成识别要点是配变量是而不是的倍数时先凑系数变限积分当函数用的导数是上下限都是函数时用这类题九成是在考求导之后接着考单调性极值或洛必达对称与区间再现是定积分里最强的恒等式凡是与与能化简的题都靠它奇偶性则是它的特例对称区间上奇函数为零换元必须换限定积分换元后不必回代但上下限要跟着变且新上限必须对应新变量一旦原函数在区间内有瑕点无界或不存在牛顿莱布尼茨公式就失效得先拆区间再按反常积分处理绝对值与分段被积函数带绝对值带带或者本身是分段函数时先找零点把区间切开每一段上符号固定再脱绝对值汇总时注意每段的方向元素法面积体积弧长平均值形心都来自这一句关键是写对微元而不是背公式积不出初等函数的几种常见形状的原函数都不是初等函数刘维尔定理的结论考试不要求证明只要求认出来卷面上出现它们的定积分时出题人想考的一定不是求原函数而是对称性变限积分求导估值或者二重积分交换次序认出这一点的价值在于及时停手别把时间花在一次算不完的部分分式上二基本公式与凑微分第题这一节只考两件事公式背得牢不牢内层函数的导数看不看得见第题求第题解析逐项查表其中的原函数是第题求第题解析分母求导恰好得是标准的形状原式值得注意的是分子与分母导数差一点的情形若分子是就写成拆成与两项后者用部分分式见到分子次数恰比分母低一次第一反应就该是分母的导数在不在里面第题求第题解析直接凑第题求第题解析内层从里往外剥于是整个分母正是的微分原式选内层的顺序一般与外层函数出现的顺序相反被积函数是从左向右写出来的但复合是从右向左套起来的所以先看最外层最后的它的自变量才是内层第题求第题解析分子加一项减一项故另一条路是上下同乘得两者只差常数都算对第题求第题解析令则第题求第题解析配方再用第题求第题解析这一步是所有二次式在分母的题的总开关先把分子拆成分母的导数加一个常数的导数是而分子是于是第一项是第二项由第题得合起来分母恒正对数里不加绝对值拆分的模板是记不住就现场配分母导数乘多少才等于分子的项系数后面第题的有理函数全要用它三换元法第题换元的判断标准只有一条换了之后被积函数是否变成熟悉的样子换什么可以由结构提示根式指数三角也可以由求导找原函数反推倒代换下面按提示的强弱排序第题求第题解析只有一个根式令第题求第题解析根号里的分式不好直接代换但可以先把根号摊开分子分母同乘右边两项都成了基本形状于是验算一下相加正是若一开始就整体令解出会得到还要再分部一次才回来分子有理化把两次分部省成一次查表这类根号内是分式的题都值得先试一次有理化第题求第题解析分母外面挂了个这是倒代换的信号令时三角代换也能做但要多走一步分母被积函数化成积分得再由回代得两条路的对比很典型倒代换直接把幂次降下来三角代换把根式变成但留下的回代工作判据是根号外的幂次是否为正为正用倒代换为负或为零用三角代换第题求第题解析根号里含时令反解回代第题求第题解析故原式第题求第题解析分母是的一次式三条路万能代换凑辅助角里万能代换最机械考场上不容易翻车令则代入并通分配方于是回代万能代换的三个公式必须连同一起换只换是最常见的错另外这一步之后分母若出现判别式为负的二次式就是判别式为正就转成部分分式走后一种情况对应的那时原函数含对数定义域也要分段第题求第题解析分子分母同除同时利用令化成回代得结果的系数与分子上的是最容易记反的地方现场校验办法是求导对求导得分子分母同乘后正好还原这个式子在即处失效原函数只能逐段给出每段是一个平移过的卷面上如果区间跨过要么分段写要么改用的等价形式第题求第题解析常数要先拆成分母变成这时才是第题的形状也可以直接算上下同除得与上式一致不拆常数就套第题公式会得到形式上也能求导对不对求导会多出的系数数值上差一个因子凡是分母里既有常数又有都先做的替换第题求第题解析分母是与的幂的乘积令能把所有东西变成有理式于是回代关键在于之后分母的幂次正好被的抵消掉一部分剩下的是中学就能积的形状如果幂次凑不成这种刚好抵消说明该用万能代换或者先做恒等变形第题求第题解析分子分母同除让出现而令回代并化简分子分母同乘两个二次式都恒正判别式绝对值可以去掉同除能成功的前提是分子分母的幂次恰好差且拼出来的常数项正好是差或差的情况要改用别的路子强行除只会得到这种没用的东西第题求第题解析与第题同一套手法但拼的是因为分子是的形状两题配对记分子配出对数分子配出反正切判断方法不是背而是看同除之后分子是还是前者正是后者正是第题求第题解析根号外有幂次为正按第题的判据该用三角代换这里根号是型回代故四分部积分第题分部的判断标准被积函数是两类不同函数的乘积或者一个陌生函数乘的选取按对数反三角幂三角指数从左到右因为排在前面的求导会变简单排在后面的容易积分第题求第题解析取则第题求第题解析反三角求导会变成代数式幂求导只是降次所以取后面这个积分用分子加一减一拆开于是分部之后剩下的积分往往还要再用一次老技巧这是分部题的标准节奏分部不是一步到底而是把怪的乘积换成熟的单个函数上面最后把两项合并成是可做可不做的化简但合并之后求导验算会干净很多第题求第题解析无中生有第题求第题解析指数乘三角分两次必然回到自身于是设第一次取对再分部一次代回两次分部的必须取同一类函数这里都是三角一次取三角一次取指数会导致与凑不成等式算出来是移项时系数是而不是因为第二次分部把系数又乘了一次第题求第题解析取而第题求第题解析这是的形状取答案为原理逆着写就是上式认出这个形状比硬分部快硬分部的话第二次会与第一次抵消第题求第题解析连分两次每次都取多项式为第题求第题解析与第题同构两次分部后移项一般结果是第题设求递推公式第题解析递推的来源是分部之后剩下的积分能用与表示取把分子拆开于是代回并整理指标平移一位写成常用的形式递推公式的检验办法取与第题直接算的结果一致再看很大时递推不发散这是量纲上的必要条件两个检验都过公式基本不会错第题求第题解析五有理函数与部分分式第题有理函数的流程固定得可以背假分式先做除法化成多项式真分式分母在实数范围内分解成一次因式与不可约二次因式的乘积按因式写部分分式的形式重根要写全层不可约二次的分子写成一次式用遮住法或比较系数定出待定常数最后逐项积分第题求第题解析分子次数高于分母先除于是第题求第题解析遮住法遮住代入得遮住代入得故第题求第题解析重根要写全三层遮住得遮住得比较项系数得故最后一项来自符号是负的这里最容易丢第题求第题解析分母有一个一次因式和一个不可约二次因式设处遮住得比较系数得故比较常数项得故于是第题求第题解析分母在实数范围内分解不了一次因式只能拆成两个不可约二次式设通分后比较系数解得下面把按分母导数常数拆开分母导数是所以第一项积出对数第二项配方成后积出另一支的处理完全对称结果是与一个反号的对数合起来两个二次式都恒正对数不加绝对值这题的难点全在分解把它看成的平方差即可拆完之后按分母导数常数分项与第题第题是同一个动作最后那个对数里的两个二次式也可以写成若要用合并记得相加会产生的跳跃逐段成立即可第题求第题解析用第题的递推取硬算也行令化为回代得同一结果第题求第题解析直接拆项即可第题求第题解析验算正是被积函数于是',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-11-24 20:33:25',
+  postMainColor: '#ffff00',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/note.css"><meta name="generator" content="Hexo 8.1.1"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><div class="back-home-button"><i class="anzhiyufont anzhiyu-icon-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/kanwuqing.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" href="/html/maze.html" title="迷宫小游戏"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/kanwuqing.ico" alt="迷宫小游戏"/><span class="back-menu-item-text">迷宫小游戏</span></a><a class="back-menu-item" href="/html/latex-table.html" title="LaTeX速查表"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/kanwuqing.ico" alt="LaTeX速查表"/><span class="back-menu-item-text">LaTeX速查表</span></a></div></div></div></div><a id="site-name" href="/" accesskey="h"><div class="title">阚无倾的小窝</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a><div id="he-plugin-simple"></div><script>var WIDGET = {
+  "CONFIG": {
+    "modules": "0124",
+    "background": "2",
+    "tmpColor": "FFFFFF",
+    "tmpSize": "16",
+    "cityColor": "FFFFFF",
+    "citySize": "16",
+    "aqiColor": "E8D87B",
+    "aqiSize": "16",
+    "weatherIconSize": "24",
+    "alertIconSize": "18",
+    "padding": "10px 10px 10px 10px",
+    "shadow": "0",
+    "language": "auto",
+    "borderRadius": "20",
+    "fixed": "true",
+    "vertical": "top",
+    "horizontal": "left",
+    "left": "20",
+    "top": "7.1",
+    "key": "df245676fb434a0691ead1c63341cd94"
+  }
+}
+</script><link rel="stylesheet" href="https://widget.qweather.net/simple/static/css/he-simple.css?v=1.4.0"/><script src="https://widget.qweather.net/simple/static/js/he-simple.js?v=1.4.0"></script></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 归档</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于我</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/career/"><i class="anzhiyufont anzhiyu-icon-images faa-tada" style="font-size: 0.9em;"></i><span> 我的经历</span></a></li></ul></div></div></div><div id="nav-right"><div class="nav-button only-home" id="travellings_button" title="随机前往一个开往项目网站"><a class="site-page" onclick="anzhiyu.totraveling()" title="随机前往一个开往项目网站" href="javascript:void(0);" rel="external nofollow" data-pjax-state="external"><i class="anzhiyufont anzhiyu-icon-train"></i></a></div><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/AI/" style="font-size: 1.05rem;">AI<sup>12</sup></a><a href="/tags/Bot/" style="font-size: 1.05rem;">Bot<sup>7</sup></a><a href="/tags/C/" style="font-size: 1.05rem;">C++<sup>7</sup></a><a href="/tags/Canvas/" style="font-size: 1.05rem;">Canvas<sup>1</sup></a><a href="/tags/C%E8%AF%AD%E8%A8%80/" style="font-size: 1.05rem;">C语言<sup>13</sup></a><a href="/tags/F401/" style="font-size: 1.05rem;">F401<sup>2</sup></a><a href="/tags/G431/" style="font-size: 1.05rem;">G431<sup>1</sup></a><a href="/tags/HTML/" style="font-size: 1.05rem;">HTML<sup>1</sup></a><a href="/tags/ISAC/" style="font-size: 1.05rem;">ISAC<sup>1</sup></a><a href="/tags/Javascript/" style="font-size: 1.05rem;">Javascript<sup>1</sup></a><a href="/tags/LegendBot/" style="font-size: 1.05rem;">LegendBot<sup>7</sup></a><a href="/tags/Manim/" style="font-size: 1.05rem;">Manim<sup>1</sup></a><a href="/tags/OFDM/" style="font-size: 1.05rem;">OFDM<sup>1</sup></a><a href="/tags/OI/" style="font-size: 1.05rem;">OI<sup>5</sup></a><a href="/tags/Python/" style="font-size: 1.05rem;">Python<sup>13</sup></a><a href="/tags/STM32/" style="font-size: 1.05rem;">STM32<sup>4</sup></a><a href="/tags/Wechat/" style="font-size: 1.05rem;">Wechat<sup>7</sup></a><a href="/tags/docs/" style="font-size: 1.05rem;">docs<sup>1</sup></a><a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" style="font-size: 1.05rem;">人工智能<sup>12</sup></a><a href="/tags/%E4%BF%A1%E5%A5%A5/" style="font-size: 1.05rem;">信奥<sup>8</sup></a><a href="/tags/%E5%85%B1%E7%94%A8%E4%BD%93/" style="font-size: 1.05rem;">共用体<sup>1</sup></a><a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" style="font-size: 1.05rem;">单片机<sup>1</sup></a><a href="/tags/%E5%A4%8D%E7%8E%B0/" style="font-size: 1.05rem;">复现<sup>1</sup></a><a href="/tags/%E6%8A%80%E6%9C%AF/" style="font-size: 1.05rem;">技术<sup>11</sup></a><a href="/tags/%E6%8C%87%E9%92%88/" style="font-size: 1.05rem;">指针<sup>1</sup></a><a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 1.05rem;">教程<sup>4</sup></a><a href="/tags/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/" style="font-size: 1.05rem;">数字信号处理<sup>1</sup></a><a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 1.05rem;">数学<sup>24</sup></a><a href="/tags/%E6%9E%9A%E4%B8%BE/" style="font-size: 1.05rem;">枚举<sup>1</sup></a><a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/" style="font-size: 1.05rem;">概率论<sup>1</sup></a><a href="/tags/%E6%B3%A2%E5%BD%A2%E5%8F%91%E7%94%9F%E8%AF%86%E5%88%AB%E7%B3%BB%E7%BB%9F/" style="font-size: 1.05rem;">波形发生识别系统<sup>3</sup></a><a href="/tags/%E7%AC%94%E8%AE%B0/" style="font-size: 1.05rem;">笔记<sup>47</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.05rem;">算法<sup>9</sup></a><a href="/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" style="font-size: 1.05rem;">线性代数<sup>12</sup></a><a href="/tags/%E7%BB%93%E6%9E%84%E4%BD%93/" style="font-size: 1.05rem;">结构体<sup>1</sup></a><a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/" style="font-size: 1.05rem;">计算机<sup>5</sup></a><a href="/tags/%E9%80%9A%E6%84%9F%E4%B8%80%E4%BD%93%E5%8C%96/" style="font-size: 1.05rem;">通感一体化<sup>1</sup></a><a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 1.05rem;">链表<sup>1</sup></a><a href="/tags/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/" style="font-size: 1.05rem;">高等数学<sup>7</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/11/"><span class="card-archive-list-date">十一月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">4</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/10/"><span class="card-archive-list-date">十月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">15</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/09/"><span class="card-archive-list-date">九月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/07/"><span class="card-archive-list-date">七月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/06/"><span class="card-archive-list-date">六月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">12</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/05/"><span class="card-archive-list-date">五月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/04/"><span class="card-archive-list-date">四月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/03/"><span class="card-archive-list-date">三月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">4</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div><div class="console-btn-item" id="consoleKeyboard" onclick="anzhiyu.keyboardToggle()" title="快捷键开关"><a class="keyboard-switch"><i class="anzhiyufont anzhiyu-icon-keyboard"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AC%94%E8%AE%B0/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>笔记</span></a><a class="article-meta__tags" href="/tags/%E6%95%B0%E5%AD%A6/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>数学</span></a><a class="article-meta__tags" href="/tags/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>高等数学</span></a></span></div></div><h1 class="post-title" itemprop="name headline">高等数学（上）期末题集——不定积分·定积分</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2026-11-24T14:10:00.000Z" title="发表于 2026-11-24 22:10:00">2026-11-24</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2026-11-24T12:33:25.621Z" title="更新于 2026-11-24 20:33:25">2026-11-24</time></span></div><div class="meta-secondline"><span class="post-meta-separator"></span><span class="post-meta-wordcount"><i class="anzhiyufont anzhiyu-icon-file-word post-meta-icon" title="文章字数"></i><span class="post-meta-label" title="文章字数">字数总计:</span><span class="word-count" title="文章字数">8.4k</span><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-clock post-meta-icon" title="阅读时长"></i><span class="post-meta-label" title="阅读时长">阅读时长:</span><span>37分钟</span></span><span class="post-meta-separator"></span><span class="post-meta-pv-cv" id="" data-flag-title="高等数学（上）期末题集——不定积分·定积分"><i class="anzhiyufont anzhiyu-icon-fw-eye post-meta-icon"></i><span class="post-meta-label" title="阅读量">阅读量:</span><span id="busuanzi_value_page_pv"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i></span></span><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为中国"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>中国</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="/img/default_bg.jpg"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://kanwuqing.github.io/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%EF%BC%88%E4%B8%8A%EF%BC%89%E6%9C%9F%E6%9C%AB%E9%A2%98%E9%9B%86%E2%80%94%E2%80%94%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86%E4%B8%8E%E5%AE%9A%E7%A7%AF%E5%88%86/"><header><a href="/tags/%E7%AC%94%E8%AE%B0/" tabindex="-1" itemprop="url">笔记</a><a href="/tags/%E6%95%B0%E5%AD%A6/" tabindex="-1" itemprop="url">数学</a><a href="/tags/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/" tabindex="-1" itemprop="url">高等数学</a><h1 id="CrawlerTitle" itemprop="name headline">高等数学（上）期末题集——不定积分·定积分</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">Kanwuqing</span><time itemprop="dateCreated datePublished" datetime="2026-11-24T14:10:00.000Z" title="发表于 2026-11-24 22:10:00">2026-11-24</time><time itemprop="dateCreated datePublished" datetime="2026-11-24T12:33:25.621Z" title="更新于 2026-11-24 20:33:25">2026-11-24</time></header><blockquote>
+<p>不定积分 68 道, 定积分 39 道, 另加 8 条概念辨析.
+每题后面挂折叠的解答, 典型题把想法从”看到什么”写到”为什么走这条路”,
+其余只留关键一步和答案.</p>
+</blockquote>
+<p>定积分那块只写不定积分里没有的:
+黎曼和求极限、变限积分、对称性与区间再现、Wallis
+递推、反常积分、估值不等式、元素法应用,
+以及必须靠定积分身份才能做的证明. 纯粹的”原函数 +
+上下限”那种题一律不重复收.</p>
+<h2 id="一-拿到积分题先过六个检查位">一 拿到积分题先过六个检查位
+★★★★★</h2>
+<p>不定积分没有通用算法, 但搜索空间可以压得很小.
+下面六个位置按顺序过一遍, 课本范围内的题基本在前三个位置就被拦下,
+剩下的才需要动脑子凑技巧.</p>
+<p><strong>检查位一, 查表与线性拆分.</strong>
+被积函数是幂、指数、正余弦、反正弦的线性组合时, 直接拆成若干基本积分.
+这一步唯一会丢分的地方是 <span
+class="math inline">\(\int\frac{dx}{x}=\ln|x|+C\)</span> 的绝对值, 以及
+<span class="math inline">\(\int x^{-1}\)</span> 与 <span
+class="math inline">\(\int x^{2}\)</span> 的指数处理混在一起.</p>
+<p><strong>检查位二, 凑微分.</strong> 能不能写成 <span
+class="math inline">\(\int f(\varphi(x))\varphi&#39;(x)\,dx\)</span>
+的形状. 判断方法不是盯着被积函数看, 而是先在心里给内层 <span
+class="math inline">\(\varphi(x)\)</span>
+定个候选（分母、括号里、指数上、根号里、<span
+class="math inline">\(\sin\)</span> 的后面）,
+再看它的导数是不是恰好藏在分子或旁边的因子中.
+凑微分与显式换元是同一件事的两种写法, 差别只在要不要把 <span
+class="math inline">\(t=\varphi(x)\)</span> 落在纸上.</p>
+<p><strong>检查位三, 按结构选主通道.</strong> 形状决定通道,
+通道决定第一步动作. 具体见下面的对照表.</p>
+<p><strong>检查位四, 分部积分的方向.</strong> 出现”幂 × 指数 / 幂 × 三角
+/ 幂 × 反三角 / 幂 × 对数”就考虑分部,
+顺序按”对数、反三角、幂、三角、指数”从左往右取 <span
+class="math inline">\(u\)</span>; 出现 <span class="math inline">\(\ln
+x\)</span>、<span class="math inline">\(\arctan x\)</span>、<span
+class="math inline">\(\arcsin x\)</span> 单独一个函数时, 把它当 <span
+class="math inline">\(u\)</span>、把 <span
+class="math inline">\(dx\)</span> 当 <span
+class="math inline">\(dv\)</span>（所谓无中生有）;
+分部后回到原积分（<span class="math inline">\(e^{ax}\sin
+bx\)</span>、<span
+class="math inline">\(\sec^{3}x\)</span>）就移项解方程;
+分部后幂次只降一次而结构不变（<span
+class="math inline">\(\int\sin^{n}x\,dx\)</span>、<span
+class="math inline">\(\int\frac{dx}{(x^{2}+a^{2})^{n}}\)</span>）就写递推.</p>
+<p><strong>检查位五, 有理化的位置.</strong> 根式只有一处且是 <span
+class="math inline">\(\sqrt{ax+b}\)</span> 的一次式, 令 <span
+class="math inline">\(t\)</span> 等于根式; 根式是 <span
+class="math inline">\(\sqrt{a^{2}-x^{2}}\)</span>、<span
+class="math inline">\(\sqrt{x^{2}\pm a^{2}}\)</span> 这种二次式,
+先配方再三角代换或双曲代换; 二次式在分母的根号外面还带 <span
+class="math inline">\(x^{2}\)</span>、<span
+class="math inline">\(x^{3}\)</span> 这类因子, 倒代换 <span
+class="math inline">\(x=\frac1t\)</span> 往往比三角代换省一半笔墨.</p>
+<p><strong>检查位六, 退路.</strong> 上面都走不通时依次试:
+加一项减一项拆成两个已知积分、配对（<span
+class="math inline">\(I+J\)</span>、<span
+class="math inline">\(I-J\)</span>
+一起算）、待定系数（把分子配成分母与其导数的线性组合）、隐式代换（把整个根式或整个分式设成一个新变量）、Euler
+代换. 还可以先判断这题是不是根本积不出来, 见本节末尾那张清单.</p>
+<h3 id="基本积分表及其容易记错的几处">1.1 基本积分表及其容易记错的几处
+★★★★</h3>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;\int x^{a}\,dx=\frac{x^{a+1}}{a+1}+C\ (a\neq-1),\qquad
+\int\frac{dx}{x}=\ln|x|+C,\\
+&amp;\int e^{x}\,dx=e^{x}+C,\qquad \int a^{x}\,dx=\frac{a^{x}}{\ln
+a}+C,\\
+&amp;\int\sin x\,dx=-\cos x+C,\qquad \int\cos x\,dx=\sin x+C,\\
+&amp;\int\sec^{2}x\,dx=\tan x+C,\qquad \int\csc^{2}x\,dx=-\cot x+C,\\
+&amp;\int\sec x\tan x\,dx=\sec x+C,\qquad \int\csc x\cot x\,dx=-\csc
+x+C,\\
+&amp;\int\sec x\,dx=\ln|\sec x+\tan x|+C,\qquad \int\csc x\,dx=\ln|\csc
+x-\cot x|+C,\\
+&amp;\int\frac{dx}{1+x^{2}}=\arctan x+C,\qquad
+\int\frac{dx}{\sqrt{1-x^{2}}}=\arcsin x+C,\\
+&amp;\int\frac{dx}{a^{2}+x^{2}}=\frac1a\arctan\frac xa+C,\qquad
+\int\frac{dx}{\sqrt{a^{2}-x^{2}}}=\arcsin\frac xa+C,\\
+&amp;\int\frac{dx}{x^{2}-a^{2}}=\frac{1}{2a}\ln\left|\frac{x-a}{x+a}\right|+C,\\
+&amp;\int\frac{dx}{\sqrt{x^{2}\pm a^{2}}}=\ln\left|x+\sqrt{x^{2}\pm
+a^{2}}\right|+C,\\
+&amp;\int\tan x\,dx=-\ln|\cos x|+C,\qquad \int\cot x\,dx=\ln|\sin x|+C.
+\end{aligned}
+\]</span></p>
+<p>三处高频记错: <span
+class="math inline">\(\int\frac{dx}{x^{2}-a^{2}}\)</span> 的系数是 <span
+class="math inline">\(\frac{1}{2a}\)</span> 而不是 <span
+class="math inline">\(\frac1a\)</span>; <span
+class="math inline">\(\int\sec x\,dx\)</span> 的对数里是 <span
+class="math inline">\(\sec x+\tan x\)</span>, 而 <span
+class="math inline">\(\int\csc x\,dx\)</span> 里是 <span
+class="math inline">\(\csc x-\cot x\)</span>（符号不对称, 因为 <span
+class="math inline">\(\csc\)</span> 的导数带负号）; <span
+class="math inline">\(\int\frac{dx}{\sqrt{x^{2}-a^{2}}}\)</span> 也是
+<span
+class="math inline">\(\ln\left|x+\sqrt{x^{2}-a^{2}}\right|\)</span>,
+与加号那支同形.</p>
+<h3 id="形态到通道的对照">1.2 形态到通道的对照 ★★★★★</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>看到的形态</th>
+<th>首选动作</th>
+<th>备选</th>
+<th>常踩的坑</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>幂、指数、正余弦的线性组合</td>
+<td>逐项查表</td>
+<td>无</td>
+<td>忘常数 C, 忘绝对值</td>
+</tr>
+<tr>
+<td>内层函数的导数藏在旁边</td>
+<td>凑微分</td>
+<td>显式令 <span class="math inline">\(t=\varphi(x)\)</span></td>
+<td>系数 <span class="math inline">\(\frac1k\)</span> 漏掉</td>
+</tr>
+<tr>
+<td>只有一个根式 <span class="math inline">\(\sqrt{ax+b}\)</span></td>
+<td>令 <span class="math inline">\(t=\sqrt{ax+b}\)</span></td>
+<td>分子有理化</td>
+<td>换完忘换 <span class="math inline">\(dx\)</span></td>
+</tr>
+<tr>
+<td>含 <span class="math inline">\(\sqrt{a^{2}-x^{2}}\)</span> 或 <span
+class="math inline">\(\sqrt{x^{2}\pm a^{2}}\)</span></td>
+<td>三角代换</td>
+<td>双曲代换, 倒代换</td>
+<td>回代时三角形画错</td>
+</tr>
+<tr>
+<td>有理式且分子次数不低于分母</td>
+<td>先做多项式除法</td>
+<td>拆成整式加真分式</td>
+<td>直接硬拆部分分式</td>
+</tr>
+<tr>
+<td>分母全是一次因式（含重根）</td>
+<td>部分分式, 遮住法求系数</td>
+<td>拆项凑微分</td>
+<td>重根只写一次</td>
+</tr>
+<tr>
+<td>分母是不可约二次式的幂</td>
+<td>配方加递推</td>
+<td>分部</td>
+<td>配方系数错</td>
+</tr>
+<tr>
+<td>幂乘指数或幂乘三角</td>
+<td>分部, 幂当 <span class="math inline">\(u\)</span></td>
+<td>表格法连分</td>
+<td>两次分部符号错</td>
+</tr>
+<tr>
+<td>幂乘反三角或幂乘对数</td>
+<td>分部, 反三角或对数当 <span class="math inline">\(u\)</span></td>
+<td>先换元</td>
+<td><span class="math inline">\(u\)</span> 与 <span
+class="math inline">\(dv\)</span> 选反</td>
+</tr>
+<tr>
+<td><span class="math inline">\(e^{ax}\sin bx\)</span> 这类</td>
+<td>分部两次移项</td>
+<td>复数指数</td>
+<td>移项时符号错</td>
+</tr>
+<tr>
+<td>分式 <span class="math inline">\(\frac{a\sin x+b\cos x}{c\sin
+x+d\cos x}\)</span></td>
+<td>待定系数配成分母与其导数</td>
+<td>凑 <span class="math inline">\(d(\sin x\pm\cos x)\)</span></td>
+<td>直接万能代换, 越算越乱</td>
+</tr>
+<tr>
+<td><span class="math inline">\(\sin^{m}x\cos^{n}x\)</span></td>
+<td>奇偶分派, 都偶就降幂</td>
+<td>令 <span class="math inline">\(t=\tan x\)</span></td>
+<td>都偶时还硬凑微分</td>
+</tr>
+<tr>
+<td><span class="math inline">\(\tan^{m}x\sec^{n}x\)</span></td>
+<td>抽 <span class="math inline">\(\sec^{2}\)</span> 或抽 <span
+class="math inline">\(\sec\tan\)</span></td>
+<td>令 <span class="math inline">\(t=\tan x\)</span></td>
+<td>奇次 <span class="math inline">\(\sec\)</span> 走错分支</td>
+</tr>
+<tr>
+<td><span
+class="math inline">\(\frac{1}{a\sin^{2}x+b\cos^{2}x}\)</span></td>
+<td>上下同除 <span class="math inline">\(\cos^{2}x\)</span>, 令 <span
+class="math inline">\(t=\tan x\)</span></td>
+<td>万能代换</td>
+<td>忘掉 <span class="math inline">\(x=\frac\pi2\)</span> 处的间断</td>
+</tr>
+<tr>
+<td>二次三项式在根号里</td>
+<td>先配方</td>
+<td>Euler 代换</td>
+<td>不配方直接三角代换</td>
+</tr>
+</tbody>
+</table>
+<h3 id="三角函数积分的五条分支">1.3 三角函数积分的五条分支 ★★★★★</h3>
+<p>三角函数的题最容易乱, 原因是”三角”不是一个类型而是五个类型叠在一起.
+判断顺序是先看幂次, 再看是不是分式, 最后看有没有根号.</p>
+<p><strong>分支一, <span
+class="math inline">\(\int\sin^{m}x\cos^{n}x\,dx\)</span> 型.</strong>
+<span class="math inline">\(m\)</span>、<span
+class="math inline">\(n\)</span> 中至少一个奇数, 抽一个因子去配 <span
+class="math inline">\(d(\sin x)\)</span> 或 <span
+class="math inline">\(d(\cos x)\)</span>, 剩下的用 <span
+class="math inline">\(\sin^{2}+\cos^{2}=1\)</span> 换成同一函数;
+两个都是偶数, 用 <span
+class="math inline">\(\sin^{2}x=\frac{1-\cos2x}{2}\)</span>、<span
+class="math inline">\(\cos^{2}x=\frac{1+\cos2x}{2}\)</span> 降幂,
+次数越高降幂次数越多; 一边是负次幂（分母上有 <span
+class="math inline">\(\cos x\)</span> 或 <span
+class="math inline">\(\sin x\)</span>）时改令 <span
+class="math inline">\(t=\tan x\)</span>, 把整式化成有理函数.</p>
+<p><strong>分支二, <span
+class="math inline">\(\int\tan^{m}x\sec^{n}x\,dx\)</span> 型.</strong>
+<span class="math inline">\(n\)</span> 为偶数, 抽 <span
+class="math inline">\(\sec^{2}x\,dx=d(\tan x)\)</span>, 全部换成 <span
+class="math inline">\(\tan\)</span> 得多项式; <span
+class="math inline">\(m\)</span> 为奇数, 抽 <span
+class="math inline">\(\sec x\tan x\,dx=d(\sec x)\)</span>, 全部换成
+<span class="math inline">\(\sec\)</span> 得多项式; <span
+class="math inline">\(n\)</span> 为奇数而 <span
+class="math inline">\(m\)</span> 为偶数（如 <span
+class="math inline">\(\sec^{3}x\)</span>、<span
+class="math inline">\(\sec^{5}x\)</span>）, 两条捷径都没有, 只能分部,
+<span class="math inline">\(\sec^{3}x\)</span> 分两次后回到自身, 结果含
+<span class="math inline">\(\ln|\sec x+\tan x|\)</span>.</p>
+<p><strong>分支三, <span class="math inline">\(\frac{a\sin x+b\cos
+x}{c\sin x+d\cos x}\)</span> 型.</strong> 设分子 <span
+class="math inline">\(=A\cdot\)</span> 分母 <span
+class="math inline">\(+B\cdot\)</span> 分母的导数, 解出 <span
+class="math inline">\(A\)</span>、<span
+class="math inline">\(B\)</span>, 于是拆成一个常数 <span
+class="math inline">\(A\)</span> 与一个 <span
+class="math inline">\(\frac{B\,d(\text{分母})}{\text{分母}}\)</span>,
+后者是 <span class="math inline">\(\ln\)</span>. 这一步比万能代换快十倍,
+且不引入 <span class="math inline">\(\arctan\)</span>.</p>
+<p><strong>分支四, <span
+class="math inline">\(\frac{1}{a\sin^{2}x+b\cos^{2}x}\)</span>
+型.</strong> 上下同除 <span class="math inline">\(\cos^{2}x\)</span>,
+分子变成 <span class="math inline">\(\sec^{2}x\,dx=d(\tan x)\)</span>,
+分母变成 <span class="math inline">\(a\tan^{2}x+b\)</span>, 立刻是 <span
+class="math inline">\(\arctan\)</span> 型, 结果是 <span
+class="math inline">\(\frac{1}{\sqrt{ab}}\arctan\left(\sqrt{\frac
+ab}\tan x\right)\)</span>. 分母若是一次式 <span
+class="math inline">\(a+b\sin x\)</span>, 万能代换 <span
+class="math inline">\(t=\tan\frac x2\)</span> 是稳的, 只是要算完 <span
+class="math inline">\(\arctan\)</span> 再回代.</p>
+<p><strong>分支五, 含 <span
+class="math inline">\(\sqrt{a^{2}-x^{2}}\)</span>、<span
+class="math inline">\(\sqrt{a^{2}+x^{2}}\)</span>、<span
+class="math inline">\(\sqrt{x^{2}-a^{2}}\)</span> 的根式.</strong>
+分别代 <span class="math inline">\(x=a\sin\theta\)</span>、<span
+class="math inline">\(x=a\tan\theta\)</span>、<span
+class="math inline">\(x=a\sec\theta\)</span>, 根号立刻消失,
+剩下的是分支一到四的题. 回代时画直角三角形比套公式可靠: 三条边标成 <span
+class="math inline">\(a\)</span>、<span
+class="math inline">\(x\)</span>、<span
+class="math inline">\(\sqrt{a^{2}-x^{2}}\)</span>, 由 <span
+class="math inline">\(\sin\theta=\frac xa\)</span> 认角即可.</p>
+<p>除此之外还有三个”化归”工具, 见到奇怪的三角结构先想它们:
+积化和差（<span
+class="math inline">\(\sin\alpha\sin\beta\)</span>、<span
+class="math inline">\(\cos\alpha\cos\beta\)</span> 型乘积）,
+辅助角（<span class="math inline">\(a\sin x+b\cos
+x=\sqrt{a^{2}+b^{2}}\sin(x+\varphi)\)</span>, 用来把分母并成一项）, 以及
+<span class="math inline">\(1=\sin^{2}x+\cos^{2}x\)</span>
+的拆项用法（把常数项拆开, 制造 <span
+class="math inline">\(\frac{\cos^{2}x+\sin^{2}x}{\ \ }\)</span>
+的结构）.</p>
+<h3 id="定积分比不定积分多出来的六个动作">1.4
+定积分比不定积分多出来的六个动作 ★★★★★</h3>
+<p>不定积分求的是函数族, 定积分求的是数,
+多出来的动作全部围绕”数”这个身份.</p>
+<ol type="1">
+<li><strong>定义直接求值.</strong> 见到 <span
+class="math inline">\(\lim\limits_{n\to\infty}\frac1n\sum\limits_{k=1}^{n}f\left(\frac
+kn\right)\)</span> 就写成 <span
+class="math inline">\(\int_{0}^{1}f(x)\,dx\)</span>. 识别要点是”<span
+class="math inline">\(\frac1n\)</span> 配 <span
+class="math inline">\(f\left(\frac kn\right)\)</span>“, 变量是 <span
+class="math inline">\(\frac kn\)</span> 而不是 <span
+class="math inline">\(\frac1n\)</span> 的倍数时先凑系数.</li>
+<li><strong>变限积分当函数用.</strong> <span
+class="math inline">\(F(x)=\int_{a}^{x}f(t)\,dt\)</span> 的导数是 <span
+class="math inline">\(f(x)\)</span>; 上下限都是函数时用 <span
+class="math inline">\(\frac{d}{dx}\int_{u(x)}^{v(x)}f(t)\,dt=f(v)v&#39;-f(u)u&#39;\)</span>.
+这类题九成是在考求导之后接着考单调性、极值或洛必达.</li>
+<li><strong>对称与区间再现.</strong> <span
+class="math inline">\(\int_{0}^{a}f(x)\,dx=\int_{0}^{a}f(a-x)\,dx\)</span>
+是定积分里最强的恒等式, 凡是”<span class="math inline">\(x\)</span> 与
+<span class="math inline">\(\pi-x\)</span>“、”<span
+class="math inline">\(\sin x\)</span> 与 <span
+class="math inline">\(\cos x\)</span>“、<span
+class="math inline">\(f(x)+f(a-x)\)</span> 能化简的题都靠它.
+奇偶性则是它的特例: 对称区间上奇函数为零.</li>
+<li><strong>换元必须换限.</strong> 定积分换元后不必回代,
+但上下限要跟着变, 且新上限必须对应新变量.
+一旦原函数在区间内有瑕点（无界或不存在）, 牛顿-莱布尼茨公式就失效,
+得先拆区间再按反常积分处理.</li>
+<li><strong>绝对值与分段.</strong> 被积函数带绝对值、带 <span
+class="math inline">\(\max\)</span>、带 <span class="math inline">\([\
+\cdot\ ]\)</span>、或者本身是分段函数时, 先找零点把区间切开,
+每一段上符号固定再脱绝对值, 汇总时注意每段的方向.</li>
+<li><strong>元素法.</strong> 面积、体积、弧长、平均值、形心都来自 <span
+class="math inline">\(dA=f(x)\,dx\)</span> 这一句, 关键是写对”微元”,
+而不是背公式.</li>
+</ol>
+<h3 id="积不出初等函数的几种常见形状">1.5 积不出初等函数的几种常见形状
+★★★</h3>
+<p><span class="math inline">\(\int e^{-x^{2}}dx\)</span>、<span
+class="math inline">\(\int\frac{\sin x}{x}dx\)</span>、<span
+class="math inline">\(\int\frac{dx}{\ln x}\)</span>、<span
+class="math inline">\(\int\sqrt{1+x^{3}}\,dx\)</span>、<span
+class="math inline">\(\int\frac{dx}{\sqrt{1+x^{4}}}\)</span>、<span
+class="math inline">\(\int\sin x^{2}\,dx\)</span>
+的原函数都不是初等函数（刘维尔定理的结论, 考试不要求证明,
+只要求认出来）. 卷面上出现它们的定积分时, 出题人想考的一定不是求原函数,
+而是对称性、变限积分求导、估值或者二重积分交换次序.
+认出这一点的价值在于及时停手, 别把时间花在一次算不完的部分分式上.</p>
+<h2 id="二-基本公式与凑微分第-18-题">二 基本公式与凑微分（第 1—8
+题）★★</h2>
+<p>这一节只考两件事: 公式背得牢不牢, 内层函数的导数看不看得见.</p>
+<p><strong>第 1 题</strong>（★）　求 <span
+class="math inline">\(\displaystyle\int\left(3x^{2}-\frac2x+\frac{1}{\sqrt
+x}+5^{x}\right)dx\)</span>.</p>
+<details class="folding-tag" ><summary> 第 1 题解析 </summary>
+              <div class='content'>
+              <p>逐项查表, 其中 <span class="math inline">\(\frac{1}{\sqrtx}=x^{-1/2}\)</span> 的原函数是 <span class="math inline">\(2\sqrtx\)</span>: <span class="math display">\[\int\left(3x^{2}-\frac2x+\frac{1}{\sqrtx}+5^{x}\right)dx=x^{3}-2\ln|x|+2\sqrt x+\frac{5^{x}}{\ln 5}+C .\]</span></p>
+              </div>
+            </details>
+<p><strong>第 2 题</strong>（★★）　求 <span
+class="math inline">\(\displaystyle\int\frac{2x+3}{x^{2}+3x-4}\,dx\)</span>.</p>
+<details class="folding-tag" ><summary> 第 2 题解析 </summary>
+              <div class='content'>
+              <p>分母求导恰好得 <span class="math inline">\(2x+3\)</span>, 是标准<span class="math inline">\(\int\frac{d f}{f}\)</span> 的形状, 原式<span class="math inline">\(=\ln|x^{2}+3x-4|+C\)</span>.</p><p>值得注意的是分子与分母导数”差一点”的情形: 若分子是 <spanclass="math inline">\(2x+1\)</span>, 就写成 <spanclass="math inline">\((2x+3)-2\)</span>, 拆成 <spanclass="math inline">\(\ln|x^{2}+3x-4|\)</span> 与 <spanclass="math inline">\(2\displaystyle\int\frac{dx}{(x+4)(x-1)}\)</span>两项, 后者用部分分式. 见到分子次数恰比分母低一次,第一反应就该是”分母的导数在不在里面”.</p>
+              </div>
+            </details>
+<p><strong>第 3 题</strong>（★★）　求 <span
+class="math inline">\(\displaystyle\int xe^{-x^{2}}dx\)</span>.</p>
+<details class="folding-tag" ><summary> 第 3 题解析 </summary>
+              <div class='content'>
+              <p><spanclass="math inline">\(x\,dx=-\frac12d\left(-x^{2}\right)\)</span>,直接凑: <span class="math inline">\(\displaystyle\intxe^{-x^{2}}dx=-\frac12e^{-x^{2}}+C\)</span>.</p>
+              </div>
+            </details>
+<p><strong>第 4 题</strong>（★★）　求 <span
+class="math inline">\(\displaystyle\int\frac{dx}{x\ln x\ln\ln
+x}\)</span>.</p>
+<details class="folding-tag" ><summary> 第 4 题解析 </summary>
+              <div class='content'>
+              <p>内层从里往外剥: <span class="math inline">\(d(\lnx)=\frac{dx}{x}\)</span>, <span class="math inline">\(d(\ln\lnx)=\frac{dx}{x\ln x}\)</span>, 于是整个分母正是 <spanclass="math inline">\(\ln\ln x\)</span> 的微分, 原式 <spanclass="math inline">\(=\ln|\ln\ln x|+C\)</span>.</p><p>选内层的顺序一般与外层函数出现的顺序相反: 被积函数是从左向右写出来的,但复合是从右向左套起来的, 所以先看最外层（最后的 <spanclass="math inline">\(\ln\)</span>）, 它的自变量才是内层.</p>
+              </div>
+            </details>
+<p><strong>第 5 题</strong>（★★）　求 <span
+class="math inline">\(\displaystyle\int\frac{dx}{1+e^{x}}\)</span>.</p>
+<details class="folding-tag" ><summary> 第 5 题解析 </summary>
+              <div class='content'>
+              <p>分子加一项减一项: <spanclass="math inline">\(\displaystyle\frac{1}{1+e^{x}}=\frac{\left(1+e^{x}\right)-e^{x}}{1+e^{x}}=1-\frac{e^{x}}{1+e^{x}}\)</span>,故 <span class="math display">\[\int\frac{dx}{1+e^{x}}=x-\ln\left(1+e^{x}\right)+C .\]</span> 另一条路是上下同乘 <span class="math inline">\(e^{-x}\)</span>得 <spanclass="math inline">\(\displaystyle\int\frac{e^{-x}}{e^{-x}+1}dx=-\ln\left(1+e^{-x}\right)+C\)</span>,两者只差常数 <spanclass="math inline">\(\ln\left(1+e^{x}\right)-\ln\left(1+e^{-x}\right)=x\)</span>,都算对.</p>
+              </div>
+            </details>
+<p><strong>第 6 题</strong>（★★）　求 <span
+class="math inline">\(\displaystyle\int\frac{e^{2x}}{1+e^{x}}dx\)</span>.</p>
+<details class="folding-tag" ><summary> 第 6 题解析 </summary>
+              <div class='content'>
+              <p>令 <span class="math inline">\(t=e^{x}\)</span>, <spanclass="math inline">\(dt=e^{x}dx\)</span>, 则 <spanclass="math inline">\(e^{2x}dx=t\,dt\)</span>: <spanclass="math display">\[\int\frac{e^{2x}}{1+e^{x}}dx=\int\frac{t}{1+t}dt=\int\left(1-\frac{1}{1+t}\right)dt=t-\ln(1+t)+C=e^{x}-\ln\left(1+e^{x}\right)+C.\]</span></p>
+              </div>
+            </details>
+<p><strong>第 7 题</strong>（★★★）　求 <span
+class="math inline">\(\displaystyle\int\frac{dx}{x^{2}+2x+5}\)</span>.</p>
+<details class="folding-tag" ><summary> 第 7 题解析 </summary>
+              <div class='content'>
+              <p>配方 <span class="math inline">\(x^{2}+2x+5=(x+1)^{2}+4\)</span>,再用 <spanclass="math inline">\(\displaystyle\int\frac{du}{u^{2}+a^{2}}=\frac1a\arctan\fracua\)</span>: <span class="math display">\[\int\frac{dx}{x^{2}+2x+5}=\frac12\arctan\frac{x+1}{2}+C .\]</span></p>
+              </div>
+            </details>
+<p><strong>第 8 题</strong>（★★★）　求 <span
+class="math inline">\(\displaystyle\int\frac{2x+3}{x^{2}+2x+5}dx\)</span>.</p>
+<details class="folding-tag" ><summary> 第 8 题解析 </summary>
+              <div class='content'>
+              <p>这一步是所有”二次式在分母”的题的总开关:先把分子拆成分母的导数加一个常数.</p><p><span class="math inline">\(x^{2}+2x+5\)</span> 的导数是 <spanclass="math inline">\(2x+2\)</span>, 而分子是 <spanclass="math inline">\(2x+3=(2x+2)+1\)</span>, 于是 <spanclass="math display">\[\int\frac{2x+3}{x^{2}+2x+5}dx=\int\frac{2x+2}{x^{2}+2x+5}dx+\int\frac{dx}{x^{2}+2x+5}.\]</span> 第一项是 <spanclass="math inline">\(\ln\left(x^{2}+2x+5\right)\)</span>, 第二项由第 7题得 <span class="math inline">\(\frac12\arctan\frac{x+1}{2}\)</span>,合起来 <span class="math display">\[\int\frac{2x+3}{x^{2}+2x+5}dx=\ln\left(x^{2}+2x+5\right)+\frac12\arctan\frac{x+1}{2}+C.\]</span> 分母恒正, 对数里不加绝对值.</p><blockquote><p>拆分的模板是 <spanclass="math inline">\(\displaystyle\frac{px+q}{ax^{2}+bx+c}=\frac{p}{2a}\cdot\frac{2ax+b}{ax^{2}+bx+c}+\left(q-\frac{pb}{2a}\right)\frac{1}{ax^{2}+bx+c}\)</span>,记不住就现场配: 分母导数乘多少才等于分子的 <spanclass="math inline">\(x\)</span> 项系数. 后面第 31—38题的有理函数全要用它.</p></blockquote>
+              </div>
+            </details>
+<h2 id="三-换元法第-920-题">三 换元法（第 9—20 题）★★★★</h2>
+<p>换元的判断标准只有一条: 换了之后被积函数是否变成熟悉的样子.
+换什么可以由结构提示（根式、指数、三角）,
+也可以由”求导找原函数”反推（倒代换、<span
+class="math inline">\(x+\frac1x\)</span>）. 下面按提示的强弱排序.</p>
+<p><strong>第 9 题</strong>（★★）　求 <span
+class="math inline">\(\displaystyle\int\frac{dx}{1+\sqrt
+x}\)</span>.</p>
+<details class="folding-tag" ><summary> 第 9 题解析 </summary>
+              <div class='content'>
+              <p>只有一个根式, 令 <span class="math inline">\(t=\sqrt x\)</span>,<span class="math inline">\(x=t^{2}\)</span>, <spanclass="math inline">\(dx=2t\,dt\)</span>: <span class="math display">\[\int\frac{2t\,dt}{1+t}=2\int\left(1-\frac{1}{1+t}\right)dt=2t-2\ln(1+t)+C=2\sqrtx-2\ln\left(1+\sqrt x\right)+C .\]</span></p>
+              </div>
+            </details>
+<p><strong>第 10 题</strong>（★★★）　求 <span
+class="math inline">\(\displaystyle\int\sqrt{\frac{1-x}{1+x}}\,dx\)</span>.</p>
+<details class="folding-tag" ><summary> 第 10 题解析 </summary>
+              <div class='content'>
+              <p>根号里的分式不好直接代换, 但可以先把根号”摊开”: 分子分母同乘 <spanclass="math inline">\(1-x\)</span>, <span class="math display">\[\sqrt{\frac{1-x}{1+x}}=\frac{1-x}{\sqrt{1-x^{2}}}=\frac{1}{\sqrt{1-x^{2}}}-\frac{x}{\sqrt{1-x^{2}}}.\]</span> 右边两项都成了基本形状, 于是 <span class="math display">\[\int\sqrt{\frac{1-x}{1+x}}\,dx=\arcsin x+\sqrt{1-x^{2}}+C .\]</span> 验算一下: <span class="math inline">\(\left(\arcsinx\right)&#39;=\frac{1}{\sqrt{1-x^{2}}}\)</span>, <spanclass="math inline">\(\left(\sqrt{1-x^{2}}\right)&#39;=\frac{-x}{\sqrt{1-x^{2}}}\)</span>,相加正是 <spanclass="math inline">\(\frac{1-x}{\sqrt{1-x^{2}}}\)</span>.</p><blockquote><p>若一开始就整体令 <spanclass="math inline">\(t=\sqrt{\frac{1-x}{1+x}}\)</span>, 解出 <spanclass="math inline">\(x=\frac{1-t^{2}}{1+t^{2}}\)</span>、<spanclass="math inline">\(dx=\frac{-4t}{\left(1+t^{2}\right)^{2}}dt\)</span>,会得到 <spanclass="math inline">\(-4\displaystyle\int\frac{t^{2}}{\left(1+t^{2}\right)^{2}}dt\)</span>,还要再分部一次才回来. 分子有理化把两次分部省成一次查表,这类”根号内是分式”的题都值得先试一次有理化.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 11 题</strong>（★★★）　求 <span
+class="math inline">\(\displaystyle\int\frac{dx}{x^{2}\sqrt{1+x^{2}}}\)</span>.</p>
+<details class="folding-tag" ><summary> 第 11 题解析 </summary>
+              <div class='content'>
+              <p>分母外面挂了个 <span class="math inline">\(x^{2}\)</span>,这是倒代换的信号. 令 <span class="math inline">\(x=\frac1t\)</span>,<span class="math inline">\(dx=-\frac{dt}{t^{2}}\)</span>, <spanclass="math inline">\(\sqrt{1+x^{2}}=\frac{\sqrt{t^{2}+1}}{t}\)</span>（<spanclass="math inline">\(x&gt;0\)</span> 时）: <spanclass="math display">\[\int\frac{dx}{x^{2}\sqrt{1+x^{2}}}=\int\frac{-dt/t^{2}}{\frac{1}{t^{2}}\cdot\frac{\sqrt{t^{2}+1}}{t}}=-\int\frac{t\,dt}{\sqrt{t^{2}+1}}=-\sqrt{t^{2}+1}+C=-\frac{\sqrt{1+x^{2}}}{x}+C.\]</span> 三角代换 <span class="math inline">\(x=\tan\theta\)</span>也能做, 但要多走一步: <spanclass="math inline">\(dx=\sec^{2}\theta\,d\theta\)</span>, 分母 <spanclass="math inline">\(=\tan^{2}\theta\sec\theta\)</span>, 被积函数化成<spanclass="math inline">\(\frac{\sec\theta}{\tan^{2}\theta}=\frac{\cos\theta}{\sin^{2}\theta}\)</span>,积分得 <spanclass="math inline">\(-\frac{1}{\sin\theta}=-\csc\theta\)</span>, 再由<span class="math inline">\(\sin\theta=\frac{x}{\sqrt{1+x^{2}}}\)</span>回代得 <spanclass="math inline">\(-\frac{\sqrt{1+x^{2}}}{x}\)</span>.</p><blockquote><p>两条路的对比很典型: 倒代换直接把幂次降下来, 三角代换把根式变成 <spanclass="math inline">\(\sec\theta\)</span> 但留下 <spanclass="math inline">\(\theta\)</span> 的回代工作. 判据是”根号外的 <spanclass="math inline">\(x\)</span> 幂次是否为正”, 为正用倒代换,为负或为零用三角代换.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 12 题</strong>（★★★★）　求 <span
+class="math inline">\(\displaystyle\int\sqrt{1+e^{x}}\,dx\)</span>.</p>
+<details class="folding-tag" ><summary> 第 12 题解析 </summary>
+              <div class='content'>
+              <p>根号里含 <span class="math inline">\(e^{x}\)</span> 时令 <spanclass="math inline">\(t=\sqrt{1+e^{x}}\)</span>, 反解 <spanclass="math inline">\(x=\ln\left(t^{2}-1\right)\)</span>, <spanclass="math inline">\(dx=\frac{2t}{t^{2}-1}dt\)</span>: <spanclass="math display">\[\int\sqrt{1+e^{x}}dx=\intt\cdot\frac{2t}{t^{2}-1}dt=2\int\left(1+\frac{1}{t^{2}-1}\right)dt=2t+\ln\left|\frac{t-1}{t+1}\right|+C.\]</span> 回代: <span class="math display">\[\int\sqrt{1+e^{x}}dx=2\sqrt{1+e^{x}}+\ln\frac{\sqrt{1+e^{x}}-1}{\sqrt{1+e^{x}}+1}+C.\]</span></p>
+              </div>
+            </details>
+<p><strong>第 13 题</strong>（★★）　求 <span
+class="math inline">\(\displaystyle\int\frac{\sin\sqrt x}{\sqrt
+x}dx\)</span>.</p>
+<details class="folding-tag" ><summary> 第 13 题解析 </summary>
+              <div class='content'>
+              <p><span class="math inline">\(d\left(\sqrt x\right)=\frac{dx}{2\sqrtx}\)</span>, 故原式 <span class="math inline">\(=-2\cos\sqrtx+C\)</span>.</p>
+              </div>
+            </details>
+<p><strong>第 14 题</strong>（★★★★）　求 <span
+class="math inline">\(\displaystyle\int\frac{dx}{2+\sin x}\)</span>.</p>
+<details class="folding-tag" ><summary> 第 14 题解析 </summary>
+              <div class='content'>
+              <p>分母是 <span class="math inline">\(\sin x\)</span> 的一次式,三条路（万能代换、凑 <span class="math inline">\(d\left(\tan\fracx2\right)\)</span>、辅助角）里万能代换最机械, 考场上不容易翻车.</p><p>令 <span class="math inline">\(t=\tan\frac x2\)</span>, 则 <spanclass="math display">\[\sin x=\frac{2t}{1+t^{2}},\qquad dx=\frac{2\,dt}{1+t^{2}},\]</span> 代入并通分: <span class="math display">\[\int\frac{dx}{2+\sinx}=\int\frac{\frac{2\,dt}{1+t^{2}}}{2+\frac{2t}{1+t^{2}}}=\int\frac{2\,dt}{2\left(1+t^{2}\right)+2t}=\int\frac{dt}{t^{2}+t+1}.\]</span> 配方 <spanclass="math inline">\(t^{2}+t+1=\left(t+\frac12\right)^{2}+\frac34\)</span>,于是 <span class="math display">\[\int\frac{dt}{\left(t+\frac12\right)^{2}+\frac34}=\frac{2}{\sqrt3}\arctan\frac{2t+1}{\sqrt3}+C,\]</span> 回代 <span class="math display">\[\int\frac{dx}{2+\sin x}=\frac{2}{\sqrt3}\arctan\frac{2\tan\fracx2+1}{\sqrt3}+C .\]</span> &gt; 万能代换的三个公式必须连同 <spanclass="math inline">\(dx\)</span> 一起换, 只换 <spanclass="math inline">\(\sin x\)</span> 是最常见的错.另外这一步之后分母若出现判别式为负的二次式, 就是 <spanclass="math inline">\(\arctan\)</span>; 判别式为正就转成部分分式, 走<span class="math inline">\(\ln\)</span>. 后一种情况对应 <spanclass="math inline">\(|b|\ge a\)</span> 的 <spanclass="math inline">\(\displaystyle\int\frac{dx}{a+b\sin x}\)</span>,那时原函数含对数, 定义域也要分段.</p>
+              </div>
+            </details>
+<p><strong>第 15 题</strong>（★★★★）　求 <span
+class="math inline">\(\displaystyle\int\frac{dx}{a^{2}\sin^{2}x+b^{2}\cos^{2}x}\)</span>（<span
+class="math inline">\(ab\neq0\)</span>）.</p>
+<details class="folding-tag" ><summary> 第 15 题解析 </summary>
+              <div class='content'>
+              <p>分子分母同除 <span class="math inline">\(\cos^{2}x\)</span>, 同时利用<span class="math inline">\(\frac{dx}{\cos^{2}x}=d\left(\tanx\right)\)</span>: <span class="math display">\[\int\frac{dx}{a^{2}\sin^{2}x+b^{2}\cos^{2}x}=\int\frac{d\left(\tanx\right)}{a^{2}\tan^{2}x+b^{2}} .\]</span> 令 <span class="math inline">\(t=\tan x\)</span>, 化成 <spanclass="math inline">\(\displaystyle\int\frac{dt}{a^{2}t^{2}+b^{2}}=\frac{1}{ab}\arctan\frac{at}{b}+C\)</span>,回代得 <span class="math display">\[\int\frac{dx}{a^{2}\sin^{2}x+b^{2}\cos^{2}x}=\frac{1}{ab}\arctan\left(\frac{a\tanx}{b}\right)+C .\]</span> 结果的系数 <span class="math inline">\(\frac{1}{ab}\)</span>与分子上的 <span class="math inline">\(a\)</span> 是最容易记反的地方,现场校验办法是求导: 对 <spanclass="math inline">\(\frac{1}{ab}\arctan\frac{a\tan x}{b}\)</span>求导得 <span class="math display">\[\frac{1}{ab}\cdot\frac{\frac{a}{b}\sec^{2}x}{1+\frac{a^{2}\tan^{2}x}{b^{2}}}=\frac{\sec^{2}x}{b^{2}+a^{2}\tan^{2}x}=\frac{1}{b^{2}\cos^{2}x+a^{2}\sin^{2}x},\]</span> 分子分母同乘 <span class="math inline">\(\cos^{2}x\)</span>后正好还原.</p><blockquote><p>这个式子在 <span class="math inline">\(\cos x=0\)</span>（即 <spanclass="math inline">\(x=\frac\pi2+k\pi\)</span>）处失效,原函数只能逐段给出, 每段是一个平移过的 <spanclass="math inline">\(\arctan\)</span>. 卷面上如果区间跨过 <spanclass="math inline">\(\frac\pi2\)</span>, 要么分段写, 要么改用 <spanclass="math inline">\(\arctan\frac{b\cot x}{a}\)</span> 的等价形式.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 16 题</strong>（★★★）　求 <span
+class="math inline">\(\displaystyle\int\frac{dx}{1+3\cos^{2}x}\)</span>.</p>
+<details class="folding-tag" ><summary> 第 16 题解析 </summary>
+              <div class='content'>
+              <p>常数 <span class="math inline">\(1\)</span> 要先拆成 <spanclass="math inline">\(\sin^{2}x+\cos^{2}x\)</span>, 分母变成 <spanclass="math inline">\(\sin^{2}x+4\cos^{2}x\)</span>, 这时才是第 15题的形状（<span class="math inline">\(a=1\)</span>, <spanclass="math inline">\(b=2\)</span>）: <span class="math display">\[\int\frac{dx}{1+3\cos^{2}x}=\frac12\arctan\left(\frac{\tanx}{2}\right)+C .\]</span> 也可以直接算: 上下同除 <spanclass="math inline">\(\cos^{2}x\)</span> 得 <spanclass="math inline">\(\displaystyle\int\frac{d\left(\tanx\right)}{\tan^{2}x+4}=\frac12\arctan\frac{\tan x}{2}+C\)</span>,与上式一致.</p><blockquote><p>不拆常数就套第 15 题公式会得到 <spanclass="math inline">\(\frac{1}{\sqrt3}\arctan\frac{\tanx}{\sqrt3}\)</span>, 形式上”也能求导对”? 不对, 求导会多出 <spanclass="math inline">\(\frac{3}{\ \ }\)</span> 的系数, 数值上差一个因子.凡是分母里既有常数又有 <span class="math inline">\(\cos^{2}x\)</span>,都先做 <span class="math inline">\(\sin^{2}+\cos^{2}=1\)</span>的替换.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 17 题</strong>（★★★★）　求 <span
+class="math inline">\(\displaystyle\int\frac{dx}{\sin
+x\cos^{3}x}\)</span>.</p>
+<details class="folding-tag" ><summary> 第 17 题解析 </summary>
+              <div class='content'>
+              <p>分母是 <span class="math inline">\(\sin x\)</span> 与 <spanclass="math inline">\(\cos x\)</span> 的幂的乘积, 令 <spanclass="math inline">\(t=\tan x\)</span> 能把所有东西变成有理式: <spanclass="math inline">\(\sin x=\frac{t}{\sqrt{1+t^{2}}}\)</span>, <spanclass="math inline">\(\cos x=\frac{1}{\sqrt{1+t^{2}}}\)</span>, <spanclass="math inline">\(dx=\frac{dt}{1+t^{2}}\)</span>.</p><p>于是 <span class="math display">\[\sinx\cos^{3}x=\frac{t}{\sqrt{1+t^{2}}}\cdot\frac{1}{\left(1+t^{2}\right)^{3/2}}=\frac{t}{\left(1+t^{2}\right)^{2}},\]</span> <span class="math display">\[\int\frac{dx}{\sinx\cos^{3}x}=\int\frac{dt}{1+t^{2}}\cdot\frac{\left(1+t^{2}\right)^{2}}{t}=\int\frac{1+t^{2}}{t}dt=\int\left(\frac1t+t\right)dt=\ln|t|+\frac{t^{2}}{2}+C,\]</span> 回代 <span class="math display">\[\int\frac{dx}{\sin x\cos^{3}x}=\ln|\tan x|+\frac{\tan^{2}x}{2}+C .\]</span> &gt; 关键在于 <span class="math inline">\(t=\tan x\)</span>之后分母的幂次正好被 <span class="math inline">\(dx\)</span> 的 <spanclass="math inline">\(\left(1+t^{2}\right)\)</span> 抵消掉一部分, 剩下的<span class="math inline">\(\frac{1+t^{2}}{t}\)</span>是中学就能积的形状. 如果幂次凑不成这种”刚好抵消”,说明该用万能代换或者先做恒等变形.</p>
+              </div>
+            </details>
+<p><strong>第 18 题</strong>（★★★★）　求 <span
+class="math inline">\(\displaystyle\int\frac{x^{2}-1}{x^{4}+1}dx\)</span>.</p>
+<details class="folding-tag" ><summary> 第 18 题解析 </summary>
+              <div class='content'>
+              <p>分子分母同除 <span class="math inline">\(x^{2}\)</span>, 让 <spanclass="math inline">\(x+\frac1x\)</span> 出现: <spanclass="math display">\[\frac{x^{2}-1}{x^{4}+1}=\frac{1-\frac{1}{x^{2}}}{x^{2}+\frac{1}{x^{2}}},\qquadd\left(x+\frac1x\right)=\left(1-\frac{1}{x^{2}}\right)dx .\]</span> 而 <spanclass="math inline">\(x^{2}+\frac{1}{x^{2}}=\left(x+\frac1x\right)^{2}-2\)</span>,令 <span class="math inline">\(u=x+\frac1x\)</span>: <spanclass="math display">\[\int\frac{x^{2}-1}{x^{4}+1}dx=\int\frac{du}{u^{2}-2}=\frac{1}{2\sqrt2}\ln\left|\frac{u-\sqrt2}{u+\sqrt2}\right|+C.\]</span> 回代并化简（分子分母同乘 <spanclass="math inline">\(x\)</span>）: <span class="math display">\[\int\frac{x^{2}-1}{x^{4}+1}dx=\frac{1}{2\sqrt2}\ln\frac{x^{2}-\sqrt2x+1}{x^{2}+\sqrt2x+1}+C,\]</span> 两个二次式都恒正（判别式 <spanclass="math inline">\(\Delta=2-4&lt;0\)</span>）, 绝对值可以去掉.</p><blockquote><p>同除 <span class="math inline">\(x^{2}\)</span>能成功的前提是分子分母的幂次恰好差 2, 且拼出来的常数项正好是 <spanclass="math inline">\(\pm2\)</span>. 差 1 或差 3 的情况要改用别的路子,强行除只会得到 <spanclass="math inline">\(x^{3}+\frac{1}{x^{3}}\)</span> 这种没用的东西.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 19 题</strong>（★★★★）　求 <span
+class="math inline">\(\displaystyle\int\frac{x^{2}+1}{x^{4}+1}dx\)</span>.</p>
+<details class="folding-tag" ><summary> 第 19 题解析 </summary>
+              <div class='content'>
+              <p>与第 18 题同一套手法, 但拼的是 <spanclass="math inline">\(x-\frac1x\)</span>, 因为分子是 <spanclass="math inline">\(1+\frac{1}{x^{2}}=d\left(x-\frac1x\right)\)</span>的形状: <span class="math display">\[\int\frac{x^{2}+1}{x^{4}+1}dx=\int\frac{d\left(x-\frac1x\right)}{\left(x-\frac1x\right)^{2}+2}=\frac{1}{\sqrt2}\arctan\frac{x-\frac1x}{\sqrt2}+C=\frac{1}{\sqrt2}\arctan\frac{x^{2}-1}{\sqrt2x}+C.\]</span> 两题配对记: 分子 <span class="math inline">\(x^{2}-1\)</span>配 <span class="math inline">\(x+\frac1x\)</span> 出对数, 分子 <spanclass="math inline">\(x^{2}+1\)</span> 配 <spanclass="math inline">\(x-\frac1x\)</span> 出反正切. 判断方法不是背,而是看”同除 <span class="math inline">\(x^{2}\)</span> 之后分子是 <spanclass="math inline">\(1-\frac{1}{x^{2}}\)</span> 还是 <spanclass="math inline">\(1+\frac{1}{x^{2}}\)</span>“, 前者正是 <spanclass="math inline">\(d\left(x+\frac1x\right)\)</span>, 后者正是 <spanclass="math inline">\(d\left(x-\frac1x\right)\)</span>.</p>
+              </div>
+            </details>
+<p><strong>第 20 题</strong>（★★★★）　求 <span
+class="math inline">\(\displaystyle\int\frac{\sqrt{1-x^{2}}}{x^{2}}dx\)</span>.</p>
+<details class="folding-tag" ><summary> 第 20 题解析 </summary>
+              <div class='content'>
+              <p>根号外有 <span class="math inline">\(x^{2}\)</span>, 幂次为正, 按第11 题的判据该用三角代换（这里根号是 <spanclass="math inline">\(a^{2}-x^{2}\)</span> 型）: <spanclass="math inline">\(x=\sin\theta\)</span>, <spanclass="math inline">\(dx=\cos\theta\,d\theta\)</span>, <spanclass="math display">\[\int\frac{\sqrt{1-x^{2}}}{x^{2}}dx=\int\frac{\cos\theta}{\sin^{2}\theta}\cos\theta\,d\theta=\int\frac{\cos^{2}\theta}{\sin^{2}\theta}d\theta=\int\left(\csc^{2}\theta-1\right)d\theta=-\cot\theta-\theta+C.\]</span> 回代: <spanclass="math inline">\(\cot\theta=\frac{\sqrt{1-x^{2}}}{x}\)</span>,<span class="math inline">\(\theta=\arcsin x\)</span>, 故 <spanclass="math display">\[\int\frac{\sqrt{1-x^{2}}}{x^{2}}dx=-\frac{\sqrt{1-x^{2}}}{x}-\arcsin x+C.\]</span></p>
+              </div>
+            </details>
+<h2 id="四-分部积分第-2130-题">四 分部积分（第 21—30 题）★★★★</h2>
+<p>分部的判断标准: 被积函数是”两类不同函数的乘积”, 或者”一个陌生函数乘
+<span class="math inline">\(dx\)</span>“. <span
+class="math inline">\(u\)</span>
+的选取按”对数、反三角、幂、三角、指数”从左到右,
+因为排在前面的求导会变简单, 排在后面的容易积分.</p>
+<p><strong>第 21 题</strong>（★★）　求 <span
+class="math inline">\(\displaystyle\int xe^{2x}dx\)</span>.</p>
+<details class="folding-tag" ><summary> 第 21 题解析 </summary>
+              <div class='content'>
+              <p>取 <span class="math inline">\(u=x\)</span>, <spanclass="math inline">\(dv=e^{2x}dx\)</span>, 则 <spanclass="math inline">\(du=dx\)</span>, <spanclass="math inline">\(v=\frac12e^{2x}\)</span>: <spanclass="math display">\[\int xe^{2x}dx=\frac x2e^{2x}-\frac12\int e^{2x}dx=\fracx2e^{2x}-\frac14e^{2x}+C .\]</span></p>
+              </div>
+            </details>
+<p><strong>第 22 题</strong>（★★★）　求 <span
+class="math inline">\(\displaystyle\int x\arctan x\,dx\)</span>.</p>
+<details class="folding-tag" ><summary> 第 22 题解析 </summary>
+              <div class='content'>
+              <p>反三角求导会变成代数式, 幂求导只是降次, 所以取 <spanclass="math inline">\(u=\arctan x\)</span>, <spanclass="math inline">\(dv=x\,dx\)</span>: <span class="math display">\[\int x\arctan x\,dx=\frac{x^{2}}{2}\arctanx-\frac12\int\frac{x^{2}}{1+x^{2}}dx .\]</span> 后面这个积分用”分子加一减一”拆开: <spanclass="math display">\[\int\frac{x^{2}}{1+x^{2}}dx=\int\left(1-\frac{1}{1+x^{2}}\right)dx=x-\arctanx ,\]</span> 于是 <span class="math display">\[\int x\arctan x\,dx=\frac{x^{2}}{2}\arctan x-\frac x2+\frac12\arctanx+C=\frac{x^{2}+1}{2}\arctan x-\frac x2+C .\]</span> &gt; 分部之后剩下的积分往往还要再用一次老技巧,这是分部题的标准节奏: 分部不是一步到底,而是把”怪的乘积”换成”熟的单个函数”. 上面最后把两项 <spanclass="math inline">\(\arctan x\)</span> 合并成 <spanclass="math inline">\(\frac{x^{2}+1}{2}\arctan x\)</span>是可做可不做的化简, 但合并之后求导验算会干净很多.</p>
+              </div>
+            </details>
+<p><strong>第 23 题</strong>（★★★）　求 <span
+class="math inline">\(\displaystyle\int\arcsin x\,dx\)</span>.</p>
+<details class="folding-tag" ><summary> 第 23 题解析 </summary>
+              <div class='content'>
+              <p>无中生有: <span class="math inline">\(u=\arcsin x\)</span>, <spanclass="math inline">\(dv=dx\)</span>, <span class="math display">\[\int\arcsin x\,dx=x\arcsin x-\int\frac{x}{\sqrt{1-x^{2}}}dx=x\arcsinx+\sqrt{1-x^{2}}+C .\]</span></p>
+              </div>
+            </details>
+<p><strong>第 24 题</strong>（★★★★）　求 <span
+class="math inline">\(\displaystyle\int e^{x}\cos 2x\,dx\)</span>.</p>
+<details class="folding-tag" ><summary> 第 24 题解析 </summary>
+              <div class='content'>
+              <p>指数乘三角, 分两次必然回到自身, 于是设 <span class="math display">\[I=\int e^{x}\cos 2x\,dx .\]</span> 第一次取 <span class="math inline">\(u=\cos 2x\)</span>, <spanclass="math inline">\(dv=e^{x}dx\)</span>: <span class="math display">\[I=e^{x}\cos 2x+2\int e^{x}\sin 2x\,dx .\]</span> 对 <span class="math inline">\(\int e^{x}\sin 2x\,dx\)</span>再分部一次, <span class="math inline">\(u=\sin 2x\)</span>: <spanclass="math display">\[\int e^{x}\sin 2x\,dx=e^{x}\sin 2x-2\int e^{x}\cos 2x\,dx=e^{x}\sin2x-2I .\]</span> 代回: <span class="math display">\[I=e^{x}\cos 2x+2e^{x}\sin 2x-4I\quad\Longrightarrow\quad5I=e^{x}\left(\cos 2x+2\sin 2x\right),\]</span> <span class="math display">\[\int e^{x}\cos 2x\,dx=\frac{e^{x}}{5}\left(\cos 2x+2\sin 2x\right)+C .\]</span> &gt; 两次分部的 <span class="math inline">\(u\)</span>必须取同一类函数（这里都是三角）, 一次取三角一次取指数会导致 <spanclass="math inline">\(I\)</span> 与 <spanclass="math inline">\(-I\)</span> 凑不成等式, 算出来是 <spanclass="math inline">\(0=0\)</span>. 移项时系数是 <spanclass="math inline">\(1+4=5\)</span> 而不是 <spanclass="math inline">\(1+2\)</span>, 因为第二次分部把系数 <spanclass="math inline">\(2\)</span> 又乘了一次.</p>
+              </div>
+            </details>
+<p><strong>第 25 题</strong>（★★★★）　求 <span
+class="math inline">\(\displaystyle\int\ln\left(x+\sqrt{1+x^{2}}\right)dx\)</span>.</p>
+<details class="folding-tag" ><summary> 第 25 题解析 </summary>
+              <div class='content'>
+              <p>取 <spanclass="math inline">\(u=\ln\left(x+\sqrt{1+x^{2}}\right)\)</span>, <spanclass="math inline">\(dv=dx\)</span>, 而 <spanclass="math inline">\(u&#39;=\frac{1}{\sqrt{1+x^{2}}}\)</span>: <spanclass="math display">\[\int\ln\left(x+\sqrt{1+x^{2}}\right)dx=x\ln\left(x+\sqrt{1+x^{2}}\right)-\int\frac{x}{\sqrt{1+x^{2}}}dx=x\ln\left(x+\sqrt{1+x^{2}}\right)-\sqrt{1+x^{2}}+C.\]</span></p>
+              </div>
+            </details>
+<p><strong>第 26 题</strong>（★★★）　求 <span
+class="math inline">\(\displaystyle\int e^{x}\left(\tan
+x+\sec^{2}x\right)dx\)</span>.</p>
+<details class="folding-tag" ><summary> 第 26 题解析 </summary>
+              <div class='content'>
+              <p>这是 <span class="math inline">\(\displaystyle\inte^{x}\left(f(x)+f&#39;(x)\right)dx=e^{x}f(x)+C\)</span> 的形状, 取 <spanclass="math inline">\(f=\tan x\)</span>, 答案为 <spanclass="math display">\[\int e^{x}\left(\tan x+\sec^{2}x\right)dx=e^{x}\tan x+C .\]</span> 原理: <spanclass="math inline">\(\left(e^{x}f\right)&#39;=e^{x}\left(f+f&#39;\right)\)</span>,逆着写就是上式. 认出这个形状比硬分部快,硬分部的话第二次会与第一次抵消.</p>
+              </div>
+            </details>
+<p><strong>第 27 题</strong>（★★★）　求 <span
+class="math inline">\(\displaystyle\int x^{2}e^{-x}dx\)</span>.</p>
+<details class="folding-tag" ><summary> 第 27 题解析 </summary>
+              <div class='content'>
+              <p>连分两次, 每次都取多项式为 <span class="math inline">\(u\)</span>:<span class="math display">\[\int x^{2}e^{-x}dx=-x^{2}e^{-x}+2\intxe^{-x}dx=-x^{2}e^{-x}-2xe^{-x}-2e^{-x}+C=-e^{-x}\left(x^{2}+2x+2\right)+C.\]</span></p>
+              </div>
+            </details>
+<p><strong>第 28 题</strong>（★★★★）　求 <span
+class="math inline">\(\displaystyle\int e^{ax}\sin
+bx\,dx\)</span>（<span class="math inline">\(a\neq0\)</span>）.</p>
+<details class="folding-tag" ><summary> 第 28 题解析 </summary>
+              <div class='content'>
+              <p>与第 24 题同构, 两次分部后移项, 一般结果是 <spanclass="math display">\[\int e^{ax}\sin bx\,dx=\frac{e^{ax}}{a^{2}+b^{2}}\left(a\sin bx-b\cosbx\right)+C .\]</span></p>
+              </div>
+            </details>
+<p><strong>第 29 题</strong>（★★★★★）　设 <span
+class="math inline">\(I_n=\displaystyle\int\frac{dx}{\left(x^{2}+a^{2}\right)^{n}}\)</span>（<span
+class="math inline">\(a&gt;0\)</span>, <span
+class="math inline">\(n\ge2\)</span>）, 求递推公式.</p>
+<details class="folding-tag" ><summary> 第 29 题解析 </summary>
+              <div class='content'>
+              <p>递推的来源是”分部之后剩下的积分能用 <spanclass="math inline">\(I_n\)</span> 与 <spanclass="math inline">\(I_{n+1}\)</span> 表示”. 取 <spanclass="math inline">\(u=\frac{1}{\left(x^{2}+a^{2}\right)^{n}}\)</span>,<span class="math inline">\(dv=dx\)</span>: <spanclass="math display">\[I_n=\frac{x}{\left(x^{2}+a^{2}\right)^{n}}+2n\int\frac{x^{2}}{\left(x^{2}+a^{2}\right)^{n+1}}dx.\]</span> 把分子拆开, <spanclass="math inline">\(x^{2}=\left(x^{2}+a^{2}\right)-a^{2}\)</span>,于是 <span class="math display">\[\int\frac{x^{2}}{\left(x^{2}+a^{2}\right)^{n+1}}dx=I_n-a^{2}I_{n+1}.\]</span> 代回并整理: <span class="math display">\[I_n=\frac{x}{\left(x^{2}+a^{2}\right)^{n}}+2nI_n-2na^{2}I_{n+1},\]</span> <span class="math display">\[I_{n+1}=\frac{x}{2na^{2}\left(x^{2}+a^{2}\right)^{n}}+\frac{2n-1}{2na^{2}}I_n.\]</span> 指标平移一位写成常用的形式: <span class="math display">\[I_n=\frac{x}{2a^{2}(n-1)\left(x^{2}+a^{2}\right)^{n-1}}+\frac{2n-3}{2a^{2}(n-1)}I_{n-1},\qquadI_1=\frac1a\arctan\frac xa+C .\]</span> &gt; 递推公式的检验办法: 取 <spanclass="math inline">\(n=2\)</span>, <spanclass="math inline">\(a=1\)</span> ��� <spanclass="math inline">\(I_2=\frac{x}{2\left(x^{2}+1\right)}+\frac12\arctanx\)</span>, 与第 36 题直接算的结果一致; 再看 <spanclass="math inline">\(n\)</span> 很大时 <spanclass="math inline">\(\frac{2n-3}{2(n-1)}\to1\)</span>, 递推不发散,这是量纲上的必要条件. 两个检验都过, 公式基本不会错.</p>
+              </div>
+            </details>
+<p><strong>第 30 题</strong>（★★★）　求 <span
+class="math inline">\(\displaystyle\int x^{2}\ln x\,dx\)</span>.</p>
+<details class="folding-tag" ><summary> 第 30 题解析 </summary>
+              <div class='content'>
+              <p><span class="math inline">\(u=\ln x\)</span>, <spanclass="math inline">\(dv=x^{2}dx\)</span>: <span class="math display">\[\int x^{2}\ln x\,dx=\frac{x^{3}}{3}\ln x-\frac13\intx^{2}dx=\frac{x^{3}}{3}\ln x-\frac{x^{3}}{9}+C .\]</span></p>
+              </div>
+            </details>
+<h2 id="五-有理函数与部分分式第-3138-题">五 有理函数与部分分式（第 31—38
+题）★★★★</h2>
+<p>有理函数的流程固定得可以背: 假分式先做除法化成”多项式 + 真分式”;
+分母在实数范围内分解成一次因式与不可约二次因式的乘积;
+按因式写部分分式的形式（重根要写全 <span
+class="math inline">\(k\)</span> 层, 不可约二次的分子写成一次式）;
+用遮住法或比较系数定出待定常数; 最后逐项积分.</p>
+<p><strong>第 31 题</strong>（★★★）　求 <span
+class="math inline">\(\displaystyle\int\frac{x^{3}+1}{x^{2}+1}dx\)</span>.</p>
+<details class="folding-tag" ><summary> 第 31 题解析 </summary>
+              <div class='content'>
+              <p>分子次数高于分母, 先除: <spanclass="math inline">\(x^{3}+1=x\left(x^{2}+1\right)+\left(1-x\right)\)</span>,于是 <span class="math display">\[\int\frac{x^{3}+1}{x^{2}+1}dx=\intx\,dx+\int\frac{1-x}{1+x^{2}}dx=\frac{x^{2}}{2}+\arctanx-\frac12\ln\left(1+x^{2}\right)+C .\]</span></p>
+              </div>
+            </details>
+<p><strong>第 32 题</strong>（★★）　求 <span
+class="math inline">\(\displaystyle\int\frac{dx}{(x-1)(x+2)}\)</span>.</p>
+<details class="folding-tag" ><summary> 第 32 题解析 </summary>
+              <div class='content'>
+              <p>遮住法: 遮住 <span class="math inline">\(x-1\)</span> 代入 <spanclass="math inline">\(x=1\)</span> 得 <spanclass="math inline">\(A=\frac13\)</span>; 遮住 <spanclass="math inline">\(x+2\)</span> 代入 <spanclass="math inline">\(x=-2\)</span> 得 <spanclass="math inline">\(B=-\frac13\)</span>. 故 <spanclass="math display">\[\int\frac{dx}{(x-1)(x+2)}=\frac13\ln|x-1|-\frac13\ln|x+2|+C=\frac13\ln\left|\frac{x-1}{x+2}\right|+C.\]</span></p>
+              </div>
+            </details>
+<p><strong>第 33 题</strong>（★★★）　求 <span
+class="math inline">\(\displaystyle\int\frac{dx}{x(x-1)^{2}}\)</span>.</p>
+<details class="folding-tag" ><summary> 第 33 题解析 </summary>
+              <div class='content'>
+              <p>重根要写全三层: <spanclass="math inline">\(\displaystyle\frac{1}{x(x-1)^{2}}=\fracAx+\frac{B}{x-1}+\frac{D}{(x-1)^{2}}\)</span>. 遮住 <spanclass="math inline">\(x\)</span> 得 <spanclass="math inline">\(A=1\)</span>; 遮住 <spanclass="math inline">\((x-1)^{2}\)</span> 得 <spanclass="math inline">\(D=1\)</span>; 比较 <spanclass="math inline">\(x^{2}\)</span> 项系数得 <spanclass="math inline">\(A+B=0\)</span>, 故 <spanclass="math inline">\(B=-1\)</span>. <span class="math display">\[\int\frac{dx}{x(x-1)^{2}}=\ln|x|-\ln|x-1|-\frac{1}{x-1}+C=\ln\left|\frac{x}{x-1}\right|-\frac{1}{x-1}+C.\]</span> 最后一项来自 <spanclass="math inline">\(\displaystyle\int\frac{dx}{(x-1)^{2}}=-\frac{1}{x-1}\)</span>,符号是负的, 这里最容易丢.</p>
+              </div>
+            </details>
+<p><strong>第 34 题</strong>（★★★）　求 <span
+class="math inline">\(\displaystyle\int\frac{dx}{(x+1)\left(x^{2}+1\right)}\)</span>.</p>
+<details class="folding-tag" ><summary> 第 34 题解析 </summary>
+              <div class='content'>
+              <p>分母有一个一次因式和一个不可约二次因式, 设 <spanclass="math display">\[\frac{1}{(x+1)\left(x^{2}+1\right)}=\frac{A}{x+1}+\frac{Bx+D}{x^{2}+1} .\]</span> <span class="math inline">\(x=-1\)</span> 处遮住得 <spanclass="math inline">\(A=\frac12\)</span>; 比较 <spanclass="math inline">\(x^{2}\)</span> 系数得 <spanclass="math inline">\(A+B=0\)</span>, 故 <spanclass="math inline">\(B=-\frac12\)</span>; 比较常数项得 <spanclass="math inline">\(A+D=1\)</span>, 故 <spanclass="math inline">\(D=\frac12\)</span>. 于是 <spanclass="math display">\[\int\frac{dx}{(x+1)\left(x^{2}+1\right)}=\frac12\ln|x+1|-\frac14\ln\left(x^{2}+1\right)+\frac12\arctanx+C .\]</span></p>
+              </div>
+            </details>
+<p><strong>第 35 题</strong>（★★★★★）　求 <span
+class="math inline">\(\displaystyle\int\frac{dx}{1+x^{4}}\)</span>.</p>
+<details class="folding-tag" ><summary> 第 35 题解析 </summary>
+              <div class='content'>
+              <p>分母在实数范围内分解不了一次因式, 只能拆成两个不可约二次式: <spanclass="math display">\[1+x^{4}=\left(x^{2}+\sqrt2x+1\right)\left(x^{2}-\sqrt2x+1\right).\]</span> 设 <span class="math display">\[\frac{1}{1+x^{4}}=\frac{Ax+B}{x^{2}+\sqrt2x+1}+\frac{Cx+D}{x^{2}-\sqrt2x+1},\]</span> 通分后比较系数, 解得 <span class="math display">\[A=-C=\frac{1}{2\sqrt2},\qquad B=D=\frac12 .\]</span> 下面把 <spanclass="math inline">\(\frac{Ax+B}{x^{2}+\sqrt2x+1}\)</span> 按”分母导数+ 常数”拆开. 分母导数是 <span class="math inline">\(2x+\sqrt2\)</span>,所以 <span class="math display">\[\frac{\frac{1}{2\sqrt2}x+\frac12}{x^{2}+\sqrt2x+1}=\frac{1}{4\sqrt2}\cdot\frac{2x+\sqrt2}{x^{2}+\sqrt2x+1}+\frac{1}{4}\cdot\frac{1}{x^{2}+\sqrt2x+1},\]</span> 第一项积出对数, 第二项配方成 <spanclass="math inline">\(\left(x+\frac{\sqrt2}{2}\right)^{2}+\frac12\)</span>后积出 <span class="math inline">\(\arctan\)</span>: <spanclass="math display">\[\int\frac{dx}{x^{2}+\sqrt2x+1}=\sqrt2\arctan\left(\sqrt2x+1\right).\]</span> 另一支 <span class="math inline">\(C\)</span>、<spanclass="math inline">\(D\)</span> 的处理完全对称, 结果是 <spanclass="math inline">\(\sqrt2\arctan\left(\sqrt2x-1\right)\)</span>与一个反号的对数. 合起来 <span class="math display">\[\int\frac{dx}{1+x^{4}}=\frac{1}{4\sqrt2}\ln\frac{x^{2}+\sqrt2x+1}{x^{2}-\sqrt2x+1}+\frac{1}{2\sqrt2}\left[\arctan\left(\sqrt2x+1\right)+\arctan\left(\sqrt2x-1\right)\right]+C.\]</span> 两个二次式都恒正, 对数不加绝对值.</p><blockquote><p>这题的难点全在分解 <span class="math inline">\(1+x^{4}\)</span>:把它看成 <spanclass="math inline">\(\left(x^{2}+1\right)^{2}-2x^{2}\)</span>的平方差即可. 拆完之后按”分母导数 + 常数”分项, 与第 8 题、第 34题是同一个动作. 最后那个对数里的两个二次式也可以写成 <spanclass="math inline">\(\frac{x^{2}+\sqrt2x+1}{x^{2}-\sqrt2x+1}\)</span>,若要用 <span class="math inline">\(\frac{1}{2}\ln\)</span> 合并 <spanclass="math inline">\(\arctan\)</span>, 记得 <spanclass="math inline">\(\arctan\)</span> 相加会产生 <spanclass="math inline">\(\frac\pi2\)</span> 的跳跃, 逐段成立即可.</p></blockquote>
+              </div>
+            </details>
+<p><strong>第 36 题</strong>（★★★★）　求 <span
+class="math inline">\(\displaystyle\int\frac{dx}{\left(x^{2}+1\right)^{2}}\)</span>.</p>
+<details class="folding-tag" ><summary> 第 36 题解析 </summary>
+              <div class='content'>
+              <p>用第 29 题的递推, 取 <span class="math inline">\(a=1\)</span>、<spanclass="math inline">\(n=2\)</span>: <span class="math display">\[\int\frac{dx}{\left(x^{2}+1\right)^{2}}=\frac{x}{2\left(x^{2}+1\right)}+\frac12\arctanx+C .\]</span> 硬算也行: 令 <spanclass="math inline">\(x=\tan\theta\)</span>, 化为 <spanclass="math inline">\(\displaystyle\int\cos^{2}\theta\,d\theta=\frac\theta2+\frac{\sin2\theta}{4}+C\)</span>,回代得同一结果.</p>
+              </div>
+            </details>
+<p><strong>第 37 题</strong>（★★）　求 <span
+class="math inline">\(\displaystyle\int\frac{dx}{x\left(x^{2}+1\right)}\)</span>.</p>
+<details class="folding-tag" ><summary> 第 37 题解析 </summary>
+              <div class='content'>
+              <p><spanclass="math inline">\(\displaystyle\frac{1}{x\left(x^{2}+1\right)}=\frac1x-\frac{x}{x^{2}+1}\)</span>,直接拆项即可: <span class="math display">\[\int\frac{dx}{x\left(x^{2}+1\right)}=\ln|x|-\frac12\ln\left(x^{2}+1\right)+C.\]</span></p>
+              </div>
+            </details>
+<p><strong>第 38 题</strong>（★★★）　求 <span
+class="math inline">\(\displaystyle\int\frac{dx}{x^{4}-x^{2}}\)</span>.</p>
+<details class="folding-tag" ><summary> 第 38 题解析 </summary>
+              <div class='content'>
+              <p><spanclass="math inline">\(\displaystyle\frac{1}{x^{2}\left(x^{2}-1\right)}=\frac{1}{x^{2}-1}-\frac{1}{x^{2}}\)</span>（验算:<spanclass="math inline">\(\frac{x^{2}-\left(x^{2}-1\right)}{x^{2}\left(x^{2}-1\right)}\)</span>正是被积函数）, 于是 <span class="math display">\[\int\frac{dx}{x^{4}-x^{2}}=\frac12\ln\left|\frac{x-1}{x+1}\right|+\frac1x+C.\]</span></p>
+              </div>
+            </details>
+<span id="more"></span>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/avatar.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/avatar.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">Kanwuqing</div><div class="post-copyright__author_desc">To Be Legend</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://kanwuqing.github.io/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%EF%BC%88%E4%B8%8A%EF%BC%89%E6%9C%9F%E6%9C%AB%E9%A2%98%E9%9B%86%E2%80%94%E2%80%94%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86%E4%B8%8E%E5%AE%9A%E7%A7%AF%E5%88%86/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://kanwuqing.github.io/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%EF%BC%88%E4%B8%8A%EF%BC%89%E6%9C%9F%E6%9C%AB%E9%A2%98%E9%9B%86%E2%80%94%E2%80%94%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86%E4%B8%8E%E5%AE%9A%E7%A7%AF%E5%88%86/')">高等数学（上）期末题集——不定积分·定积分</span></a></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://kanwuqing.github.io" target="_blank">阚无倾的小窝</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/%E7%AC%94%E8%AE%B0/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>笔记<span class="tagsPageCount">47</span></a><a class="post-meta__box__tags" href="/tags/%E6%95%B0%E5%AD%A6/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>数学<span class="tagsPageCount">24</span></a><a class="post-meta__box__tags" href="/tags/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>高等数学<span class="tagsPageCount">7</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="/img/default_bg.jpg" data-sites="wechat,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E8%A7%A3%E6%9E%90%E5%87%A0%E4%BD%95%EF%BC%88%E4%B8%8A%EF%BC%89%E6%9C%9F%E4%B8%AD%E6%A8%A1%E6%8B%9F%E5%8D%B7%E2%80%94%E2%80%94%E6%96%B9%E7%A8%8B%E7%BB%84%C2%B7%E7%9F%A9%E9%98%B5%C2%B7%E7%A9%BA%E9%97%B4%E8%A7%A3%E6%9E%90%E5%87%A0%E4%BD%95/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">线性代数与解析几何（上）期中模拟卷——方程组·矩阵·空间解析几何</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E6%9E%81%E9%99%90/" title="高等数学学习笔记——极限!"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2026-06-28</div><div class="title">高等数学学习笔记——极限!</div></div></a></div><div><a href="/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E5%AF%BC%E6%95%B0-%E7%9E%AC%E6%97%B6%E4%B8%8E%E5%8F%98%E5%8C%96%E7%9A%84%E6%82%96%E8%AE%BA/" title="高等数学学习笔记——导数:瞬时与变化的悖论"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2026-06-14</div><div class="title">高等数学学习笔记——导数:瞬时与变化的悖论</div></div></a></div><div><a href="/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E6%B3%B0%E5%8B%92%E7%BA%A7%E6%95%B0/" title="高等数学学习笔记——泰勒级数"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2026-06-30</div><div class="title">高等数学学习笔记——泰勒级数</div></div></a></div><div><a href="/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E5%BE%AE%E7%A7%AF%E5%88%86%E5%9F%BA%E6%9C%AC%E5%AE%9A%E7%90%86/" title="高等数学学习笔记——微积分基本定理"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2026-06-29</div><div class="title">高等数学学习笔记——微积分基本定理</div></div></a></div><div><a href="/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/" title="高等数学学习笔记——高等数学基础"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2026-06-14</div><div class="title">高等数学学习笔记——高等数学基础</div></div></a></div><div><a href="/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%EF%BC%88%E4%B8%8A%EF%BC%89%E6%9C%9F%E4%B8%AD%E6%A8%A1%E6%8B%9F%E5%8D%B7%E2%80%94%E2%80%94%E6%9E%81%E9%99%90%E5%AF%BC%E6%95%B0%E4%B8%8E%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86/" title="高等数学（上）期中模拟卷——极限·导数·中值定理"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2026-11-19</div><div class="title">高等数学（上）期中模拟卷——极限·导数·中值定理</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info__sayhi" id="author-info__sayhi" onclick="anzhiyu.changeSayHelloText()"></div><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-status"><img class="g-status" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/emoji.png" alt="status"/></div></div><div class="author-info__description"><div style="font-size:16px;line-height:1.38;margin:0.6rem 0;text-align:justify;color:rgba(0, 0, 0, 0.8);">这里是我在探索记录与实践复盘的数字角落，主要存放开发中的踩坑记录、解决方案、项目日志和学习笔记。</div> <div style="font-size:16px;line-height:1.38;margin:0.6rem 0;text-align:justify;color:rgba(0, 0, 0, 0.8);>相信这些源于实战的思考与总结，能为你我照亮些许前行的路。欢迎交流与指正。</div></div><div class="author-info__bottom-group"><a class="author-info__bottom-group-left" href="/about"><h1 class="author-info__name">Kanwuqing</h1><div class="author-info__desc">To Be Legend</div></a><div class="card-info-social-icons is-center"><a class="social-icon faa-parent animated-hover" href="https://github.com/kanwuqing" target="_blank" title="Github"><i class="anzhiyufont anzhiyu-icon-github"></i></a></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E6%8B%BF%E5%88%B0%E7%A7%AF%E5%88%86%E9%A2%98%E5%85%88%E8%BF%87%E5%85%AD%E4%B8%AA%E6%A3%80%E6%9F%A5%E4%BD%8D"><span class="toc-number">1.</span> <span class="toc-text">一 拿到积分题先过六个检查位
+★★★★★</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%A7%AF%E5%88%86%E8%A1%A8%E5%8F%8A%E5%85%B6%E5%AE%B9%E6%98%93%E8%AE%B0%E9%94%99%E7%9A%84%E5%87%A0%E5%A4%84"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 基本积分表及其容易记错的几处
+★★★★</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BD%A2%E6%80%81%E5%88%B0%E9%80%9A%E9%81%93%E7%9A%84%E5%AF%B9%E7%85%A7"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 形态到通道的对照 ★★★★★</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E8%A7%92%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E7%9A%84%E4%BA%94%E6%9D%A1%E5%88%86%E6%94%AF"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 三角函数积分的五条分支 ★★★★★</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E7%A7%AF%E5%88%86%E6%AF%94%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86%E5%A4%9A%E5%87%BA%E6%9D%A5%E7%9A%84%E5%85%AD%E4%B8%AA%E5%8A%A8%E4%BD%9C"><span class="toc-number">1.4.</span> <span class="toc-text">1.4
+定积分比不定积分多出来的六个动作 ★★★★★</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A7%AF%E4%B8%8D%E5%87%BA%E5%88%9D%E7%AD%89%E5%87%BD%E6%95%B0%E7%9A%84%E5%87%A0%E7%A7%8D%E5%B8%B8%E8%A7%81%E5%BD%A2%E7%8A%B6"><span class="toc-number">1.5.</span> <span class="toc-text">1.5 积不出初等函数的几种常见形状
+★★★</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-%E5%9F%BA%E6%9C%AC%E5%85%AC%E5%BC%8F%E4%B8%8E%E5%87%91%E5%BE%AE%E5%88%86%E7%AC%AC-18-%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">二 基本公式与凑微分（第 1—8
+题）★★</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-%E6%8D%A2%E5%85%83%E6%B3%95%E7%AC%AC-920-%E9%A2%98"><span class="toc-number">3.</span> <span class="toc-text">三 换元法（第 9—20 题）★★★★</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B-%E5%88%86%E9%83%A8%E7%A7%AF%E5%88%86%E7%AC%AC-2130-%E9%A2%98"><span class="toc-number">4.</span> <span class="toc-text">四 分部积分（第 21—30 题）★★★★</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94-%E6%9C%89%E7%90%86%E5%87%BD%E6%95%B0%E4%B8%8E%E9%83%A8%E5%88%86%E5%88%86%E5%BC%8F%E7%AC%AC-3138-%E9%A2%98"><span class="toc-number">5.</span> <span class="toc-text">五 有理函数与部分分式（第 31—38
+题）★★★★</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%EF%BC%88%E4%B8%8A%EF%BC%89%E6%9C%9F%E6%9C%AB%E9%A2%98%E9%9B%86%E2%80%94%E2%80%94%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86%E4%B8%8E%E5%AE%9A%E7%A7%AF%E5%88%86/" title="高等数学（上）期末题集——不定积分·定积分"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="高等数学（上）期末题集——不定积分·定积分"/></a><div class="content"><a class="title" href="/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%EF%BC%88%E4%B8%8A%EF%BC%89%E6%9C%9F%E6%9C%AB%E9%A2%98%E9%9B%86%E2%80%94%E2%80%94%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86%E4%B8%8E%E5%AE%9A%E7%A7%AF%E5%88%86/" title="高等数学（上）期末题集——不定积分·定积分">高等数学（上）期末题集——不定积分·定积分</a><time datetime="2026-11-24T14:10:00.000Z" title="发表于 2026-11-24 22:10:00">2026-11-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E8%A7%A3%E6%9E%90%E5%87%A0%E4%BD%95%EF%BC%88%E4%B8%8A%EF%BC%89%E6%9C%9F%E4%B8%AD%E6%A8%A1%E6%8B%9F%E5%8D%B7%E2%80%94%E2%80%94%E6%96%B9%E7%A8%8B%E7%BB%84%C2%B7%E7%9F%A9%E9%98%B5%C2%B7%E7%A9%BA%E9%97%B4%E8%A7%A3%E6%9E%90%E5%87%A0%E4%BD%95/" title="线性代数与解析几何（上）期中模拟卷——方程组·矩阵·空间解析几何"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="线性代数与解析几何（上）期中模拟卷——方程组·矩阵·空间解析几何"/></a><div class="content"><a class="title" href="/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E8%A7%A3%E6%9E%90%E5%87%A0%E4%BD%95%EF%BC%88%E4%B8%8A%EF%BC%89%E6%9C%9F%E4%B8%AD%E6%A8%A1%E6%8B%9F%E5%8D%B7%E2%80%94%E2%80%94%E6%96%B9%E7%A8%8B%E7%BB%84%C2%B7%E7%9F%A9%E9%98%B5%C2%B7%E7%A9%BA%E9%97%B4%E8%A7%A3%E6%9E%90%E5%87%A0%E4%BD%95/" title="线性代数与解析几何（上）期中模拟卷——方程组·矩阵·空间解析几何">线性代数与解析几何（上）期中模拟卷——方程组·矩阵·空间解析几何</a><time datetime="2026-11-20T01:20:00.000Z" title="发表于 2026-11-20 09:20:00">2026-11-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%EF%BC%88%E4%B8%8A%EF%BC%89%E6%9C%9F%E4%B8%AD%E6%A8%A1%E6%8B%9F%E5%8D%B7%E2%80%94%E2%80%94%E6%9E%81%E9%99%90%E5%AF%BC%E6%95%B0%E4%B8%8E%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86/" title="高等数学（上）期中模拟卷——极限·导数·中值定理"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="高等数学（上）期中模拟卷——极限·导数·中值定理"/></a><div class="content"><a class="title" href="/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%EF%BC%88%E4%B8%8A%EF%BC%89%E6%9C%9F%E4%B8%AD%E6%A8%A1%E6%8B%9F%E5%8D%B7%E2%80%94%E2%80%94%E6%9E%81%E9%99%90%E5%AF%BC%E6%95%B0%E4%B8%8E%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86/" title="高等数学（上）期中模拟卷——极限·导数·中值定理">高等数学（上）期中模拟卷——极限·导数·中值定理</a><time datetime="2026-11-19T05:10:00.000Z" title="发表于 2026-11-19 13:10:00">2026-11-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0%E2%80%94%E2%80%94OFDM%E8%9C%82%E7%AA%9D%E7%BD%91%E7%BB%9C%E6%97%A0%E8%AE%BE%E5%A4%87%E6%84%9F%E7%9F%A5/" title="OFDM 蜂窝网络无设备感知复现日志"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OFDM 蜂窝网络无设备感知复现日志"/></a><div class="content"><a class="title" href="/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0%E2%80%94%E2%80%94OFDM%E8%9C%82%E7%AA%9D%E7%BD%91%E7%BB%9C%E6%97%A0%E8%AE%BE%E5%A4%87%E6%84%9F%E7%9F%A5/" title="OFDM 蜂窝网络无设备感知复现日志">OFDM 蜂窝网络无设备感知复现日志</a><time datetime="2026-11-13T13:40:00.000Z" title="发表于 2026-11-13 21:40:00">2026-11-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/%E6%B3%A2%E5%BD%A2%E7%94%9F%E6%88%90%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-FIR%E6%95%B0%E5%AD%97%E6%BB%A4%E6%B3%A2/" title="波形发生识别系统开发日志 —— FIR 数字滤波"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/default_bg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="波形发生识别系统开发日志 —— FIR 数字滤波"/></a><div class="content"><a class="title" href="/%E6%B3%A2%E5%BD%A2%E7%94%9F%E6%88%90%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-FIR%E6%95%B0%E5%AD%97%E6%BB%A4%E6%B3%A2/" title="波形发生识别系统开发日志 —— FIR 数字滤波">波形发生识别系统开发日志 —— FIR 数字滤波</a><time datetime="2026-10-26T06:00:00.000Z" title="发表于 2026-10-26 14:00:00">2026-10-26</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2026 By <a class="footer-bar-link" href="/" title="Kanwuqing" target="_blank">Kanwuqing</a></div></div><div id="footer-type-tips"></div><div class="js-pjax"><script>function subtitleType () {
+  fetch('https://v1.hitokoto.cn')
+    .then(response => response.json())
+    .then(data => {
+      if (true) {
+        const from = '出自 ' + data.from
+        const sub = ["生活明朗&#44; 万物可爱&#44; 人间值得&#44; 未来可期."]
+        sub.unshift(data.hitokoto, from)
+        window.typed = new Typed('#footer-type-tips', {
+          strings: sub,
+          startDelay: 300,
+          typeSpeed: 150,
+          loop: true,
+          backSpeed: 50,
+        })
+      } else {
+        document.getElementById('footer-type-tips').innerHTML = data.hitokoto
+      }
+    })
+}
+
+if (true) {
+  if (typeof Typed === 'function') {
+    subtitleType()
+  } else {
+    getScript('https://cdn.cbd.int/typed.js@2.1.0/dist/typed.umd.js').then(subtitleType)
+  }
+} else {
+  subtitleType()
+}
+</script></div></div><div class="footer-bar-right"><a class="footer-bar-link" href="/"></a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">63</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">39</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">5</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/kanwuqing.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" href="/html/maze.html" title="迷宫小游戏"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/kanwuqing.ico" alt="迷宫小游戏"/><span class="back-menu-item-text">迷宫小游戏</span></a><a class="back-menu-item" href="/html/latex-table.html" title="LaTeX速查表"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/kanwuqing.ico" alt="LaTeX速查表"/><span class="back-menu-item-text">LaTeX速查表</span></a></div></div></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 归档</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于我</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/career/"><i class="anzhiyufont anzhiyu-icon-images faa-tada" style="font-size: 0.9em;"></i><span> 我的经历</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/AI/" style="font-size: 0.88rem;">AI<sup>12</sup></a><a href="/tags/Bot/" style="font-size: 0.88rem;">Bot<sup>7</sup></a><a href="/tags/C/" style="font-size: 0.88rem;">C++<sup>7</sup></a><a href="/tags/Canvas/" style="font-size: 0.88rem;">Canvas<sup>1</sup></a><a href="/tags/C%E8%AF%AD%E8%A8%80/" style="font-size: 0.88rem;">C语言<sup>13</sup></a><a href="/tags/F401/" style="font-size: 0.88rem;">F401<sup>2</sup></a><a href="/tags/G431/" style="font-size: 0.88rem;">G431<sup>1</sup></a><a href="/tags/HTML/" style="font-size: 0.88rem;">HTML<sup>1</sup></a><a href="/tags/ISAC/" style="font-size: 0.88rem;">ISAC<sup>1</sup></a><a href="/tags/Javascript/" style="font-size: 0.88rem;">Javascript<sup>1</sup></a><a href="/tags/LegendBot/" style="font-size: 0.88rem;">LegendBot<sup>7</sup></a><a href="/tags/Manim/" style="font-size: 0.88rem;">Manim<sup>1</sup></a><a href="/tags/OFDM/" style="font-size: 0.88rem;">OFDM<sup>1</sup></a><a href="/tags/OI/" style="font-size: 0.88rem;">OI<sup>5</sup></a><a href="/tags/Python/" style="font-size: 0.88rem;">Python<sup>13</sup></a><a href="/tags/STM32/" style="font-size: 0.88rem;">STM32<sup>4</sup></a><a href="/tags/Wechat/" style="font-size: 0.88rem;">Wechat<sup>7</sup></a><a href="/tags/docs/" style="font-size: 0.88rem;">docs<sup>1</sup></a><a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" style="font-size: 0.88rem;">人工智能<sup>12</sup></a><a href="/tags/%E4%BF%A1%E5%A5%A5/" style="font-size: 0.88rem;">信奥<sup>8</sup></a><a href="/tags/%E5%85%B1%E7%94%A8%E4%BD%93/" style="font-size: 0.88rem;">共用体<sup>1</sup></a><a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" style="font-size: 0.88rem;">单片机<sup>1</sup></a><a href="/tags/%E5%A4%8D%E7%8E%B0/" style="font-size: 0.88rem;">复现<sup>1</sup></a><a href="/tags/%E6%8A%80%E6%9C%AF/" style="font-size: 0.88rem;">技术<sup>11</sup></a><a href="/tags/%E6%8C%87%E9%92%88/" style="font-size: 0.88rem;">指针<sup>1</sup></a><a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 0.88rem;">教程<sup>4</sup></a><a href="/tags/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/" style="font-size: 0.88rem;">数字信号处理<sup>1</sup></a><a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 0.88rem;">数学<sup>24</sup></a><a href="/tags/%E6%9E%9A%E4%B8%BE/" style="font-size: 0.88rem;">枚举<sup>1</sup></a><a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/" style="font-size: 0.88rem;">概率论<sup>1</sup></a><a href="/tags/%E6%B3%A2%E5%BD%A2%E5%8F%91%E7%94%9F%E8%AF%86%E5%88%AB%E7%B3%BB%E7%BB%9F/" style="font-size: 0.88rem;">波形发生识别系统<sup>3</sup></a><a href="/tags/%E7%AC%94%E8%AE%B0/" style="font-size: 0.88rem;">笔记<sup>47</sup></a><a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 0.88rem;">算法<sup>9</sup></a><a href="/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" style="font-size: 0.88rem;">线性代数<sup>12</sup></a><a href="/tags/%E7%BB%93%E6%9E%84%E4%BD%93/" style="font-size: 0.88rem;">结构体<sup>1</sup></a><a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/" style="font-size: 0.88rem;">计算机<sup>5</sup></a><a href="/tags/%E9%80%9A%E6%84%9F%E4%B8%80%E4%BD%93%E5%8C%96/" style="font-size: 0.88rem;">通感一体化<sup>1</sup></a><a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 0.88rem;">链表<sup>1</sup></a><a href="/tags/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/" style="font-size: 0.88rem;">高等数学<sup>7</sup></a></div></div><hr/></div></div><div id="keyboard-tips"><div class="keyboardTitle">博客快捷键</div><div class="keybordList"><div class="keybordItem"><div class="keyGroup"><div class="key">shift K</div></div><div class="keyContent"><div class="content">关闭快捷键功能</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift A</div></div><div class="keyContent"><div class="content">打开/关闭中控台</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift M</div></div><div class="keyContent"><div class="content">播放/暂停音乐</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift D</div></div><div class="keyContent"><div class="content">深色/浅色显示模式</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift S</div></div><div class="keyContent"><div class="content">站内搜索</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift R</div></div><div class="keyContent"><div class="content">随机访问</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift H</div></div><div class="keyContent"><div class="content">返回首页</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift F</div></div><div class="keyContent"><div class="content">友链鱼塘</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift L</div></div><div class="keyContent"><div class="content">友链页面</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift P</div></div><div class="keyContent"><div class="content">关于本站</div></div></div><div class="keybordItem"><div class="keyGroup"><div class="key">shift I</div></div><div class="keyContent"><div class="content">原版/本站右键菜单</div></div></div></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8904880904" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="is-center" id="loading-database"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-pulse-icon"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@6.1.6/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script async src="/anzhiyu/random.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.cbd.int/mathjax@4.0.0/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><input type="hidden" name="page-type" id="page-type" value="post"></div><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://cdn.cbd.int/qrcodejs@1.0.0/qrcode.min.js"></script><script src="/js/anzhiyu/right_click_menu.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
